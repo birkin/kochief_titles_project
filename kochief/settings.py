@@ -202,6 +202,9 @@ sys.path.append(pylib_path)
 # kochief settings
 ##################
 
+MAJAX2_URL = None
+#MAJAX2_URL = 'http://worfdev.services.brown.edu/services/majax2/v1/bibrecord/'
+
 # Facet display on the index page.  Note that values for "field" are
 # appended with "_facet".  If sort_by_count is False, terms will be
 # sorted "in their natural index order" according to Solr docs --
@@ -330,3 +333,15 @@ FACETS = [
         'sort_by_count': True,
     },
 ]
+
+INDEX_FACET_TERMS = 100
+
+ITEMS_PER_PAGE = 20
+
+# Sort options for results, by (DISPLAY, SOLR_PARAM).
+SORTS = (
+    (ugettext('newest'), 'accession_date desc'),
+    (ugettext('oldest'), 'accession_date asc'),
+    (ugettext('relevance'), ''),
+    (ugettext('title'), 'title_sort asc'),
+)
