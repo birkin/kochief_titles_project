@@ -197,4 +197,136 @@ import sys
 pylib_path = os.path.join(BASE_DIR, 'pylib')
 sys.path.append(pylib_path)
 
-INDEX_FACETS = unicode( os.environ['KC_NWTTLS__INDEX_FACETS'] )
+
+##################
+# kochief settings
+##################
+
+# Facet display on the index page.  Note that values for "field" are
+# appended with "_facet".  If sort_by_count is False, terms will be
+# sorted "in their natural index order" according to Solr docs --
+# usually alphabetical.
+
+ugettext = lambda s: s  # see <http://stackoverflow.com/questions/1329278/using-settings-languages-with-properly-translated-names-using-gettext>
+
+INDEX_FACETS = [
+    {
+        'name': ugettext('Discipline'),
+        'field': 'discipline',
+        'sort_by_count': False,
+    },
+    {
+        'name': ugettext('Format'),
+        'field': 'format',
+        'sort_by_count': False,
+    },
+    {
+        'name': ugettext('Location'),
+        'field': 'building',
+        'sort_by_count': False,
+    },
+    {
+        'name': ugettext('Date'),
+        'field': 'pubyear',
+        'sort_by_count': False,
+    },
+    {
+        'name': ugettext('Language'),
+        'field': 'language',
+        'sort_by_count': True,
+    },
+    {
+        'name': ugettext('Topic'),
+        'field': 'topic',
+        'sort_by_count': True,
+    },
+    {
+        'name': ugettext('Subject'),
+        'field': 'subject',
+        'sort_by_count': True,
+    },
+    {
+        'name': ugettext('Name'),
+        'field': 'personal_name',
+        'sort_by_count': True,
+    },
+    {
+        'name': ugettext('Genre'),
+        'field': 'genre',
+        'sort_by_count': True,
+    },
+    {
+        'name': ugettext('Place'),
+        'field': 'place',
+        'sort_by_count': True,
+    },
+]
+
+# Facet display in the results sidebar.
+FACETS = [
+    {
+        'name': ugettext('Discipline'),
+        'field': 'discipline',
+        'sort_by_count': True,
+    },
+    {
+        'name': ugettext('Collection'),
+        'field': 'collection',
+        'sort_by_count': True,
+    },
+    {
+        'name': ugettext('Location'),
+        'field': 'building',
+        'sort_by_count': True,
+    },
+    {
+        'name': ugettext('Format'),
+        'field': 'format',
+        'sort_by_count': True,
+    },
+    {
+        'name': ugettext('Date'),
+        'field': 'pubyear',
+        'sort_by_count': False,
+    },
+    {
+        'name': ugettext('Language'),
+        'field': 'language',
+        'sort_by_count': True,
+    },
+    {
+        'name': ugettext('Name'),
+        'field': 'name',
+        'sort_by_count': True,
+    },
+    {
+        'name': ugettext('Topic'),
+        'field': 'topic',
+        'sort_by_count': True,
+    },
+    {
+        'name': ugettext('Genre'),
+        'field': 'genre',
+        'sort_by_count': True,
+    },
+    {
+        'name': ugettext('Dubbed Language'),
+        'field': 'language_dubbed',
+        'sort_by_count': True,
+    },
+    {
+        'name': ugettext('Subtitled Language'),
+        'field': 'language_subtitles',
+        'sort_by_count': True,
+    },
+    {
+        'name': ugettext('Place'),
+        'field': 'place',
+        'sort_by_count': True,
+    },
+    {
+        'name': ugettext('Publisher'),
+        'field': 'imprint',
+        'sort_by_count': True,
+    },
+]
