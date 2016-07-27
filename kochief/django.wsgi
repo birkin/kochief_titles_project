@@ -13,9 +13,13 @@ path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #folder of the wsgi file.
 project_dir = path
 
-#activate virtual env
-activate_this = os.path.join(project_dir, APP, 'env/bin/activate_this.py')
-execfile(activate_this, dict(__file__=activate_this))
+
+## activate virtual env
+#activate_this = os.path.join(project_dir, APP, 'env_/bin/activate_this.py')
+#execfile(activate_this, dict(__file__=activate_this))
+current_directory = os.path.dirname(os.path.abspath(__file__))
+ACTIVATE_FILE = os.path.abspath( '%s/../../env_nwttls/bin/activate_this.py' % current_directory )
+execfile( ACTIVATE_FILE, dict(__file__=ACTIVATE_FILE) )
 
 
 # we check for path because we're told to at the tail end of
@@ -23,7 +27,12 @@ execfile(activate_this, dict(__file__=activate_this))
 if project_dir not in sys.path:
     sys.path.append(project_dir)
 
-os.environ['DJANGO_SETTINGS_MODULE'] = '%s.settings' % APP
+
+# os.environ['DJANGO_SETTINGS_MODULE'] = '%s.settings' % APP
+SETTINGS_MODULE = 'kochief.settings'
+os.environ[u'DJANGO_SETTINGS_MODULE'] = SETTINGS_MODULE  # so django can access its settings
+
+
 os.environ['PYTHON_EGG_CACHE'] = '/opt/local/django_projects/django_cache/egg_cache'
 import django.core.handlers.wsgi
 application = django.core.handlers.wsgi.WSGIHandler()
@@ -31,6 +40,7 @@ application = django.core.handlers.wsgi.WSGIHandler()
 
 ## environment additions
 os.environ[u'DJANGO_SETTINGS_MODULE'] = SETTINGS_MODULE  # so django can access its settings
+
 
 ## load up env vars
 SETTINGS_FILE = os.environ['KC_NWTTLS__SETTINGS_PATH']  # set in activate_this.py, and activated above

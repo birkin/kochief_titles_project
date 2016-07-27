@@ -1,4 +1,5 @@
 *.pyc
+*.wsgic
 .DS_Store
 .hg
 .svn
