@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% comment %}
+  Copyright 2007 Casey Durfee
+  Copyright 2009 Gabriel Farrell
+
+  This file is part of Kochief.
+
+  Kochief is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Kochief is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Kochief.  If not, see <http://www.gnu.org/licenses/>.
+{% endcomment %}
+{% load i18n %}
+{% load discovery_extras %}
+{% comment %}
+Index the index page but don't follow.
+{% endcomment %}
+{% block meta %}
+		<meta name="robots" content="index, nofollow">
+{% endblock %}
+
+{% block head %}
+  <script type="text/javascript">
+    window.onload = setFocus;
+  </script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript"></script>
+  <script>
+  	$(document).ready(function() {
+  		//select discipline on page load
+  		//should move this to settings.
+  		browseType($('#Discipline'));
+  	});
+  
+    function browseType(browse) {
+    	//console.debug($(browse).text());
+    	var term = $(browse).text();
+    	//rows=0&facet=true&facet.limit=80&facet.mincount=1&q.alt=*:*&facet.field=discipline_facet&f.discipline_facet.facet.sort=index&facet.field=personal_name_facet&f.personal_name_facet.facet.sort=index&facet.field=format_facet&facet.field=language_facet&facet.field=subject_facet&facet.field=genre_facet&wt=json&json.nl=arrarr&qt=dismax
+    	//http://localhost:8983/solr/core0/
+    	//hide all broswe terms
+    	$('span#browse-types ul li a').removeClass('highlighted');
+    	$('div.terms').hide();
+    	$(browse).attr('class', 'highlighted');
+    	//show this selected
+    	$('#terms-' + term).toggle();
+    	
+    }
+  </script>
+{% endblock %}
+{% block content %}
+<span class="announcement">Includes titles cataloged within the last six months.  Donated and subscription books not purchased with disciplinary book funds are included.</span>
+<h3>Browse by: </h3>
+<div id="index-browser">
+	<span id="browse-types">
+		<ul>
+		{% for facet in facets %}
+			<li><a href="#" id="{{ facet.name }}" onclick="browseType(this)">{{ facet.name }}</li>
+		{% endfor %}
+		</ul>
+	</span>
+</div>
+
+{% for facet in facets %}
+	<div class="terms" id="terms-{{ facet.name }}">
+		<ul>
+		{% for term, count in facet.terms %}
+	          <li><a href="{% new_limit facet.field term %}">{{ term }}</a> ({{ count }})</li>
+	        {% endfor %}
+	    </ul>
+	</div>	
+{% endfor %}
+
+<!--  <div id="index-facets">
+    {% for facet in facets %}
+    <div>
+      <h3>{{ facet.name }}</h3>
+      <ul>
+        {% for term, count in facet.terms %}
+          <li><a href="{% new_limit facet.field term %}">{{ term }}</a> ({{ count }})</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+-->
+  <div style="clear:both"></div>
+{% endblock %}

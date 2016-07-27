@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+{% comment %}
+  Copyright 2007 Michael Beccaria
+
+  This file is part of Kochief.
+
+  Kochief is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Kochief is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Kochief.  If not, see <http://www.gnu.org/licenses/>.
+{% endcomment %}
+{% load i18n %}
+{% load discovery_extras %}
+{% block title %} | {{ doc.title }}{% endblock %}
+{% comment %}
+	Index the record view pages but don't follow links. 
+{% endcomment %}
+{% block meta %}
+	<META NAME="robots" CONTENT="index, nofollow">
+{% endblock %}
+{% block head %}
+  <link rel="unapi-server" type="application/xml" title="unAPI" href="{% url discovery-unapi %}"/>
+  {% if MAJAX_URL %}
+    <script type="text/javascript" src="{{ MAJAX_URL }}"></script>
+  {% endif %}
+{% endblock %}
+{% block content %}
+  <div id="sidebar">
+    {% if subject_terms %}
+    <div id="suggested">
+      <h3>{% trans "Relevant subjects:" %}</h3>
+      <ul>
+        {% for term, count in subject_terms %}
+          <li><a href="{% new_limit 'subject' term %}">{{ term }}</a> ({{ count }})</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    {% if disciplines %}
+    <div id="suggested">
+      <h3>{% trans "Disciplines:" %}</h3>
+      <ul>
+        {% for term, count in disciplines %}
+          <li><a href="{% new_limit 'discipline' term %}">{{ term }}</a> ({{ count }})</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+  <div id="results">
+    <div class="record">
+            <abbr class="unapi-id" title="{{ doc.id }}"></abbr>
+            <div class="cover">
+              <a href="{{ doc.record_url }}">
+                {% if doc.upc %}
+                  <img src="http://worldcat.org/wcpa/servlet/DCARead?standardNo={{ doc.upc|slice:":-1" }}&amp;standardNoType=6" onerror="badImage(this)"/><!--alt="{{ doc.title }}"/>-->
+                {% else %}{% if doc.isbn_numeric %}
+                  <img src="http://images.amazon.com/images/P/{{ doc.isbn_numeric }}.01._THUMBZZZ_PB_PU_PU-5_.jpg" /><!-- alt="{{ doc.title }}"/>-->
+                {% endif %}{% endif %}
+              </a>
+            </div>
+            <div class="recordinfo" property="dcterms:bibliographicCitation">
+              <h2 property="dc:title" content="{{ doc.title }}" class="title">{% title_link %}</h2>
+              {% if doc.native_title %}
+              	<h2 class="title">{{ doc.native_title }}</h2>
+              {% endif %}
+              {% if doc.author %}
+                <div class="author">
+                  <span class="metadata">{% trans "Author:" %}</span>
+                  {% for author in doc.author %}
+                    <a href="{% new_limit "author" author %}" title="{% trans "Filter on" %} {{ author }}"><span property="dc:creator">{{ author }}</span></a>
+                  {% endfor %}
+                </div>
+              {% endif %}
+              {% if doc.isbn_numeric %}
+              	<span property="bibo:isbn" class="isbn">{{ doc.isbn_numeric }}</span>
+              {% endif %}
+              {% if doc.oclc_num %}
+              	<span property="bibo:oclcnum" class="oclc">{{ doc.oclc_num }}</span>
+              {% endif %}
+              {% if doc.name %}
+                <div class="names">
+                  <span class="metadata">{% trans "Names:" %}</span>
+                  {% for name in doc.name %}
+                  <a href="{% new_limit "name" name %}" title="{% trans "Filter on" %} {{ name }}">{{ name }}</a>
+                  {% endfor %}
+                </div>
+              {% endif %}
+              {% if doc.subject %}
+                <div class="subjects">
+                  <span class="metadata">{% trans "Subjects:" %}</span>
+                  {% for subject in doc.subject %}
+                    <a href="{% new_limit "subject" subject %}" title="{% trans "Filter on" %} {{ subject }}">{{ subject }}</a>{% if not forloop.last %}, {% endif %}
+                  {% endfor %}
+                </div>
+              {% endif %}
+              {% if doc.imprint %}
+                <div class="imprint">
+                  <span class="metadata">{% trans "Imprint:" %}</span>
+                  {{ doc.imprint }}
+                </div>
+              {% endif %}
+              
+              {% for summary in doc.summary|slice:"1" %}
+                <div class="summary">
+                  <span class="metadata">{% trans "Summary:" %}</span>
+                  {{ summary }}
+                </div>
+              {% endfor %}
+              
+              	<div class="contents">
+                  {% if doc.contents %}
+	                  <span class="metadata">{% trans "Contents:" %}</span>
+	                  {% for content in doc.contents	%}
+	                    {{ content }}{% if not forloop.last %}, {% endif %}
+	                  {% endfor %}
+                  {% endif %}
+                </div>
+                
+                <div class="disciplines">
+                  {% if doc.discipline %}
+                  <span class="metadata">{% trans "Discipline(s):" %}</span>
+                  {% for discipline in doc.discipline%}
+                    <a href="{% new_limit "discipline" discipline %}" title="{% trans "Filter on" %} {{ discipline }}">{{ discipline }}</a>{% if not forloop.last %}, {% endif %}
+                  {% endfor %}
+                  {% endif %}
+                </div>
+                <div class="language">
+                  {% if doc.language %}
+                  <span class="metadata">{% trans "Language:" %}</span>
+                    {% for language in doc.language%}
+                    	<a href="{% new_limit "language" language %}" title="{% trans "Filter on" %} {{ language }}"><span property="dc:language">{{ language }}</span></a>{% if not forloop.last %}, {% endif %}
+                  	{% endfor %}
+                  {% endif %}
+                </div>
+              {% if doc.accession_date %}
+                <div class="accession_date">
+                  <span class="accession_date">{% trans "Date cataloged:" %}</span>
+                  {{ doc.accession_date|slice:"10" }}
+                </div>
+               {% endif %}
+               
+                <div class="buildings">
+                  {% if doc.building %}
+                  <span class="metadata">{% trans "Location(s):" %}</span>
+                  {% for building in doc.building%}
+                    <a href="{% new_limit "building" building %}" title="{% trans "Filter on" %} {{ building }}">{{ building }}</a>{% if not forloop.last %}, {% endif %}
+                  {% endfor %}
+                  {% endif %}
+                </div>
+               
+               {% if doc.call_number %}
+                <div class="call_number">
+                  <span class="metadata">{% trans "Call number:" %}</span>
+                  {{ doc.call_number }}
+                </div>
+              {% endif %}
+              {% if doc.format %}
+                <div class="format {{ doc.format }}">
+                  <span class="metadata">{% trans "Format:" %}</span>
+                  <a href="{% new_limit "format" doc.format %}" title="{% trans "Filter on" %} {{ doc.format }}">
+                    <span>{{ doc.format }}</span>
+                  </a>
+                </div>
+              {% endif %}
+              <div class="availability">
+                  <a class="click-availability" rel="dc:identifier" content="{{ doc.record_url }}" href="{{ doc.record_url }}">Click for availability</a>
+              </div>
+              {% if doc.collection %}
+                <div class="collections">
+                  <span class="metadata">{% trans "Collections:" %}</span>
+                  {% for collection in doc.collection %}
+                    <a href="{% new_limit "collection" collection %}" title="{% trans "Filter on" %} {{ collection }}">{{ collection }}</a>
+                  {% endfor %}
+                </div>
+              {% endif %}
+              <div class="holdings">
+                <span class="metadata">{% trans "Holdings:" %}</span>
+                {% if MAJAX2_URL %}
+                  <span class="majax-showholdings" id="{{ doc.id|slice:"1:" }}">
+                  </span>
+                {% endif %}
+                {% ifequal doc.availability "Available" %}
+                  <span class="available">{{ doc.availability }}</span>
+                {% endifequal %}                               
+                {% ifequal doc.availability "Unavailable" %}
+                  <span class="unavailable">{{ doc.availability }}</span>
+                {% endifequal %}
+              </div>
+            </div>
+    </div>
+  </div>    
+  {% if DEBUG %}
+    <div id="solr-url"><a href="{{ solr_url }}">Solr URL</a></div>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,522 @@
+/* Primary layout
+--------------------------------------------------- */
+
+/* Override various browsers' margin and padding defaults */
+body, div, dl, dt, dd, h1, h2, h3, h4, h5, h6, pre, form,  fieldset, input, p, blockquote, th, td {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	background-color: #660000;
+}
+
+label,td,th,ol,ul {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+h3 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+div#maincontent h3 {
+	margin-top: 1.2em;
+	margin-bottom: .5em;
+}
+
+h2 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+/* Page Wrapper
+   contains #header, #content, and #navbar
+--------------------------------------------------- */
+
+#wrapper {
+	margin-top: 10px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 0px;
+	border: 0px;
+	width: 780px;
+	background-color: #660000;
+	font-size: 100%;
+}
+
+/* Page header
+--------------------------------------------------- */
+
+#header {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border: 0px;
+	border-width: 0px;
+	height: 94px;
+	width: 780px;
+	background: url(http://library.brown.edu/images/headerinnerbackground_highertype.jpg);
+}
+
+#headermaintext {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	text-align: right;
+	font-size: 10px;
+	font-weight: bold;
+	color: #ffffff;
+	margin-right: 50px;
+	padding-top: 3px;
+}
+
+#libhome {
+	text-align: left;
+	margin-top: 12px;
+	margin-left: 10px;
+	border: 0px;
+}
+
+#brownhome {
+	text-align: left;
+	margin-right: 17px;
+	border: 0px;
+}
+
+#simplesearch {
+	text-align: right;
+	margin-top: 55px;
+	margin-right: 20px;
+	color: #FFFFFF;
+	font-size: 10px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+#horizontal_nav {
+	height: 12px;
+	width: 756px;
+/*	margin-top: 7px;  */
+	position: relative;
+	float: left;
+/*	background-color: #886744; */
+	background-image: url(http://library.brown.edu/images/navbarback_v2.gif);
+/*	background-image: url(../images/navbarback_v2.gif); */
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	text-align: left;
+	font-size: 10px;
+	font-weight: bold;
+	color: #ffffff;
+	padding-left: 12px;
+	padding-right: 12px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	margin-top: 7px;
+}
+
+
+/* Inner layout
+   contains #navbar, #main, and #nav
+--------------------------------------------------- */
+
+#content {
+	float: left;
+	width: 780px;
+	padding: 0px;
+	padding-top: 0px;
+	background: url(http://dl.lib.brown.edu/libweb/images/innerwrapperback.gif) repeat-y;
+}
+
+#content p {
+	line-height: 1.0em;
+	font-size: .95em;
+	margin: 0;
+	padding: 0;
+	line-height: 100%;
+}
+
+#navbar {
+	width: 180px;
+	float: left;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 0px;
+	padding-bottom: 6px;
+	text-align: left;
+	background-color: #EBE8E8;
+}
+
+#quicklinks, #researchlinks, #libraryserviceslinks {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	padding-top: 8px;
+	text-align: left;
+	font-size: 11px;
+	line-height: 140%;
+}
+
+#main {
+	width: 564px;
+	float: left;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	padding: 12px;
+	border-width: 0px;
+	text-align: left;
+	background-color: #FFFFFF;
+}
+
+#footer {
+	clear: left;
+	width: 780px;
+	border: 0;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+#footer p {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: x-small;
+	color: #FFFFFF;
+	font-weight: lighter;
+	float: left;
+	padding-left: 6px;
+	padding-bottom: 24px;
+}
+
+/* Default links
+--------------------------------------------------- */
+
+a.header:link, a.header:active, a.header:visited {
+	color: #ffffff;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a.header:hover {
+	color: #ffffff;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+a.footer:link, a.footer:active, a.footer:visited {
+	color: #ffffff;
+	text-decoration: none;
+}
+
+a.footer:hover {
+	color: #ffffff;
+	text-decoration: underline;
+}
+
+a.ql:link, a.ql:active, a.ql:visited {
+	color: #000000;
+	text-decoration: none;
+}
+
+a.ql:hover {
+	color: #000000;
+	text-decoration: underline;
+}
+
+a:link, a:visited, a:active {
+	color: #990000;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #990000;
+}
+
+a.main:link, a.main:active, a.main:visited {
+	color: #990000;
+	text-decoration: none;
+	border-bottom: #cd8080 dotted 1px;
+}
+
+a.main:hover {
+	background-color: #f8eded;
+	text-decoration: none;
+	border-bottom: #990000 dotted 1px;
+	color: #990000;
+
+
+/*	border-bottom: none;*/
+}
+
+a.nav:link, a.nav:active, a.nav:visited {
+	color: #990000;
+	text-decoration: none;
+}
+
+a.nav:hover {
+	text-decoration: underline;
+}
+
+a.dotted:link, a.dotted:active, a.dotted:visited {
+	color: #990000;
+	text-decoration: none;
+	border-bottom: #666666 dotted 1px;
+}
+
+a.dotted:hover {
+	color: #990000;
+	background-color: #ebe8e8;
+	text-decoration: none;
+	border-bottom: dotted 1px;
+}
+
+a.small:link, a.small:active, a.small:visited {
+	color: #990000;
+	font-size: 11px;
+	text-decoration: none;
+	border-bottom: dotted 1px;
+}
+
+a.small:hover {
+	color: #990000;
+	font-size: 11px;
+	background-color: #ebe8e8;
+	text-decoration: none;
+	border-bottom: dotted 1px;
+}
+
+a.gray:link, a.gray:active, a.gray:visited {
+	color: #990000;
+	background-color: #ebe8e8;
+	text-decoration: none;
+}
+
+a.gray:hover {
+	color: #990000;
+	background-color: #ebe8e8;
+	text-decoration: none;
+	border-bottom: dotted 1px;
+}
+
+a.bold:link, a.bold:active, a.bold:visited {
+	color: #990000;
+	background-color: #ebe8e8;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a.bold:hover {
+	color: #990000;
+	background-color: #ebe8e8;
+	text-decoration: none;
+	font-weight: bold;
+	border-bottom: dotted 1px;
+}
+
+#main p {
+	padding: 12px;
+	line-height: 133%;
+}
+
+/* Navigation styles
+--------------------------------------------------- */
+
+#quicklinksinnernav {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #000000;
+	background: #EBE8E8;
+
+
+/*	Change to see a slight difference
+	margin-top: 5px; */
+	margin-bottom: 0px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+#researchinnernav {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #000000;
+	background: #EBE8E8;
+	margin-top: 5px;
+	margin-bottom: 0px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+#libraryservicesinnernav {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	text-align: left;
+	color: #000000;
+	background: #EBE8E8;
+	margin-top: 5px;
+	margin-bottom: 0px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
+#orangecontent, #redcontent, #bluecontent, #greencontent {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #000000;
+	border-bottom-style: dashed;
+	border-bottom-width: 1px;
+
+
+/*	Change to see a slight difference
+	margin-top: 5px; */
+	margin-bottom: 5px;
+	padding-top: 3px;
+	padding-bottom: 2px;
+	padding-left: 3px;
+}
+
+#orangecontent {
+	border-color: #FE9900;
+}
+
+#redcontent {
+	border-color: #660000;
+}
+
+#bluecontent {
+	border-color: #006699;
+}
+
+#greencontent {
+	border-color: #999966;
+}
+
+#greenbottom {
+	border-top-style: dashed;
+	border-top-width: 1px;
+	border-color: #999966;
+	margin-top: 5px;
+}
+
+#orangebottom {
+	border-top-style: dashed;
+	border-top-width: 1px;
+	border-color: #FE9900;
+	margin-top: 5px;
+}
+
+#bluebottom {
+	border-top-style: dashed;
+	border-top-width: 1px;
+	border-color: #006699;
+	margin-top: 5px;
+}
+
+#greybottom {
+	border-top-style: dashed;
+	border-top-width: 1px;
+	border-color: #666666;
+	margin-top: 5px;
+}
+
+.greybottom {
+	border-top-style: dashed;
+	border-top-width: 1px;
+	border-color: #666666;
+	margin-top: 5px;
+}
+
+#maincontent p {
+	text-align: left;
+	line-height: 133%;
+}
+
+.bodytext {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+.bodytextBOLD {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.bodytextSmall {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+}
+
+.bodytextSmallBold {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+}
+
+.bodytextMed {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}
+
+.breadcrumbs {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: normal;
+	line-height: 25px;
+	background-position: bottom;
+}
+
+.bottomdots {
+	border-bottom: thin dotted #666666;
+	width: 50%;
+}
+
+
+/* For desktop browser display:  */
+
+#rightboxcontainer {
+	float: right;
+	width: 170px;
+	padding: 2px;
+}
+div.rightfloat {
+	float: right;
+	width: 170px;
+	min-width: 100%;
+}
+.rightbox {
+	border: 1px dashed #666666;
+	margin-left: 10px;
+	margin-right: 7px;
+	padding-top: 8px;
+}
+.navbarheadgray {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: bold;
+	color: #000000;
+	background: #EBE8E8;
+	margin-top: 5px;
+	margin-bottom: 0px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.navbargray {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border-style: dashed;
+	border-width: 1px;
+	border-color: #c7c7c7;
+	border-top: none;
+	padding: 5px;
+	font-size: 9px;
+}
+a.navbargray:link, a.navbargray:visited {
+	color: #990000;
+	text-decoration: none;
+}
+a.navbargray:hover {
+	text-decoration: underline;
+}
+a.navbargray:active {
+	text-decoration: none;
+}

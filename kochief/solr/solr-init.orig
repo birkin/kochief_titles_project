@@ -1,0 +1,43 @@
+#!/bin/sh -e
+#
+# Starts, stops, and restarts Solr
+#
+### BEGIN INIT INFO
+# Provides:          solr
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Should-Start:
+# Should-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Starts, stops, and restarts the Solr search engine
+### END INIT INFO
+#SOLR_DIR="/home/ted/apache-solr-1.4.1/example"
+SOLR_DIR="/cygdrive/c/workspace/solr/example"
+#SOLR_DIR="/usr/local/src/solr/example"
+JAVA_OPTIONS="-Xmx256m -DSTOP.PORT=8983 -DSTOP.KEY=stopkey -Dsolr.solr.home=multicore -jar start.jar"
+LOG_FILE="/var/log/solr.log"
+JAVA="/usr/bin/java"
+
+case $1 in
+    start)
+        echo "Starting Solr...."
+        cd $SOLR_DIR
+        $JAVA $JAVA_OPTIONS > $LOG_FILE 2>&1 &
+        sleep 1
+        ;;
+    stop)
+        echo "Stopping Solr...."
+        cd $SOLR_DIR
+        $JAVA $JAVA_OPTIONS --stop
+        sleep 1
+        ;;
+    restart)
+        $0 stop
+        $0 start
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart}" >&2
+        exit 1
+        ;;
+esac

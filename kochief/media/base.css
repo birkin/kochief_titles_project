@@ -1,0 +1,435 @@
+/* 
+ * tag-level styles 
+ */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+label, td, th, ol, ul {
+}
+
+div#kochief-content a {
+  color: #378;
+  text-decoration: none; 
+}
+div#kochief-content a:hover {
+  text-decoration: underline;
+}
+div#kochief-content { 
+  font-family: Verdana, Arial, Sans-Serif; 
+  font-size: 100%;
+  color: #555;
+}
+img {
+  border: none;
+}
+ol {
+  list-style: none;
+}
+ul { 
+  list-style: none; 
+  padding-left: 1em; 
+  text-indent: -1em; 
+}
+
+/* 
+ * class-level styles 
+ */
+.beta {
+  color: #d1d1d1; 
+  vertical-align: sub; 
+  font-size: 0.7em;
+}
+.cover { 
+  float: right;
+  padding: 0 0 0 5px;
+}
+.facet-list { 
+  margin-bottom: 5px;
+}
+.format {
+  float: left;
+  padding: 0 5px 0 0;
+}
+.format a {
+  display: block;
+  float: left;
+  width: 32px;
+  height: 32px;
+}
+.format a span {
+  display: none;
+}
+.format .metadata {
+  display: none;
+}
+.format.Map a {
+  background: url(icons/map.png) no-repeat; 
+}
+.format.CD-ROM a {
+  background: url(icons/disc.png) no-repeat; 
+}
+.format.DVD a {
+  background: url(icons/dvd.png) no-repeat; 
+}
+.format.E-Book a {
+  background: url(icons/ebook.png) no-repeat; 
+}
+.format.Video a {
+  background: url(icons/vhs.png) no-repeat; 
+}
+.format.Book a {
+  background: url(icons/book.png) no-repeat; 
+}
+.format.LP a {
+  background: url(icons/lp.png) no-repeat; 
+}
+.format.CD a {
+  background: url(icons/music_cd.png) no-repeat; 
+}
+.format.Cassette a {
+  background: url(icons/cassette.png) no-repeat; 
+}
+.format.Recording a {
+  background: url(icons/headphones.png) no-repeat; 
+}
+.format.Score a {
+  background: url(icons/score.png) no-repeat; 
+}
+.hidden {
+  display: none;
+}
+.holdings {
+  /* uncomment for fancy holdings display
+  border: 1px solid #ddd;
+  float: left;
+  padding: 5px;
+  */
+}
+.holdings .metadata {
+  display: none
+}
+.jsclick {
+  cursor: pointer;
+}
+.jsclick:hover { 
+  text-decoration: underline;
+}
+.page-num { 
+  padding: 2px;
+}
+.page-num.selected { 
+  border: 1px solid #bbb;
+}
+.page-previous, .page-next { 
+  padding: 0 5px;
+}
+.record { 
+  clear: left; /* for ie7 */
+  float: left;
+  padding: 10px;
+  width: 98%; /* for ie7 */
+  border: 1px solid #ddd;
+  margin: 10px 0;
+}
+
+.recordinfo {
+  font-size: 14px;            
+}
+
+.recordinfo h2.title { 
+  font-size: 1em;
+  font-weight: normal;
+}
+.recordinfo h2.title a { 
+  font-size: 1.3em;
+}
+.recordinfo div {
+  font-size: 0.8em;
+  margin: 3px 0;
+}
+
+.recordinfo .discipline ul li {
+  display: inline;                               
+}
+
+.search-history-link-opened {
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #fff;
+  position: relative;
+  z-index: 1;
+}
+.search-history-list-opened {
+  min-width: 30em;
+  border: 1px solid #ccc;
+  display: block;
+  position: absolute;
+  padding: 3px;
+  background: #fff;
+  margin: 0 10px 0 0;
+}
+table.form th {
+  text-align: right;
+  width: 8em;
+}
+table.formset {
+  border: solid 1px #bbb;
+  margin: 10px 0;
+}
+
+/* 
+ * id-level styles
+ */
+#container {
+  padding: 10px;
+  min-width: 760px;
+  max-width: 1000px;
+  margin: auto;
+}
+#kochief-content {
+  clear: both;
+}
+#facets h3 {  
+  margin: 0 0 3px 0;
+}
+#header {
+  /*padding: 10px;*/
+}
+#id_query {
+  width: 50%;
+}
+#index-facets {
+  text-align: center;
+  margin: auto;
+  width: 100%;
+}
+#index-facets div {
+  float: left;
+  text-align: left;
+  margin: 10px 0 10px 2%;
+  padding: 5px 0 5px 1%;
+  width: 46%;
+  overflow: auto;
+}
+#index-facets h3 {
+  margin: 0 0 5px 0;
+  border-bottom: 1px solid #ddd;
+}
+#index-facets li {
+}
+#index-facets-heading {
+  margin: 40px 0 10px 10px;
+  font-size: 1.1em;
+}
+#logo { 
+  */background: url(kochief.png) left no-repeat;*/
+  color: #0063dc; 
+  float: left;
+  font-size: 2em; 
+  margin-right: 20px;
+}
+#logo a:visited, #logo a:link, #logo a:hover, #logo a:active { 
+  display: block; 
+  height: 44px; 
+  width: 215px; 
+}
+#logo span {
+  font-size: .65em;
+}
+
+#logo span.start-over {
+    font-size: 10px;
+    text-align: right;
+    margin-right: 1em;
+    font-style: italic;
+    display: block;
+}
+
+#no-results {
+  clear: left;
+  margin: 30px 25% 20px 5px;
+}
+#pagination-top, #pagination-bottom { 
+  padding: 5px 0 0 0;
+  text-align: right;
+}
+#powered {
+  clear: both;
+  font-size: 0.8em;
+  text-align: right;
+  padding: 30px 20px 10px 0;
+}
+#results { 
+  margin-left: 5px;
+  margin-right: 25%;
+}
+#search-history {
+  font-size: 0.8em;
+  margin: 1px 0 0 0;
+}
+#search-history a {
+  padding: 0 2px;
+}
+#searchform { 
+  white-space: nowrap;
+  padding-top: 15px;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+} 
+#searchform #id_field {
+  width: 120px;
+}
+#searchpage #logo {
+  margin: auto;
+  float: none;
+  width: 150px;
+  margin-bottom: 5px;
+}
+#sidebar {
+  float: right; 
+  font-size: 0.8em; 
+  margin-right: 5px;
+  padding: 0 5px;
+  width: 21%; 
+  clear: both;
+}
+#sidebar li { 
+}
+#solr-url {
+  clear: both;
+}
+#suggested {  
+  background-color: #D2DFF4; 
+  border: 1px solid #88a0c6; 
+  padding: 5px;
+  margin: 10px 0;
+}
+#topbar { 
+  clear: left;
+  padding: 5px 0;
+  font-size: 0.8em;
+}
+#topbar #result_details {
+  padding: 0 0 0 30px;
+  text-indent: -30px;
+  width: 70%;
+}
+#topbar #sort_by {
+  float: right;
+  white-space: nowrap;
+}
+#topbar #sort_by span {
+  padding: 0 2px;
+}
+
+span.announcement {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  font-style: italic;
+  padding: .5em;
+}
+
+#browse-types ul li {
+  text-align: left;
+}
+
+#index-browser a.highlighted {
+  font-weight: bold;
+  margin-left: 0;
+  
+}
+
+
+
+#index-browser a.highlighted:before  {
+    content: "\00BB \0020";
+}
+
+#browse-types ul  {
+  list-style-type: none;
+  border: 1px solid black;
+  border-top: none;
+  border-left: none;
+  padding: 1em;
+}
+
+#browse-types ul li {
+    padding-left: 10px;
+}
+
+div.terms {
+  display: none;
+  float: left;
+  margin-left: 5em;
+}
+
+#browse-types {
+  width: 15%;
+  float:left;
+  display: inline;              
+}
+
+/*Tool tips from:
+http://psacake.com/web/jl.asp
+*/
+a.info{
+ position:relative; /*this is the key*/
+ z-index:24;
+ text-decoration: none;
+}
+
+a.info:hover{
+  z-index:25;
+  background-color:white;
+}
+
+a.info span{
+    display: none;
+}
+
+a.info:hover span{ /*the span will display just on :hover state*/
+    display:block;
+    position:absolute;
+    top:-2em;
+    left:1em;
+    width:25em;
+    height: 2em;
+    border:1px dashed black;
+    background-color:#FFFFCF; 
+    color:black;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* holdings */
+
+span.majax-showholdings ul  {
+  margin-left: 1em;
+}
+
+span.location {
+  margin-left: 20px;
+}
+
+span.status:before {
+  content: ' -- '
+}
+span.status {
+  font-size: small;
+  text-transform: lowercase;
+}
+
+div.availability { 
+    margin-top: 1em;
+    margin-left: 1em;
+}
+
+span.isbn, span.oclc {
+   display: none;
+}
