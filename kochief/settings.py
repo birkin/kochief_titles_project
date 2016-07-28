@@ -37,15 +37,12 @@ ADMINS = (
 )
 MANAGERS = ADMINS
 
-
-
-# DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_ENGINE = unicode( os.environ['KC_NWTTLS__DATABASE_ENGINE'] )  # Or path to database file if using sqlite3.
-DATABASE_NAME = unicode( os.environ['KC_NWTTLS__DATABASE_NAME'] )  # Or path to database file if using sqlite3.
-DATABASE_USER = ''             # Not used with sqlite3.
-DATABASE_PASSWORD = ''         # Not used with sqlite3.
-DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_ENGINE = unicode( os.environ['KC_NWTTLS__DATABASE_ENGINE'] )       # Or path to database file if using sqlite3.
+DATABASE_NAME = unicode( os.environ['KC_NWTTLS__DATABASE_NAME'] )           # Or path to database file if using sqlite3.
+DATABASE_USER = unicode( os.environ['KC_NWTTLS__DATABASE_USER'] )           # Not used with sqlite3 (set env-var to 'null').
+DATABASE_PASSWORD = unicode( os.environ['KC_NWTTLS__DATABASE_PASSWORD'] )   # Not used with sqlite3.
+DATABASE_HOST = unicode( os.environ['KC_NWTTLS__DATABASE_HOST'] )           # Set to empty string for localhost. Not used with sqlite3.
+DATABASE_PORT = unicode( os.environ['KC_NWTTLS__DATABASE_PORT'] )           # Set to empty string for default. Not used with sqlite3.DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
