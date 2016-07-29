@@ -2,6 +2,11 @@
 
 from __future__ import unicode_literals
 
+
+#################################################
+## Django settings
+#################################################
+
 # Copyright 2007 Casey Durfee
 # Copyright 2007 Gabriel Farrell
 #
@@ -133,11 +138,35 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 
-## Settings for the discovery app ##
+#################################################
+## catalogin app settings (kochief)
+#################################################
+
+# Namespace for local resources.  If relative, site domain will be prepended
+# when triples are serialized.
+LOCALNS = BASE_URL + 'r/'
+
+EMAIL_HOST = 'mail-relay.brown.edu'
+
+# # Import for local overrides
+# try:
+#     from kochief_titles_local_settings.settings_local import *
+# except ImportError, e:
+#     print e
+#     pass
+
+#For local libraries
+import sys
+pylib_path = os.path.join(BASE_DIR, 'pylib')
+sys.path.append(pylib_path)
+
+
+#################################################
+## discovery app settings (kochief)
+#################################################
 
 # SOLR_URL = 'http://localhost:8983/solr/test/'
 SOLR_URL = unicode( os.environ['KC_NWTTLS__SOLR_URL'] )
-
 
 SOLR_DIR = BASE_DIR + 'solr/'
 
@@ -160,46 +189,16 @@ MAX_FACET_TERMS_BASIC = 4
 MAX_FACET_TERMS_EXPANDED = 25
 
 # Number of terms to display for index facets.
-INDEX_FACET_TERMS = 25
+INDEX_FACET_TERMS = 100
 
 # Facet display on the index page.  Note that values for "field" are
 # appended with "_facet".  If sort_by_count is False, terms will be
 # sorted "in their natural index order" according to Solr docs --
 # usually alphabetical.
 
-
-
 ITEMS_PER_PAGE = 20
 
-
 SEARCH_CACHE_TIME = 6000    # in seconds
-
-
-## Settings for the cataloging app ##
-
-# Namespace for local resources.  If relative, site domain will be prepended
-# when triples are serialized.
-LOCALNS = BASE_URL + 'r/'
-
-EMAIL_HOST = 'mail-relay.brown.edu'
-
-# # Import for local overrides
-# try:
-#     from kochief_titles_local_settings.settings_local import *
-# except ImportError, e:
-#     print e
-#     pass
-
-
-#For local libraries
-import sys
-pylib_path = os.path.join(BASE_DIR, 'pylib')
-sys.path.append(pylib_path)
-
-
-##################
-# kochief settings
-##################
 
 MAJAX2_URL = None
 #MAJAX2_URL = 'http://worfdev.services.brown.edu/services/majax2/v1/bibrecord/'
@@ -332,10 +331,6 @@ FACETS = [
         'sort_by_count': True,
     },
 ]
-
-INDEX_FACET_TERMS = 100
-
-ITEMS_PER_PAGE = 20
 
 # Sort options for results, by (DISPLAY, SOLR_PARAM).
 SORTS = (
