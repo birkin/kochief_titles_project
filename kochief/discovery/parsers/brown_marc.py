@@ -1,5 +1,9 @@
 """Brown implementation of a Kochief MARC parser using solr.py."""
 
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
 import datetime
 import logging
 import os
@@ -36,6 +40,7 @@ from kochief.pylib import callnumber
 
 #pysolr
 from kochief.pylib import solr
+# import solr
 
 try:
     set
@@ -523,6 +528,8 @@ def post_to_solr(index_set, file_set):
     else:
         for entry in index_set:
             log.debug( 'entry, ```{}```'.format(pprint.pformat(entry)) )
+            for k,v in entry.items():
+                log.debug( 'k, `{thekey}`; type(v), `{thevalue}`'.format(thekey=k, thevalue=type(v)) )
         print>>sys.stderr, "%s. Commiting %d records to Solr." % (file_set, len(index_set))
         try:
             response = s.add_many(index_set)
