@@ -30,7 +30,7 @@ from django.utils import simplejson
 from kochief.pylib import pymarc
 from kochief.pylib.pymarc import MARCReader
 #Local callnumber normalizer
-from kochief.pylib import callnumber 
+from kochief.pylib import callnumber
 
 #pysolr
 from kochief.pylib import solr
@@ -65,7 +65,7 @@ FIELDNAMES = [
     'imprint',
     'isbn',
     'language',
-    'language_dubbed', 
+    'language_dubbed',
     'language_subtitles',
     'oclc_num',
     'notes',
@@ -119,27 +119,27 @@ def get_accession_date(record):
     if not cdate:
         return
     if (datetime.today() - cdate) > timedelta(days=settings.MAX_CATALOGED_DAYS):
-        return 
+        return
     return cdate.isoformat() + 'Z'
 
 PUB_YEAR = re.compile('(?:2[0-9]0u|\?)?[0-9]{3}u|\?')
 def get_publication_date(record):
     from datetime import datetime, date
     """Try to find pub date and convert to ISO str for solr.
-    Will return decades - 1980s - for dates before what is 
+    Will return decades - 1980s - for dates before what is
     defined in settings."""
     #=008  100315s2010\\\\it\a\\\\\b\\\\001\0\ita\\
     o08 = record['008'].data
     date1 = o08[7:11]
     if PUB_YEAR.search(date1):
         date1 = date1.replace('u', '0')
-    #Will convert to date object even though we will report 
+    #Will convert to date object even though we will report
     #just the year string.  This will return null for 19uu
-    #fields which we don't want to appear in facets. 
+    #fields which we don't want to appear in facets.
     try:
         date_obj = date(year=int(date1), month=1, day=1)
-        #Throw out bad data for years greater than two year in 
-        #advance. 
+        #Throw out bad data for years greater than two year in
+        #advance.
         if date_obj.year > (date.today().year + 2):
             return
     except ValueError:
@@ -201,9 +201,9 @@ def is_serial_solutions_update(record):
             if (datetime.today() - create_date) > timedelta(days=settings.MAX_CATALOGED_DAYS):
                 return True
     except TypeError:
-        return 
+        return
     return
-        
+
 
 def multi_field_list(fields, indicators):
     values = []
@@ -229,7 +229,7 @@ def get_title(record):
         nonfiling = int(record['245'].indicator2)
     except ValueError:
         nonfiling = 0
-            
+
     title_sort = title[nonfiling:].strip()
 
     return (title, title_sort)
@@ -249,8 +249,8 @@ def get_disciplines(call_number):
         if call_number:
             #print>>sys.stderr, call_number
             pass
-        return set(sub_list) 
-    
+        return set(sub_list)
+
     for disc in discipline_dict.values():
         for point in disc['points']:
             if nc == point['start']:
@@ -259,12 +259,12 @@ def get_disciplines(call_number):
                 if nc <= point['stop']:
                     sub_list.append(disc['name'])
     #for items in response['result']['items']:
-    #    sub_list += items['brown_disciplines'] 
+    #    sub_list += items['brown_disciplines']
     if len(sub_list) == 0:
         #print>>sys.stderr, call_number
         pass
     return set(sub_list)
-    
+
 def create_marc_file_list():
     marc_records = []
     for root, dirs, files in os.walk(sys.argv[1]):
@@ -278,7 +278,7 @@ def create_marc_file_list():
     return marc_records
 
 def new_title(record):
-    """Determine if title is 'new' or not.  
+    """Determine if title is 'new' or not.
     If new the accession date is returned."""
     #Suppressed
     if record['998']['e'] == 'n':
@@ -321,7 +321,7 @@ def location_format_mappings():
     return location_format_dict
     #print location_format_dict.keys()
     #sys.exit()
-    
+
 def marc_miner(record):
     idx = {}
     count = 0
@@ -338,12 +338,12 @@ def marc_miner(record):
     if title_details:
         idx['title'] = title_details[0]
         idx['full_title'] = idx['title']
-        idx['title_sort'] = title_details[1] 
+        idx['title_sort'] = title_details[1]
     idx['author'] = record.author()
     if record['260']:
         idx['imprint'] = record['260'].format_field()
         idx['publisher'] = normalize(record['260']['b'])
-    
+
     idx['call_number'] = get_callnumber(record)
     if record['001']:
         idx['ctrl_num'] = record['001'].value()
@@ -353,7 +353,7 @@ def marc_miner(record):
         oclc_number = ''
     idx['oclc_num'] = oclc_number.lstrip('ocm').lstrip('ocn')
     idx['isbn'] = record.isbn()
-    
+
     if record['880']:
         for native_field in record.get_fields('880'):
             try:
@@ -364,28 +364,28 @@ def marc_miner(record):
                         print>>sys.stderr, "Unicode problem in native title for %s." % idx['id']
             except TypeError:
                 pass
-                    
+
     description_fields = record.get_fields('300')
     idx['description'] = [field.value() for field in description_fields]
-    
+
     series_fields = record.get_fields('440', '490')
     idx['series'] = multi_field_list(series_fields, 'a')
 
     notes_fields = record.get_fields('500')
     idx['notes'] = [field.value() for field in notes_fields]
-    
+
     contents_fields = record.get_fields('505')
     idx['contents'] = multi_field_list(contents_fields, 'a')
-    
+
     summary_fields = record.get_fields('520')
     idx['summary'] = [field.value() for field in summary_fields]
-    
+
     subjname_fields = record.get_fields('600')
     subjectnames = multi_field_list(subjname_fields, 'a')
-    
+
     subjentity_fields = record.get_fields('610')
     subjectentities = multi_field_list(subjentity_fields, 'ab')
-    
+
     subject_fields = record.subjects()  # gets all 65X fields
 
     genres = []
@@ -425,14 +425,14 @@ def marc_miner(record):
         corporate_name = ' '.join([x.strip() for x in subfields])
         if corporate_name not in idx['corporate_name']:
             idx['corporate_name'].append(corporate_name)
-    
+
     try:
         language_code = record['008'].data[35:38]
         idx['language'] = marc_maps.LANGUAGE_CODING_MAP[language_code]
     except KeyError:
         #idx['language'] = ''
         pass
-    
+
     idx['building'] = []
     item_fields = record.get_fields('945')
     for item in item_fields:
@@ -463,9 +463,9 @@ def marc_miner(record):
                 pass
         except UnboundLocalError:
             pass
-        
-        
-            
+
+
+
     #buildings = []
     #for building, display, format in building_format:
     #    print building_format
@@ -473,10 +473,10 @@ def marc_miner(record):
     #    idx['format'] = format
     idx['building'] = set(idx['building'])
     #idx['building']
-    #idx['format'] 
+    #idx['format']
     call_number = get_callnumber(record)
     idx['discipline'] = get_disciplines(call_number)
-    
+
     idx['pubyear'] = get_publication_date(record)
     #Solr style date
     idx['last_updated'] = datetime.datetime.now().isoformat() + 'Z'
@@ -506,15 +506,14 @@ def post_to_solr(index_set, file_set):
             #print>>sys.stderr, response
             #except:
             #print>>sys.stderr, 'solr commit failed.'
-    else:     
+    else:
         print>>sys.stderr, "%s. Commiting %d records to Solr." % (file_set, len(index_set))
         try:
             response = s.add_many(index_set)
             s.commit()
             #print>>sys.stderr, response
-        except:
-            print>>sys.stderr, 'solr commit failed'
-    
+        except Exception as e:
+            print 'solr commit failed; exception, `{}`'.format( repr(e) )
 
 def marc_indexer(marc_file):
     print>>sys.stderr, "Indexing %s." % marc_file
@@ -525,7 +524,7 @@ def marc_indexer(marc_file):
         if idx:
             index_set.append(idx)
     post_to_solr(index_set, file_set=marc_file)
-    
+
 
 def main(marc_file_list):
     for marc_file in marc_file_list:
