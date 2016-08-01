@@ -35,7 +35,7 @@ TEMPLATE_DEBUG = DEBUG
 BASE_DIR = os.path.dirname(os.path.abspath(__file__)) + '/'
 
 # Relative base URL of the project.  Must include a trailing slash.
-BASE_URL = '/'
+BASE_URL = unicode( os.environ['KC_NWTTLS__BASE_URL'] )
 
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
