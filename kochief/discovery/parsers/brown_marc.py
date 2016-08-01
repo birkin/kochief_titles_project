@@ -1,12 +1,14 @@
 """Brown implementation of a Kochief MARC parser using solr.py."""
 
+import datetime
+import logging
+import os
+import pprint
 import re
 import sys
-import os
 import time
 import unicodedata
 import urllib
-import datetime
 from operator import itemgetter, attrgetter
 
 
@@ -42,6 +44,15 @@ except NameError:
 
 # local libs
 import marc_maps
+
+## set up file logger
+level_dct = { 'DEBUG': logging.DEBUG, 'INFO': logging.INFO }
+logging.basicConfig(
+    filename=settings.PARSER_LOG_PATH, level=level_dct[settings.PARSER_LOG_LEVEL],
+    format='[%(asctime)s] %(levelname)s [%(module)s-%(funcName)s()::%(lineno)d] %(message)s', datefmt='%d/%b/%Y %H:%M:%S' )
+log = logging.getLogger(__name__)
+log.info( 'starting...' )
+
 
 #check for overriding SOLR_URL
 print len(sys.argv)
@@ -493,6 +504,9 @@ def chunks(l, n):
         yield l[i:i+n]
 
 def post_to_solr(index_set, file_set):
+    # log.debug( 'type(index_set), `{}`'.format(type(index_set)) )
+    # for entry in index_set:
+    #     log.debug( 'type(entry), `{}`'.format(type(entry)) )
     s = solr.SolrConnection(settings.SOLR_URL.rstrip('/'))
     if len(index_set) > settings.SOLR_COMMIT_CHUNKS:
         post_sets = chunks(index_set, settings.SOLR_COMMIT_CHUNKS)
@@ -507,13 +521,16 @@ def post_to_solr(index_set, file_set):
             #except:
             #print>>sys.stderr, 'solr commit failed.'
     else:
+        for entry in index_set:
+            log.debug( 'entry, ```{}```'.format(pprint.pformat(entry)) )
         print>>sys.stderr, "%s. Commiting %d records to Solr." % (file_set, len(index_set))
         try:
             response = s.add_many(index_set)
             s.commit()
             #print>>sys.stderr, response
         except Exception as e:
-            print 'solr commit failed; exception, `{}`'.format( repr(e) )
+            print 'solr commit failed; see logs'
+            log.error( 'solr commit failed; exception, `{}`'.format(repr(e)) )
 
 def marc_indexer(marc_file):
     print>>sys.stderr, "Indexing %s." % marc_file
