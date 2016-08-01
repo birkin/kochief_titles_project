@@ -352,5 +352,14 @@ APP_DOMAIN = unicode( os.environ['KC_NWTTLS__APP_DOMAIN'] )  # includes trailing
 
 SERVICES_URL = unicode( os.environ['KC_NWTTLS__SERVICES_URL'] )
 
+## Number of records to post to solr at a time. `parsers.brown_marc.py` will break the record count up into this number.
+SOLR_COMMIT_CHUNKS = 1000
+
+## Index routine will skip any records with a catalog date more than this number of days ago
+MAX_CATALOGED_DAYS = 180
+
+## Integer for year cutoff for which the publication date facet will start returning a decade rather than individual year.
+PUB_YEAR_RANGE_START = 2000
+
 
 ## EOF ##
