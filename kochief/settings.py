@@ -139,7 +139,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 
 #################################################
-## catalogin app settings (kochief)
+## cataloging app settings (kochief)
 #################################################
 
 # Namespace for local resources.  If relative, site domain will be prepended
@@ -339,3 +339,9 @@ SORTS = (
     (ugettext('relevance'), ''),
     (ugettext('title'), 'title_sort asc'),
 )
+
+## for sitemap
+APP_DOMAIN = unicode( os.environ['KC_NWTTLS__APP_DOMAIN'] )  # includes trailing slash
+
+
+## EOF ##
