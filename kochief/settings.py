@@ -361,5 +361,8 @@ MAX_CATALOGED_DAYS = 180
 ## Integer for year cutoff for which the publication date facet will start returning a decade rather than individual year.
 PUB_YEAR_RANGE_START = 2000
 
+PARSER_LOG_PATH = unicode( os.environ['KC_NWTTLS__PARSER_LOG_PATH'] )
+PARSER_LOG_LEVEL = unicode( os.environ['KC_NWTTLS__PARSER_LOG_LEVEL'] )
+
 
 ## EOF ##
