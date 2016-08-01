@@ -162,7 +162,7 @@ sys.path.append(pylib_path)
 
 
 #################################################
-## discovery app settings
+## discovery web-app settings
 #################################################
 
 SOLR_URL = unicode( os.environ['KC_NWTTLS__SOLR_URL'] )
@@ -344,6 +344,13 @@ CATALOG_URL = 'http://library.brown.edu/find'
 
 ## for discovery.utility_code.sitemap_index()
 APP_DOMAIN = unicode( os.environ['KC_NWTTLS__APP_DOMAIN'] )  # includes trailing slash
+
+
+#################################################
+## discovery.parsers settings
+#################################################
+
+SERVICES_URL = unicode( os.environ['KC_NWTTLS__SERVICES_URL'] )
 
 
 ## EOF ##
