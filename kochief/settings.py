@@ -162,10 +162,9 @@ sys.path.append(pylib_path)
 
 
 #################################################
-## discovery app settings (kochief)
+## discovery app settings
 #################################################
 
-# SOLR_URL = 'http://localhost:8983/solr/test/'
 SOLR_URL = unicode( os.environ['KC_NWTTLS__SOLR_URL'] )
 
 SOLR_DIR = BASE_DIR + 'solr/'
@@ -340,7 +339,10 @@ SORTS = (
     (ugettext('title'), 'title_sort asc'),
 )
 
-## for sitemap
+## for discovery.views.rssfeed()
+CATALOG_URL = 'http://library.brown.edu/find'
+
+## for discovery.utility_code.sitemap_index()
 APP_DOMAIN = unicode( os.environ['KC_NWTTLS__APP_DOMAIN'] )  # includes trailing slash
 
 
