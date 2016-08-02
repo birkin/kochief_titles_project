@@ -320,13 +320,29 @@ def new_title(record):
     return
 
 def discipline_mappings():
-    import urllib
-    url = service_url + 'call_number/v1/?data=dump'
-    map = urllib.urlopen(url)
-    map = simplejson.load(map)
-    discipline_dict = map['result']['items']
-    #print>>sys.stderr, discipline_dict
-    return discipline_dict
+    try:
+        url = service_url + 'call_number/v1/?data=dump'
+        map = urllib2.urlopen( url, timeout=5 )
+        map = simplejson.load(map)
+        discipline_dict = map['result']['items']
+        #print>>sys.stderr, discipline_dict
+        return discipline_dict
+    except Exception as e:
+        log.warning( 'exception getting discipline-mapping json, `{}`'.format(repr(e)) )
+        url = settings.DISCIPLINE_MAPPINGS_BACKUP_JSON_URL
+        map = urllib2.urlopen( url )
+        map = simplejson.load(map)
+        discipline_dict = map['result']['items']
+        return discipline_dict
+
+# def discipline_mappings():
+#     import urllib
+#     url = service_url + 'call_number/v1/?data=dump'
+#     map = urllib.urlopen(url)
+#     map = simplejson.load(map)
+#     discipline_dict = map['result']['items']
+#     #print>>sys.stderr, discipline_dict
+#     return discipline_dict
 
 def location_format_mappings():
     try:
