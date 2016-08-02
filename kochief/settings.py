@@ -357,6 +357,16 @@ SOLR_COMMIT_CHUNKS = 1000
 ## Index routine will skip any records with a catalog date more than this number of days ago
 MAX_CATALOGED_DAYS = 180
 
+#Query called that will remove records that have 'expired'.
+#Currently 6 months.
+#Called by manage.py index -expired
+EXPIRED_RECORDS_QUERY = 'accession_date:[* TO NOW-6MONTH+1DAY/DAY]'
+#Check for records that haven't been updated in over a week.
+#These could be deleted records or records where the catalog
+#date was changed to a later date after the last index.
+#Should be few of these.
+NOT_UPDATED_RECORDS_QUERY = 'last_updated:[* TO NOW-1DAYS]'
+
 ## Integer for year cutoff for which the publication date facet will start returning a decade rather than individual year.
 PUB_YEAR_RANGE_START = 2000
 
