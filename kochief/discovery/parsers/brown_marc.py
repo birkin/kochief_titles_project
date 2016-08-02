@@ -13,6 +13,7 @@ import sys
 import time
 import unicodedata
 import urllib
+import urllib2
 from operator import itemgetter, attrgetter
 
 
@@ -328,15 +329,33 @@ def discipline_mappings():
     return discipline_dict
 
 def location_format_mappings():
-    import urllib
-    url = service_url + 'location_format/v1/?data=dump'
-    map = urllib.urlopen(url)
-    map = simplejson.load(map)
-    location_format_dict = map['result']['items']
-    #print>>sys.stderr, location_format_dict
-    return location_format_dict
-    #print location_format_dict.keys()
-    #sys.exit()
+    try:
+        url = service_url + 'location_format/v1/?data=dump'
+        map = urllib2.urlopen( url, timeout=5 )
+        map = simplejson.load(map)
+        location_format_dict = map['result']['items']
+        #print>>sys.stderr, location_format_dict
+        return location_format_dict
+        #print location_format_dict.keys()
+        #sys.exit()
+    except Exception as e:
+        log.warning( 'exception getting location-format-mapping json, `{}`'.format(repr(e)) )
+        url = settings.LOCATION_FORMAT_BACKUP_JSON_URL
+        map = urllib2.urlopen( url )
+        map = simplejson.load(map)
+        location_format_dict = map['result']['items']
+        return location_format_dict
+
+# def location_format_mappings():
+#     import urllib
+#     url = service_url + 'location_format/v1/?data=dump'
+#     map = urllib.urlopen(url)
+#     map = simplejson.load(map)
+#     location_format_dict = map['result']['items']
+#     #print>>sys.stderr, location_format_dict
+#     return location_format_dict
+#     #print location_format_dict.keys()
+#     #sys.exit()
 
 def marc_miner(record):
     idx = {}
