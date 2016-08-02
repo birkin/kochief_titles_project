@@ -200,7 +200,6 @@ ITEMS_PER_PAGE = 20
 SEARCH_CACHE_TIME = 6000    # in seconds
 
 MAJAX2_URL = None
-#MAJAX2_URL = 'http://worfdev.services.brown.edu/services/majax2/v1/bibrecord/'
 
 # Facet display on the index page.  Note that values for "field" are
 # appended with "_facet".  If sort_by_count is False, terms will be
@@ -356,7 +355,7 @@ SERVICES_URL = unicode( os.environ['KC_NWTTLS__SERVICES_URL'] )
 SOLR_COMMIT_CHUNKS = 1000
 
 ## Index routine will skip any records with a catalog date more than this number of days ago
-MAX_CATALOGED_DAYS = 180
+MAX_CATALOGED_DAYS = 365
 
 ## Integer for year cutoff for which the publication date facet will start returning a decade rather than individual year.
 PUB_YEAR_RANGE_START = 2000
