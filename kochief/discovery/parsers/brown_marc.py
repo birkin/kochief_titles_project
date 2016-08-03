@@ -1,8 +1,9 @@
 """Brown implementation of a Kochief MARC parser using solr.py."""
 
 import sys
-reload(sys)
-sys.setdefaultencoding("utf-8")
+if sys.getdefaultencoding() == 'ascii':
+    reload(sys)
+    sys.setdefaultencoding( 'utf-8' )  # hack; TODO, handle strings & unicode explicitly
 
 import datetime
 import logging
