@@ -137,6 +137,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
+APPEND_SLASH = True
+
 
 #################################################
 ## cataloging app settings (kochief)
