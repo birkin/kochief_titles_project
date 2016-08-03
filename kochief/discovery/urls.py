@@ -25,8 +25,7 @@ urlpatterns = patterns('kochief.discovery.views',
     url(r'^search$', 'search', name='discovery-search'),
     url(r'^unapi$', 'unapi', name='discovery-unapi'),
     url(r'^feed/rss/$', 'rssFeed'),
-    # url(r'^$', 'index', name='discovery-index'),  # the problem with this is that though it goes to the root new_titles page, the links on the resulting page don't include the root new_titles segment
-    url(r'^/?$', 'index', name='discovery-index'),  # this doesn't append the slash, but the resulting links are correct. note, not ideal; TODO, get APPEND_SLASH to work.
+    url(r'^$', 'index', name='discovery-index'),  # APPEND_SLASH setting not working, hence views.index() hack
 )
 
 # urlpatterns = patterns('kochief.discovery.views',

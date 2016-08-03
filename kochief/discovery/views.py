@@ -2,17 +2,17 @@
 # Copyright 2008 Gabriel Sean Farrell
 #
 # This file is part of Kochief.
-# 
+#
 # Kochief is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # Kochief is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with Kochief.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -44,12 +44,12 @@ def pubyear_sorter(terms):
         new_term_list = []
         for term, count in terms:
             term_prefix = int(term[0:2])
-            #Hard code the 20 cutoff for now but should do math. 
+            #Hard code the 20 cutoff for now but should do math.
             if term_prefix >= 20:
                 new_term_list.append((int(term), term, count))
             else:
                 new_term_list.append((int(term[:2]), term, count))
-            
+
         sorted_list = sorted(new_term_list, key=itemgetter(1, 2), reverse=True)
         new_list = []
         for sort_prefix, term, count in sorted_list:
@@ -60,6 +60,12 @@ def pubyear_sorter(terms):
 
 @vary_on_headers('accept-language', 'accept-encoding')
 def index(request):
+    ## hack, since APPEND_SLASH is not working
+    request_uri = request.META['REQUEST_URI']
+    if request_uri[-1] != '/':
+        correct_request_uri = request_uri + '/'
+        return HttpResponsePermanentRedirect( correct_request_uri )
+    ##
     cache_key = request.META['HTTP_HOST']
     response = cache.get(cache_key)
     if response:
@@ -74,13 +80,13 @@ def index(request):
     ]
     for facet_option in settings.INDEX_FACETS:
         params.append(('facet.field', facet_option['field'] + '_facet'))
-        # sort facets by name vs. count as per the config.py file        
+        # sort facets by name vs. count as per the config.py file
         if not facet_option['sort_by_count']:
             #Solr 1.4 and newer, false becomes index.
             #http://wiki.apache.org/solr/SimpleFacetParameters#facet.sort
-            params.append(('f.%s_facet.facet.sort' % facet_option['field'], 
+            params.append(('f.%s_facet.facet.sort' % facet_option['field'],
                 'index'))
-            
+
     solr_url, solr_response = get_solr_response(params)
     try:
         facet_fields = solr_response['facet_counts']['facet_fields']
@@ -163,12 +169,12 @@ def unapi(request):
     if identifier and format:
         solr_url, doc = get_record(identifier)
         if format == 'oai_dc':
-            # we'll include test for record_type when we have 
-            # different types of records 
-            #if doc['record_type'] == 'book':  
+            # we'll include test for record_type when we have
+            # different types of records
+            #if doc['record_type'] == 'book':
             element_map = {
-                'identifier': ['isbn', 'upc'], 
-                'title': ['title'], 
+                'identifier': ['isbn', 'upc'],
+                'title': ['title'],
                 'publisher': ['publisher'],
                 'language': ['language'],
                 'description': ['description'],
@@ -182,12 +188,12 @@ def unapi(request):
                 elements.extend(get_elements(name, element_map[name], doc))
             context['elements'] = elements
             template = loader.get_template('discovery/unapi-oai_dc.xml')
-            return HttpResponse(template.render(context), 
+            return HttpResponse(template.render(context),
                     mimetype='application/xml')
         if format == 'mods':
             context['doc'] = doc
             template = loader.get_template('discovery/unapi-mods.xml')
-            return HttpResponse(template.render(context), 
+            return HttpResponse(template.render(context),
                     mimetype='application/xml')
         else:
             raise Http404 # should be 406 -- see http://unapi.info/specs/
@@ -211,7 +217,7 @@ def rssFeed(request):
     query = request.GET.get('q', '')
 
     full_query_str = get_full_query_str(query, limits)
-    
+
     feed = feedgenerator.Rss201rev2Feed(title='BUL new books in %s' % remove_html_tags(full_query_str),
                                    link=settings.CATALOG_URL,
                                    description='BUL new books %s' % remove_html_tags(full_query_str),
@@ -270,10 +276,10 @@ def get_record(id):
 LIMITS_RE = re.compile(r"""
 (
   [+-]?      # grab an optional + or -
-  [\w]+      # then a word 
+  [\w]+      # then a word
 ):           # then a colon
 (
-  ".*?"|     # then anything surrounded by quotes 
+  ".*?"|     # then anything surrounded by quotes
   \(.*?\)|   # or parentheses
   \[.*?\]|   # or brackets,
   [\S]+      # or non-whitespace strings
@@ -281,9 +287,9 @@ LIMITS_RE = re.compile(r"""
 """, re.VERBOSE | re.UNICODE)
 def pull_limits(limits):
     """
-    Pulls individual limit fields and queries out of a combined 
+    Pulls individual limit fields and queries out of a combined
     "limits" string and returns (1) a list of limits and (2) a list
-    of fq parameters, with "_facet" added to the end of each field, 
+    of fq parameters, with "_facet" added to the end of each field,
     to send on to Solr.
     """
     parsed_limits = LIMITS_RE.findall(limits)
@@ -305,7 +311,7 @@ POWER_SEARCH_RE = re.compile(r"""
     [\w]+:     # then a word with a colon
   )
   (?:
-    ".+?"|     # then anything surrounded by quotes 
+    ".+?"|     # then anything surrounded by quotes
     \(.+?\)|   # or parentheses
     \[.+?\]|   # or brackets,
     [\S]+      # or non-whitespace strings
@@ -320,11 +326,11 @@ def pull_power(query):
     >>> query = 'title:"tar baby" "toni morrison" -topic:(dogs justice) fiction "the book:an adventure" +author:john'
     >>> pull_power(query)
     (' "toni morrison"  fiction "the book:an adventure" ', ['title:"tar baby"', '-topic:(dogs justice)', '+author:john'])
-    >>> 
+    >>>
     """
     power_list = POWER_SEARCH_RE.findall(query)
     # drop empty strings
-    power_list = [x for x in power_list if x] 
+    power_list = [x for x in power_list if x]
     # escape for re
     escaped_power = [re.escape(x) for x in power_list]
     powerless_query = re.sub('|'.join(escaped_power), '', query)
@@ -338,7 +344,7 @@ def get_solr_response(params, host=None):
     ]
     params.extend(default_params)
     #Hack to add support for a query that will return all docs
-    #without a discipline field.  
+    #without a discipline field.
     for stype, arg in params:
         if stype == 'q' and arg == 'no_discipline':
             #params.pop(index(params(stype, arg)))
@@ -356,7 +362,7 @@ def get_solr_response(params, host=None):
             params[query_spot] = ('q', settings.NOT_UPDATED_RECORDS_QUERY)
             dismax_spot = params.index(('qt','dismax'))
             params.pop(dismax_spot)
-            
+
     urlparams = urllib.urlencode(params)
     url = '%sselect?%s' % (settings.SOLR_URL, urlparams)
     try:
@@ -371,7 +377,7 @@ def get_solr_response(params, host=None):
         raise ValueError, 'Solr response was not a JSON object.'
     return url, response
 
-def get_search_results(request): 
+def get_search_results(request):
     query = request.GET.get('q', '')
     page_str = request.GET.get('page')
     try:
@@ -396,13 +402,13 @@ def get_search_results(request):
     ]
     for facet in settings.FACETS:
         params.append(('facet.field', facet['field'] + '_facet'))
-        # sort facets by name vs. count as per the config.py file        
+        # sort facets by name vs. count as per the config.py file
         if not facet['sort_by_count']:
             params.append(('f.%s.facet.sort' % facet['field'], 'false'))
     powerless_query, field_queries = pull_power(query)
     if not powerless_query.strip() or powerless_query == '*':
         params.append(('q.alt', '*:*'))
-        context['sorts'] = [x[0] for x in settings.SORTS 
+        context['sorts'] = [x[0] for x in settings.SORTS
                 if x[0] != _('relevance')]
     else:
         params.append(('q', powerless_query.encode('utf8')))
@@ -442,9 +448,9 @@ def get_search_results(request):
         if settings.CATALOG_RECORD_URL:
             record['record_url'] = settings.CATALOG_RECORD_URL % record['id']
         else:
-            record['record_url'] = reverse('discovery-record', 
+            record['record_url'] = reverse('discovery-record',
                     args=[record['id']])
-            
+
         #needed for amazon book covers and isbn to be displayable
         if 'isbn' in record:
             record['isbn_numeric'] = ''.join( [ x for x in record['isbn'] if ( x.isdigit() or x.lower() == "x" ) ] )
@@ -454,12 +460,12 @@ def get_search_results(request):
             for items in record['SSdata']:
                 SSurlitemdetails=items.split('|')
                 record['SSurldetails'].append(SSurlitemdetails)
-            
-    # re-majigger facets 
+
+    # re-majigger facets
     facet_counts = context['facet_counts']
     del context['facet_counts']
     facet_fields = facet_counts['facet_fields']
-    facets = []   
+    facets = []
     for facet_option in settings.FACETS:
         field = facet_option['field']
         all_terms = facet_fields[field + '_facet']
@@ -490,9 +496,9 @@ def get_search_results(request):
             'has_more': has_more,
         }
         facets.append(facet)
-        
-    #find out if callnumlayerone is a limit and remove it from the facets 
-    #dictionary if it is so that only callnumlayer2 is displayed (i.e. if 
+
+    #find out if callnumlayerone is a limit and remove it from the facets
+    #dictionary if it is so that only callnumlayer2 is displayed (i.e. if
     #100's dewey is limited, display the 10's)
     callnumlayeronefound = 0
     callnumlayertwofound = 0
@@ -503,32 +509,32 @@ def get_search_results(request):
         for limitOn in limits:
             if limitOn[:15] == 'callnumlayertwo':
                 callnumlayertwofound = 1
-    #if callnumlayerone was not found to be a limit, remove 
-    #callnumlayertwo so that only callnumlayerone displays 
+    #if callnumlayerone was not found to be a limit, remove
+    #callnumlayertwo so that only callnumlayerone displays
     #(ie, show the 100's dewey only instead of 100's and 10's)
-    if callnumlayeronefound == 1 or (callnumlayeronefound == 0 and callnumlayertwofound == 1): 
+    if callnumlayeronefound == 1 or (callnumlayeronefound == 0 and callnumlayertwofound == 1):
         count = 0
         for f in facets:
             if f['field'] == 'callnumlayerone':
                 del facets[count]
                 break
             count += 1
-    
-    if callnumlayeronefound == 0 or (callnumlayeronefound == 1 and callnumlayertwofound == 1): 
+
+    if callnumlayeronefound == 0 or (callnumlayeronefound == 1 and callnumlayertwofound == 1):
         count = 0
         for f in facets:
             if f['field'] == 'callnumlayertwo':
                 del facets[count]
                 break
             count += 1
-            
+
     context['facets'] = facets
     context['format'] = request.GET.get('format', None)
     context['limits'] = limits
     context['limits_param'] = limits_param
-    # limits_str for use in blocktrans 
-    limits_str = _(' and ').join(['<strong>%s</strong>' % x for x in limits]) 
-    context['limits_str'] = limits_str 
+    # limits_str for use in blocktrans
+    limits_str = _(' and ').join(['<strong>%s</strong>' % x for x in limits])
+    context['limits_str'] = limits_str
     full_query_str = get_full_query_str(query, limits)
     context['full_query_str'] = full_query_str
     context['get'] = request.META['QUERY_STRING']
@@ -537,12 +543,12 @@ def get_search_results(request):
     context['number_found'] = number_found
     context['start_number'] = zero_index + 1
     context['end_number'] = min(number_found, settings.ITEMS_PER_PAGE * page)
-    context['pagination'] = do_pagination(page, number_found, 
+    context['pagination'] = do_pagination(page, number_found,
             settings.ITEMS_PER_PAGE)
     context['DEBUG'] = settings.DEBUG
     context['solr_url'] = solr_url
     set_search_history(request, full_query_str)
-    if not settings.DEBUG: 
+    if not settings.DEBUG:
         # only cache for production
         cache.set(cache_key, context, settings.SEARCH_CACHE_TIME)
     return context
@@ -565,7 +571,7 @@ def set_search_history(request, full_query_str):
     request.session['search_history'] = search_history[:10]
 
 def get_full_query_str(query, limits):
-    # TODO: need to escape query and limits, then apply "safe" filter in 
+    # TODO: need to escape query and limits, then apply "safe" filter in
     # template
     full_query_list = []
     if query:
@@ -574,12 +580,12 @@ def get_full_query_str(query, limits):
         full_query_list.append(_('everything'))
     if limits:
         full_query_list.append(_(' with '))
-        limits_str = _(' and ').join(['<strong>%s</strong>' % escape(x) for x in limits]) 
+        limits_str = _(' and ').join(['<strong>%s</strong>' % escape(x) for x in limits])
         full_query_list.append(limits_str)
     return ''.join(full_query_list)
 
 def do_pagination(this_page_num, total, per_page):
-    if total % per_page:    
+    if total % per_page:
         last_page_num = (total // per_page) + 1
     else:
         last_page_num = (total // per_page)
@@ -594,9 +600,9 @@ def do_pagination(this_page_num, total, per_page):
     pages = []
     for page_num in range(start_page_num, end_page_num + 1):
         pages.append({
-            'selected': page_num == this_page_num, 
-            'start': ((page_num - 1) * per_page) + 1, 
-            'end': min(total, page_num * per_page), 
+            'selected': page_num == this_page_num,
+            'start': ((page_num - 1) * per_page) + 1,
+            'end': min(total, page_num * per_page),
             'number': page_num,
         })
 
@@ -629,7 +635,7 @@ def do_pagination(this_page_num, total, per_page):
         }
 
     variables = {
-        'pages': pages, 
+        'pages': pages,
         'previous_page': previous_page,
         'next_page': next_page,
         'first_page': first_page,
@@ -638,4 +644,4 @@ def do_pagination(this_page_num, total, per_page):
     return variables
 
 
-    
+
