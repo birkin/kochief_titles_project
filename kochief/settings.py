@@ -2,6 +2,8 @@
 
 from __future__ import unicode_literals
 
+import json
+
 
 #################################################
 ## Django settings
@@ -29,7 +31,7 @@ from __future__ import unicode_literals
 
 import os
 
-DEBUG = True
+DEBUG = json.loads( os.environ['KC_NWTTLS__DEBUG_JSON'] )  # "true" or "false" to True or False
 TEMPLATE_DEBUG = DEBUG
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__)) + '/'
