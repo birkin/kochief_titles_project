@@ -1,5 +1,8 @@
 #!/bin/sh
 
+## called by a cron entry that cd's to the project-stuff directory; activates the virtual environment; then calls this script
+
+
 export C_LOG_PATH=$KC_NWTTLS__CONTROLLER_LOG_PATH
 export C_KOCHIEF_DIR_PATH=$KC_NWTTLS__KOCHIEF_DIR_PATH
 export C_PYTHON_PATH=$KC_NWTTLS__PYTHON_PATH
@@ -28,8 +31,9 @@ python manage.py index --optimize all >> $C_LOG_PATH 2>&1
 echo " " >> $C_LOG_PATH
 
 echo "$(date +%Y-%d-%b_%H-%M-%S) - about to warm caches by hitting $C_PROJECT_URL" >> $C_LOG_PATH
-# curl http://library.brown.edu/titles/ > /dev/null
 curl -s $C_PROJECT_URL > /dev/null
 echo " " >> $C_LOG_PATH
 
 echo "$(date +%Y-%d-%b_%H-%M-%S) - script done" >> $C_LOG_PATH
+
+## EOF
