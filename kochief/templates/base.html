@@ -1,73 +1,162 @@
 {% load i18n %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
 
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-		<meta name="Description" content="">
-		<meta name="Keywords" content="">
-		<meta name="Copyright" content="Copyright (c) 2010 Brown University">
-		<meta name="google-site-verification" content="hwuavgrryXlLd3C3Mn5Au5vZCao5K7TX7To2VmtfSM8" />
-		<meta name="msvalidate.01" content="ED039371DD86C2CD60ABA6161E897887" />
-		{% block meta %}{% endblock %}
-		<title>Brown University Library - new titles</title>
-		<link href="{{ MEDIA_URL }}bul_common.css" rel="stylesheet" type="text/css">
-	    <link href="{{ MEDIA_URL }}base.css" type="text/css" rel="stylesheet" media="screen" />
-	    <link href="{{ MEDIA_URL }}print.css" type="text/css" rel="stylesheet" media="print" />
-	    <script src="{{ MEDIA_URL }}js/base.js" type="text/javascript"></script>
-	    {% block head %}{% endblock %}
-	    <script type="text/javascript">
-	      {% if search_history %}
-	        addEventSimple(window, 'load', searchHistClick);
-	      {% endif %}
-    	</script>
+<!DOCTYPE html>
+<!--[if IEMobile 7]><html class="iem7"  lang="en" dir="ltr"><![endif]-->
+<!--[if lte IE 6]><html class="lt-ie9 lt-ie8 lt-ie7"  lang="en" dir="ltr"><![endif]-->
+<!--[if (IE 7)&(!IEMobile)]><html class="lt-ie9 lt-ie8"  lang="en" dir="ltr"><![endif]-->
+<!--[if IE 8]><html class="lt-ie9"  lang="en" dir="ltr"><![endif]-->
+<!--[if (gte IE 9)|(gt IEMobile 7)]><!--><html  lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/ dc: http://purl.org/dc/terms/ foaf: http://xmlns.com/foaf/0.1/ og: http://ogp.me/ns# rdfs: http://www.w3.org/2000/01/rdf-schema# sioc: http://rdfs.org/sioc/ns# sioct: http://rdfs.org/sioc/types# skos: http://www.w3.org/2004/02/skos/core# xsd: http://www.w3.org/2001/XMLSchema#"><!--<![endif]-->
 
-    <!-- <script type="text/javascript" src="http://josiah.brown.edu/screens/majax.js"></script> -->
-	</head>
+<head>
+  <meta charset="utf-8" />
+<link rel="shortcut icon" href="http://library.brown.edu/info/sites/all/themes/custom/zen_bulsubtheme/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="shortlink" href="/info/node/36" />
+<link rel="canonical" href="/info/webpublishing" />
+<meta name="Generator" content="Drupal 7 (http://drupal.org)" />
+  <title>Web Publishing | Brown University Library</title>
+
+  <script src="https://use.typekit.net/rur3iir.js"></script>
+  <script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+      <meta name="MobileOptimized" content="width">
+    <meta name="HandheldFriendly" content="true">
+    <meta name="viewport" content="width=device-width">
+    <!--[if IEMobile]><meta http-equiv="cleartype" content="on"><![endif]-->
+
+  <style>
+@import url("http://library.brown.edu/info/modules/system/system.base.css?ocdl2j");
+</style>
+<style>
+@import url("http://library.brown.edu/info/modules/comment/comment.css?ocdl2j");
+@import url("http://library.brown.edu/info/modules/field/theme/field.css?ocdl2j");
+@import url("http://library.brown.edu/info/modules/node/node.css?ocdl2j");
+@import url("http://library.brown.edu/info/modules/search/search.css?ocdl2j");
+@import url("http://library.brown.edu/info/modules/user/user.css?ocdl2j");
+@import url("http://library.brown.edu/info/sites/all/modules/contrib/views/css/views.css?ocdl2j");
+</style>
+<style>
+@import url("http://library.brown.edu/info/sites/all/modules/contrib/ctools/css/ctools.css?ocdl2j");
+@import url("http://library.brown.edu/info/sites/all/modules/contrib/shib_auth/shib_auth.css?ocdl2j");
+</style>
+<style>
+@import url("http://library.brown.edu/info/sites/all/themes/custom/zen_bulsubtheme/css/styles.css?ocdl2j");
+</style>
+  <script src="http://library.brown.edu/info/misc/jquery.js?v=1.4.4"></script>
+<script src="http://library.brown.edu/info/misc/jquery.once.js?v=1.2"></script>
+<script src="http://library.brown.edu/info/misc/drupal.js?ocdl2j"></script>
+<script>jQuery.extend(Drupal.settings, {"basePath":"\/info\/","pathPrefix":"","ajaxPageState":{"theme":"zen_bulsubtheme","theme_token":"sEKDSHoodjA0KZ-nCkf5kIKVC3hr-Di2nOBVht53P6I","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/comment\/comment.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/contrib\/views\/css\/views.css":1,"sites\/all\/modules\/contrib\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/contrib\/shib_auth\/shib_auth.css":1,"sites\/all\/themes\/custom\/zen_bulsubtheme\/system.menus.css":1,"sites\/all\/themes\/custom\/zen_bulsubtheme\/system.messages.css":1,"sites\/all\/themes\/custom\/zen_bulsubtheme\/system.theme.css":1,"sites\/all\/themes\/custom\/zen_bulsubtheme\/css\/styles.css":1}}});</script>
+      <!--[if lt IE 9]>
+    <script src="/info/sites/all/themes/contrib/zen/js/html5-respond.js"></script>
+    <![endif]-->
+  </head>
+<body class="html not-front not-logged-in no-sidebars page-node page-node- page-node-36 node-type-page section-webpublishing" >
+      <p id="skip-link">
+      <a href="#main-menu" class="element-invisible element-focusable">Jump to navigation</a>
+    </p>
+
+<div id="page">
+
+  <div id="navigation">
+
+          <nav id="main-menu" role="navigation" tabindex="-1">
+        <h2 class="element-invisible">Main menu</h2><ul class="links inline clearfix"><li class="menu-440 first"><a href="http://library.brown.edu/borrowing/">Borrow, Request, &amp; Renew</a></li>
+<li class="menu-439"><a href="http://library.brown.edu/info/ajdb">Articles, Journals, &amp; Databases</a></li>
+<li class="menu-457"><a href="http://library.brown.edu/about/specialists.php">Research Help</a></li>
+<li class="menu-458"><a href="http://library.brown.edu/libweb/hours.php">Hours, Locations, &amp; Events</a></li>
+<li class="menu-459"><a href="http://library.brown.edu/libweb/askalib.php">Ask a Question Now</a></li>
+<li class="menu-460"><a href="http://library.brown.edu/libweb/proxy.php">Off-Campus Access</a></li>
+<li class="menu-461 last"><a href="https://josiah.brown.edu/patroninfo">My Library Account</a></li>
+</ul>      </nav>
+
+
+  </div>
+
+  <header class="header" id="header" role="banner">
+
+          <a href="/info/" title="Home" rel="home" class="header__logo" id="logo"><img src="http://library.brown.edu/info/sites/all/themes/custom/zen_bulsubtheme/BUL-logo-shield.png" alt="Home" class="header__logo-image" /></a>
+
+          <div class="header__name-and-slogan" id="name-and-slogan">
+                  <h1 class="header__site-name" id="site-name">
+            <a href="/info/" title="Home" class="header__site-link" rel="home"><span>Brown University <span style="color:white;font-size:100.5%;">Library</span></span></a>
+          </h1>
+
+              </div>
+
+    <div id="BUL-Blacklight-search">   <!-- search box to match Blacklight's search box; classes reference Bootstrap -->
+      <div class="container">
+        <form accept-charset="UTF-8" action="https://search.library.brown.edu/" class="search-query-form form-inline clearfix navbar-form" method="get"><div style="display:none"><input name="utf8" type="hidden" value="&#x2713;" />
+        </div>
+        <div class="input-group col-md-9 col-md-offset-1">
+          <input class="search_q q form-control" id="q" name="q" placeholder="Enter keywords to search library resources" type="text" value="" />
+          <span class="input-group-btn">
+          <button type="submit" class="btn btn-primary search-btn" id="search">
+          <span class="submit-search-text">Search</span>
+          <span class="glyphicon glyphicon-search"></span>
+          </button>
+          </span>
+        </div>
+        </form>
+      </div>
+    </div> <!-- end #BUL-Blacklight-search -->
+
+
+
+  </header> <!-- end /header -->
+
+  <div id="breadcrumb-bar">
+      </div> <!-- end #breadcrumb-bar -->
+
+
+
+
+
 
 	<body>
-		
-		<div id="wrapper">
 
+		<div id="wrapper">
+        <!--
 		<div id="header">
- 
-		<div id="headermaintext"> 
+
+		<div id="headermaintext">
 			&nbsp;&nbsp;&nbsp;
-		 
-		</div> 
-		 
-		<div style="float:left;"> 
-			<a href="http://library.brown.edu/"> 
-			<img id="libhome" src="http://library.brown.edu/images/spacer2.gif" border="0" width="415" height="30" alt=""> 
-			</a> 
-			</div> 
-			<div style="float:right;"> 
-			<a href="http://www.brown.edu"> 
-			<img id="brownhome" src="http://library.brown.edu/images/spacer.gif" border="0" width="36" height="45" alt=""> 
-			</a> 
-		</div> 
-		 
-		<div id="simplesearch"> 
-			<form method="get" action="http://library.brown.edu/common/vufind_search.php" name="searchForm" id="searchForm"> 
+
+		</div>
+
+		<div style="float:left;">
+			<a href="http://library.brown.edu/">
+			<img id="libhome" src="http://library.brown.edu/images/spacer2.gif" border="0" width="415" height="30" alt="">
+			</a>
+			</div>
+			<div style="float:right;">
+			<a href="http://www.brown.edu">
+			<img id="brownhome" src="http://library.brown.edu/images/spacer.gif" border="0" width="36" height="45" alt="">
+			</a>
+		</div>
+
+		<div id="simplesearch">
+			<form method="get" action="http://library.brown.edu/common/vufind_search.php" name="searchForm" id="searchForm">
 		        SEARCH: <input type="radio" name="searchtype" value="everything" checked> Everything
 		        <input type="radio" name="searchtype" value="books_AllFields"> Books+
 		        <input type="radio" name="searchtype" value="summon_AllFields"> Articles
 				<input type="radio" name="searchtype" value="website"> Website
-		        <input id="searchForm_lookfor" type="text" name="lookfor" size="25"> 
-		        <input type="submit" value="Find" class="bodytextSmall"> 
-		        </form> 
-		</div> 
-		 
-		  <div id="horizontal_nav"> 
-		  	<a class="header" title="library A-Z" href="http://library.brown.edu/libweb/atoz.php">Library A-Z</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 
-		   
-		    <a class="header" title="Off-Campus Access" href="http://library.brown.edu/libweb/proxy.php">Off-Campus Access</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 
-		  
-		    <a class="header" title="hours &amp; locations" href="http://library.brown.edu/libweb/hours.php">Hours &amp; Locations</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-		    <a class="header" title="contact us" href="http://library.brown.edu/about/stafflist.php">Contact</a> 
-		  </div> 
+		        <input id="searchForm_lookfor" type="text" name="lookfor" size="25">
+		        <input type="submit" value="Find" class="bodytextSmall">
+		        </form>
+		</div>
 
-		</div> <!-- end div 'header' -->
+
+		  <div id="horizontal_nav">
+		  	<a class="header" title="library A-Z" href="http://library.brown.edu/libweb/atoz.php">Library A-Z</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+
+		    <a class="header" title="Off-Campus Access" href="http://library.brown.edu/libweb/proxy.php">Off-Campus Access</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+
+		    <a class="header" title="hours &amp; locations" href="http://library.brown.edu/libweb/hours.php">Hours &amp; Locations</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+		    <a class="header" title="contact us" href="http://library.brown.edu/about/stafflist.php">Contact</a>
+		  </div>
+
+		</div>
+        -->
+        <!-- end div 'header' -->
 
 		<div id="content">
 
@@ -79,7 +168,7 @@
 	            <input type="text" id="id_query" name="q" value="{{ query }}"/>
 	            {% comment %}
 	            <!-- commented out in favor of power and advanced search -->
-	            <select name="field" id="id_field"> 
+	            <select name="field" id="id_field">
 	              {% for name, field in fields %}
 	                <option value="{{ field }}"{% ifequal field current_field %} selected="true"{% endifequal %}>{{ name }}</option>
 	              {% endfor %}
@@ -87,7 +176,7 @@
 	            {% endcomment %}
 	            <input type="submit" value="{% trans "Search" %}"/>
 	          </form>
-	        </div>  
+	        </div>
 	        {% if search_history %}
 	          <div id="search-history">
 	            <a href="{% url discovery-index %}">{% trans "Start over" %}</a>
@@ -100,15 +189,62 @@
 	        {% block content %}{% endblock %}
 	      </div>
 	    </div>
-			
+
 		</div> <!-- end div 'maincontent' -->
-		
+
 		</div> <!-- end div 'main' -->
 
 		</div> <!-- end div 'content' -->
 
 		</div> <!-- end div 'wrapper' -->
-		
+
+
+
+
+
+<div id="footer-content-width">
+
+    <footer id="footer" class="region region-footer">
+    <div id="block-block-7" class="block block-block first odd">
+
+
+  <div class="footer-column-content">
+<h3>About the Library</h3>
+<p> <a href="http://library.brown.edu/orgchart/fulltree.php">Overview and Leadership</a><br /><a href="http://library.brown.edu/giving/friends/">Friends of the Library</a><br /><a href="http://library.brown.edu/about/stafflist.php">Library Staff</a><br /><a href="http://library.brown.edu/alumni/">Alumni</a> / <a href="http://library.brown.edu/giving/">Giving</a><br /><a href="http://library.brown.edu/about/">Policies</a><br /><a href="http://library.brown.edu/about/public_feeds.php">Blogs</a><br /><a href="http://library.brown.edu/about/employment.php">Jobs</a></p></div>
+<div class="footer-column-content">
+<h3>Resources for:</h3>
+<p> <a href="http://library.brown.edu/libweb/forug.php">Undergraduate Students</a><br /><a href="http://library.brown.edu/libweb/forgs.php">Graduate Students</a><br /><a href="http://library.brown.edu/libweb/forfac.php">Faculty</a><br /><a href="http://library.brown.edu/alumni/">Alumni</a><br /><a href="http://library.brown.edu/libweb/visitors.php">Visiting Scholars</a><br /><a href="http://library.brown.edu/hay/specol.php">Researchers</a><br /><a href="http://library.brown.edu/intranet">Library Staff</a></p></div>
+<div class="footer-column-content">
+<h3>Materials by Type</h3>
+<p> <a href="http://libguides.brown.edu/newspapers">Newspapers</a><br /><a href="https://search.library.brown.edu/catalog/?f[format][]=Video&amp;q=">Video</a> and <a href="https://search.library.brown.edu/catalog/?f[format][]=Sound%20Recording&amp;q=">Audio</a><br /><a href="https://search.library.brown.edu/catalog/?f[format][]=Book&amp;q=">Books</a> and <a href="https://search.library.brown.edu/catalog?f%5Baccess_facet%5D%5B%5D=Online&amp;f%5Bformat%5D%5B%5D=Book&amp;q="> ebooks</a><br /><a href="http://rl3tp7zf5x.search.serialssolutions.com/">Journals</a> and <a href="http://brown.preview.summon.serialssolutions.com/#!/search?ho=t&amp;fvf=ContentType,Journal%20Article,f&amp;l=en&amp;q=">Articles</a><br /><a href="https://library.brown.edu/theses/">Theses and Dissertations</a><br /><a href="http://library.brown.edu/collatoz/">Special Collections</a><br /><a href="http://library.brown.edu/collatoz/videos.php?task=loc&amp;location=Friedman">Entertainment DVDs</a><br /><a href="http://library.brown.edu/borrowing/equipmentforloan.php">Computers and Technology</a></p></div>
+<div class="footer-column-content">
+<h3><a href="http://library.brown.edu/libweb/atoz.php">Library A–Z</a></h3>
+<p>Brown University Library<br />
+        10 Prospect Street / Box A<br />
+        Providence, RI 02912 USA<br /><a href="mailto:libweb@brown.edu">libweb@brown.edu</a><br />
+        401-863-2165</p>
+<p> <a href="http://libguides.brown.edu/fedgovinfo"><img alt="Federal Depository" class="footer-icon-link" src="/info/sites/all/themes/custom/zen_bulsubtheme/images/footer-icons/Feddepo-750x750.png" /></a><a href="http://library.brown.edu/socialwall/"><img alt="Social Media Wall" class="footer-icon-link" src="/info/sites/all/themes/custom/zen_bulsubtheme/images/footer-icons/socialwall-750x750.png" /></a><a href="http://library.brown.edu/enewsletters/"><img alt="E-newsletters" class="footer-icon-link" src="/info/sites/all/themes/custom/zen_bulsubtheme/images/footer-icons/enewsletters-750x750.png" /></a><a href="http://library.brown.edu/about/public_feeds.php"><img alt="Library RSS Feeds" class="footer-icon-link" src="/info/sites/all/themes/custom/zen_bulsubtheme/images/footer-icons/RSS-750x750.png" /></a><a href="http://mobul.boopsie.com/"><img alt="Mobile Brown University Library" class="footer-icon-link" src="/info/sites/all/themes/custom/zen_bulsubtheme/images/footer-icons/moBUL-750x750.png" /></a></p></div>
+
+</div>
+<div id="block-shib-auth-login-box" class="block block-shib-auth shibb-gear last even">
+
+
+  <div id="shib_login_url">
+  <a href="https://library.brown.edu/Shibboleth.sso/Login?target=https%3A%2F%2Flibrary.brown.edu%2Finfo%2F%3Fq%3Dshib_login%2Fnode%2F36">&#9881;</a>
+</div>
+
+</div>
+  </footer>  <!-- end div 'footer' -->
+
+</div>  <!-- end #footer-content-width -->
+
+
+
+
+
+
+
+        <!-- old footer
 		<div id="footer">
 			<br>
 			<p>
@@ -119,8 +255,9 @@
 						<input type="submit" value="Go" class="bodytextSmall">
 					</form>
 			</p>
-		</div> <!-- end div 'footer' -->
-	
+		</div>
+        -->
+
 	{% if MAJAX2_URL %}
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
     <script>
@@ -138,7 +275,7 @@
 								//console.debug(hold, item.locations[hi]);
 								//console.debug($(holdings_spot));
 								//$(holdings_spot).append('<li><span class="location">' + item.locations[hi] + '</span> <span class="status">' + status + '</span></li>');
-								//Only add the message if it hasn't be used/seen already for this title.  
+								//Only add the message if it hasn't be used/seen already for this title.
 								var unique_status = item.locations[hi] + status;
 								if ($.inArray(unique_status, seen_location_status) == -1 ) {
 									holdings_list_items += '<li><span class="location">';
@@ -158,12 +295,12 @@
 		});
     </script>
   	{% endif %}
-  	{% if not DEBUG %}  
+  	{% if not DEBUG %}
 	<script type="text/javascript">
 	  var _gaq = _gaq || [];
 	  _gaq.push(['_setAccount', 'UA-3203647-15']);
 	  _gaq.push(['_trackPageview']);
-	
+
 	  (function() {
 	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
 	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
@@ -171,9 +308,9 @@
 	  })();
 	</script>
 	{% endif %}
-	
+
 	</body>
-	
+
 </html>
 {% comment %}
   Copyright 2008 Gabriel Sean Farrell
