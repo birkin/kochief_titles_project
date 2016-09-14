@@ -116,99 +116,50 @@
             </div> <!-- end #BUL-Blacklight-search -->
         </header>
 
-
-  <div id="breadcrumb-bar">
-      </div> <!-- end #breadcrumb-bar -->
-
-
-
-
-
-
-	<!-- <body> -->
+        <div id="breadcrumb-bar">
+        </div>
 
 		<div id="wrapper">
-        <!--
-		<div id="header">
 
-		<div id="headermaintext">
-			&nbsp;&nbsp;&nbsp;
+    		<div id="content">
 
-		</div>
+        		<div id="main">
 
-		<div style="float:left;">
-			<a href="http://library.brown.edu/">
-			<img id="libhome" src="http://library.brown.edu/images/spacer2.gif" border="0" width="415" height="30" alt="">
-			</a>
-			</div>
-			<div style="float:right;">
-			<a href="http://www.brown.edu">
-			<img id="brownhome" src="http://library.brown.edu/images/spacer.gif" border="0" width="36" height="45" alt="">
-			</a>
-		</div>
+        		<h1 id="logo"><a href="{% url discovery-index %}"><span>New Titles</span></a></h1>
 
-		<div id="simplesearch">
-			<form method="get" action="http://library.brown.edu/common/vufind_search.php" name="searchForm" id="searchForm">
-		        SEARCH: <input type="radio" name="searchtype" value="everything" checked> Everything
-		        <input type="radio" name="searchtype" value="books_AllFields"> Books+
-		        <input type="radio" name="searchtype" value="summon_AllFields"> Articles
-				<input type="radio" name="searchtype" value="website"> Website
-		        <input id="searchForm_lookfor" type="text" name="lookfor" size="25">
-		        <input type="submit" value="Find" class="bodytextSmall">
-		        </form>
-		</div>
+            		<div id="container">
 
+            	        <div id="searchform">
+                            <form action="{% url discovery-search %}" name="search">
+                                <input type="text" id="id_query" name="q" value="{{ query }}"/>
+                                {% comment %}
+                                <!-- commented out in favor of power and advanced search -->
+                                <select name="field" id="id_field">
+                                      {% for name, field in fields %}
+                                               <option value="{{ field }}"{% ifequal field current_field %} selected="true"{% endifequal %}>{{ name }}</option>
+                                      {% endfor %}
+                                </select>
+                                {% endcomment %}
+                                <input type="submit" value="{% trans "Search" %}"/>
+                            </form>
+            	        </div>
 
-		  <div id="horizontal_nav">
-		  	<a class="header" title="library A-Z" href="http://library.brown.edu/libweb/atoz.php">Library A-Z</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+            	        {% if search_history %}
+            	          <div id="search-history">
+            	            <a href="{% url discovery-index %}">{% trans "Start over" %}</a>
+            	            <a href="{{ last_search }}">&larr; {% trans "Last search" %}</a>
+            	            <a id="search-history-link" href="{% url discovery-search %}?history=1">&rarr; {% trans "Search history" %}</a>
+            	          </div>
+            	          <div id="search-history-list" class="hidden">{% include "discovery/snippets/search_history.html" %}</div>
+            	        {% endif %}
+            	      <div id="kochief-content">
+            	        {% block content %}{% endblock %}
+            	      </div>
+            	    </div> <!-- end div 'container' -->
 
-		    <a class="header" title="Off-Campus Access" href="http://library.brown.edu/libweb/proxy.php">Off-Campus Access</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+        		</div> <!-- end div 'main' -->
 
-		    <a class="header" title="hours &amp; locations" href="http://library.brown.edu/libweb/hours.php">Hours &amp; Locations</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-		    <a class="header" title="contact us" href="http://library.brown.edu/about/stafflist.php">Contact</a>
-		  </div>
-
-		</div>
-        -->
-        <!-- end div 'header' -->
-
-		<div id="content">
-
-		<div id="main">
-		<h1 id="logo"><a href="{% url discovery-index %}"><span>New Titles</span></a></h1>
-		<div id="container">
-	        <div id="searchform">
-	          <form action="{% url discovery-search %}" name="search">
-	            <input type="text" id="id_query" name="q" value="{{ query }}"/>
-	            {% comment %}
-	            <!-- commented out in favor of power and advanced search -->
-	            <select name="field" id="id_field">
-	              {% for name, field in fields %}
-	                <option value="{{ field }}"{% ifequal field current_field %} selected="true"{% endifequal %}>{{ name }}</option>
-	              {% endfor %}
-	            </select>
-	            {% endcomment %}
-	            <input type="submit" value="{% trans "Search" %}"/>
-	          </form>
-	        </div>
-	        {% if search_history %}
-	          <div id="search-history">
-	            <a href="{% url discovery-index %}">{% trans "Start over" %}</a>
-	            <a href="{{ last_search }}">&larr; {% trans "Last search" %}</a>
-	            <a id="search-history-link" href="{% url discovery-search %}?history=1">&rarr; {% trans "Search history" %}</a>
-	          </div>
-	          <div id="search-history-list" class="hidden">{% include "discovery/snippets/search_history.html" %}</div>
-	        {% endif %}
-	      <div id="kochief-content">
-	        {% block content %}{% endblock %}
-	      </div>
-	    </div>
-
-		</div> <!-- end div 'maincontent' -->
-
-		</div> <!-- end div 'main' -->
-
-		</div> <!-- end div 'content' -->
+    		</div> <!-- end div 'content' -->
 
 		</div> <!-- end div 'wrapper' -->
 
