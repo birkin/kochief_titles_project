@@ -1,0 +1,73 @@
+/*
+ * tag-level styles
+ */
+
+
+#container {
+  padding: 10px;
+  min-width: 760px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+
+#kochief-content {
+  clear: both;
+}
+div#kochief-content a {
+  color: #378;
+  text-decoration: none;
+}
+div#kochief-content a:hover {
+  text-decoration: underline;
+}
+div#kochief-content {
+  font-family: Verdana, Arial, Sans-Serif;
+  font-size: 100%;
+  color: #555;
+}
+
+
+span.announcement {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  font-style: italic;
+  padding: .5em;
+}
+
+
+#index-browser a.highlighted {
+  font-weight: bold;
+  margin-left: 0;
+
+}
+#index-browser a.highlighted:before  {
+    content: "\00BB \0020";
+}
+
+
+
+#searchform {
+  white-space: nowrap;
+  padding-top: 15px;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+}
+#searchform #id_field {
+  width: 120px;
+}
+
+
+#sidebar {
+  float: right;
+  font-size: 0.8em;
+  margin-right: 5px;
+  padding: 0 5px;
+  width: 21%;
+  clear: both;
+}
+#sidebar li {
+}
