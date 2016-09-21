@@ -48,6 +48,23 @@ span.announcement {
 }
 
 
+#browse-types ul li {
+  text-align: left;
+  padding-left: 10px;
+}
+#browse-types ul  {
+  list-style-type: none;
+  border: 1px solid black;
+  border-top: none;
+  border-left: none;
+  padding: 1em;
+}
+#browse-types {
+  width: 15%;
+  float:left;
+  display: inline;
+}
+
 
 #searchform {
   white-space: nowrap;
