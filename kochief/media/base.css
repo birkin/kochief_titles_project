@@ -1,5 +1,5 @@
-/* 
- * tag-level styles 
+/*
+ * tag-level styles
  */
 * {
   margin: 0;
@@ -11,41 +11,46 @@ label, td, th, ol, ul {
 
 div#kochief-content a {
   color: #378;
-  text-decoration: none; 
+  text-decoration: none;
 }
 div#kochief-content a:hover {
   text-decoration: underline;
 }
-div#kochief-content { 
-  font-family: Verdana, Arial, Sans-Serif; 
+div#kochief-content {
+  font-family: Verdana, Arial, Sans-Serif;
   font-size: 100%;
   color: #555;
 }
+
+#main li {
+    font-size: 100%;
+}
+
 img {
   border: none;
 }
 ol {
   list-style: none;
 }
-ul { 
-  list-style: none; 
-  padding-left: 1em; 
-  text-indent: -1em; 
+ul {
+  list-style: none;
+  padding-left: 1em;
+  text-indent: -1em;
 }
 
-/* 
- * class-level styles 
+/*
+ * class-level styles
  */
 .beta {
-  color: #d1d1d1; 
-  vertical-align: sub; 
+  color: #d1d1d1;
+  vertical-align: sub;
   font-size: 0.7em;
 }
-.cover { 
+.cover {
   float: right;
   padding: 0 0 0 5px;
 }
-.facet-list { 
+.facet-list {
   margin-bottom: 5px;
 }
 .format {
@@ -65,37 +70,37 @@ ul {
   display: none;
 }
 .format.Map a {
-  background: url(icons/map.png) no-repeat; 
+  background: url(icons/map.png) no-repeat;
 }
 .format.CD-ROM a {
-  background: url(icons/disc.png) no-repeat; 
+  background: url(icons/disc.png) no-repeat;
 }
 .format.DVD a {
-  background: url(icons/dvd.png) no-repeat; 
+  background: url(icons/dvd.png) no-repeat;
 }
 .format.E-Book a {
-  background: url(icons/ebook.png) no-repeat; 
+  background: url(icons/ebook.png) no-repeat;
 }
 .format.Video a {
-  background: url(icons/vhs.png) no-repeat; 
+  background: url(icons/vhs.png) no-repeat;
 }
 .format.Book a {
-  background: url(icons/book.png) no-repeat; 
+  background: url(icons/book.png) no-repeat;
 }
 .format.LP a {
-  background: url(icons/lp.png) no-repeat; 
+  background: url(icons/lp.png) no-repeat;
 }
 .format.CD a {
-  background: url(icons/music_cd.png) no-repeat; 
+  background: url(icons/music_cd.png) no-repeat;
 }
 .format.Cassette a {
-  background: url(icons/cassette.png) no-repeat; 
+  background: url(icons/cassette.png) no-repeat;
 }
 .format.Recording a {
-  background: url(icons/headphones.png) no-repeat; 
+  background: url(icons/headphones.png) no-repeat;
 }
 .format.Score a {
-  background: url(icons/score.png) no-repeat; 
+  background: url(icons/score.png) no-repeat;
 }
 .hidden {
   display: none;
@@ -113,19 +118,19 @@ ul {
 .jsclick {
   cursor: pointer;
 }
-.jsclick:hover { 
+.jsclick:hover {
   text-decoration: underline;
 }
-.page-num { 
+.page-num {
   padding: 2px;
 }
-.page-num.selected { 
+.page-num.selected {
   border: 1px solid #bbb;
 }
-.page-previous, .page-next { 
+.page-previous, .page-next {
   padding: 0 5px;
 }
-.record { 
+.record {
   clear: left; /* for ie7 */
   float: left;
   padding: 10px;
@@ -135,14 +140,14 @@ ul {
 }
 
 .recordinfo {
-  font-size: 14px;            
+  font-size: 14px;
 }
 
-.recordinfo h2.title { 
+.recordinfo h2.title {
   font-size: 1em;
   font-weight: normal;
 }
-.recordinfo h2.title a { 
+.recordinfo h2.title a {
   font-size: 1.3em;
 }
 .recordinfo div {
@@ -151,7 +156,7 @@ ul {
 }
 
 .recordinfo .discipline ul li {
-  display: inline;                               
+  display: inline;
 }
 
 .search-history-link-opened {
@@ -180,7 +185,7 @@ table.formset {
   margin: 10px 0;
 }
 
-/* 
+/*
  * id-level styles
  */
 #container {
@@ -192,7 +197,7 @@ table.formset {
 #kochief-content {
   clear: both;
 }
-#facets h3 {  
+#facets h3 {
   margin: 0 0 3px 0;
 }
 #header {
@@ -224,17 +229,17 @@ table.formset {
   margin: 40px 0 10px 10px;
   font-size: 1.1em;
 }
-#logo { 
+#logo {
   */background: url(kochief.png) left no-repeat;*/
-  color: #0063dc; 
+  color: #0063dc;
   float: left;
-  font-size: 2em; 
+  font-size: 2em;
   margin-right: 20px;
 }
-#logo a:visited, #logo a:link, #logo a:hover, #logo a:active { 
-  display: block; 
-  height: 44px; 
-  width: 215px; 
+#logo a:visited, #logo a:link, #logo a:hover, #logo a:active {
+  display: block;
+  height: 44px;
+  width: 215px;
 }
 #logo span {
   font-size: .65em;
@@ -252,7 +257,7 @@ table.formset {
   clear: left;
   margin: 30px 25% 20px 5px;
 }
-#pagination-top, #pagination-bottom { 
+#pagination-top, #pagination-bottom {
   padding: 5px 0 0 0;
   text-align: right;
 }
@@ -262,7 +267,7 @@ table.formset {
   text-align: right;
   padding: 30px 20px 10px 0;
 }
-#results { 
+#results {
   margin-left: 5px;
   margin-right: 25%;
 }
@@ -273,13 +278,13 @@ table.formset {
 #search-history a {
   padding: 0 2px;
 }
-#searchform { 
+#searchform {
   white-space: nowrap;
   padding-top: 15px;
   width: 75%;
   margin-left: auto;
   margin-right: auto;
-} 
+}
 #searchform #id_field {
   width: 120px;
 }
@@ -290,25 +295,25 @@ table.formset {
   margin-bottom: 5px;
 }
 #sidebar {
-  float: right; 
-  font-size: 0.8em; 
+  float: right;
+  font-size: 0.8em;
   margin-right: 5px;
   padding: 0 5px;
-  width: 21%; 
+  width: 21%;
   clear: both;
 }
-#sidebar li { 
+#sidebar li {
 }
 #solr-url {
   clear: both;
 }
-#suggested {  
-  background-color: #D2DFF4; 
-  border: 1px solid #88a0c6; 
+#suggested {
+  background-color: #D2DFF4;
+  border: 1px solid #88a0c6;
   padding: 5px;
   margin: 10px 0;
 }
-#topbar { 
+#topbar {
   clear: left;
   padding: 5px 0;
   font-size: 0.8em;
@@ -342,7 +347,7 @@ span.announcement {
 #index-browser a.highlighted {
   font-weight: bold;
   margin-left: 0;
-  
+
 }
 
 
@@ -372,7 +377,7 @@ div.terms {
 #browse-types {
   width: 15%;
   float:left;
-  display: inline;              
+  display: inline;
 }
 
 /*Tool tips from:
@@ -401,7 +406,7 @@ a.info:hover span{ /*the span will display just on :hover state*/
     width:25em;
     height: 2em;
     border:1px dashed black;
-    background-color:#FFFFCF; 
+    background-color:#FFFFCF;
     color:black;
     text-align: center;
     text-decoration: none;
@@ -425,7 +430,7 @@ span.status {
   text-transform: lowercase;
 }
 
-div.availability { 
+div.availability {
     margin-top: 1em;
     margin-left: 1em;
 }
