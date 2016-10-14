@@ -1,10 +1,13 @@
 /*
  * tag-level styles
  */
+
+/*
 * {
   margin: 0;
   padding: 0;
 }
+*/
 
 label, td, th, ol, ul {
 }
@@ -26,9 +29,12 @@ div#kochief-content {
     font-size: 100%;
 }
 
+/*
 img {
   border: none;
 }
+*/
+
 ol {
   list-style: none;
 }
@@ -229,13 +235,17 @@ table.formset {
   margin: 40px 0 10px 10px;
   font-size: 1.1em;
 }
+
+/*
 #logo {
-  */background: url(kochief.png) left no-repeat;*/
+  background: url(kochief.png) left no-repeat;
   color: #0063dc;
   float: left;
   font-size: 2em;
   margin-right: 20px;
 }
+*/
+
 #logo a:visited, #logo a:link, #logo a:hover, #logo a:active {
   display: block;
   height: 44px;
@@ -251,6 +261,11 @@ table.formset {
     margin-right: 1em;
     font-style: italic;
     display: block;
+}
+
+#main h1 {
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 #no-results {
@@ -282,7 +297,7 @@ table.formset {
   white-space: nowrap;
   padding-top: 15px;
   width: 75%;
-  margin-left: auto;
+  /*margin-left: auto;*/
   margin-right: auto;
 }
 #searchform #id_field {
@@ -333,7 +348,7 @@ table.formset {
 
 span.announcement {
   width: 75%;
-  margin-left: auto;
+  /*margin-left: auto;*/
   margin-right: auto;
   display: block;
   font-style: italic;
