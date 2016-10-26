@@ -14,7 +14,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with Kochief.  If not, see <http://www.gnu.org/licenses/>.
+# along with Kochief.  If not, see <https://www.gnu.org/licenses/>.
 
 from django.conf import settings
 from django.conf.urls.defaults import *
@@ -24,7 +24,7 @@ from discovery.utility_code import sitemaps
 
 admin.autodiscover()
 
-#See sitemap info: http://stackoverflow.com/questions/1392338/django-sitemap-index-example
+#See sitemap info: https://stackoverflow.com/questions/1392338/django-sitemap-index-example
 urlpatterns = patterns('',
     url(r'^sitemap.xml$', 'kochief.discovery.utility_code.sitemap_index',
                         {'sitemaps': sitemaps}),

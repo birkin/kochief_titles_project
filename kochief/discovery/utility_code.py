@@ -6,7 +6,7 @@ from django.utils import simplejson
 
 import urllib
 
-PING_URL = "http://www.google.com/webmasters/tools/ping"
+PING_URL = "https://www.google.com/webmasters/tools/ping"
 
 sitemap_limit = 1000
 #Base for record view
@@ -39,7 +39,7 @@ def sitemap_index(request, sitemaps):
 #Override Django sitemap to avoid pulling the site name from the database.
 class Sitemap:
     # This limit is defined by Google. See the index documentation at
-    # http://sitemaps.org/protocol.php#index.
+    # https://sitemaps.org/protocol.php#index.
     limit = sitemap_limit
 
     def __get(self, name, obj, default=None):
@@ -80,16 +80,16 @@ class Sitemap:
 
 class TitlesSitemap(Sitemap):
     #Need to setup the site domain in Sites.  Use management command
-    #in the base application.   
+    #in the base application.
     changefreq = "monthly"
     priority = 0.5
-    
+
     def __init__(self, solr_ids):
         self.solr_ids = solr_ids
 
     def items(self):
         return self.solr_ids
-    
+
     def location(self, id):
         return '%s/%s' % (item_page, id)
 
@@ -98,7 +98,7 @@ class TitlesSitemap(Sitemap):
 def make_sitemaps():
     #Query Solr to get all objects."""
     #Number of rows to return each time through the Solr query
-    
+
     from django.core.cache import cache
     sitemap = cache.get('sitemap')
     if sitemap:
@@ -106,7 +106,7 @@ def make_sitemaps():
         #pass
     else:
         pass
-    
+
     set_size = sitemap_limit
     start = 0
     total = 0
@@ -132,11 +132,11 @@ def make_sitemaps():
             start += 1
         else:
             break
-    #Put sitemap in cache for a day.  
+    #Put sitemap in cache for a day.
     cache.set('sitemap', map, 86400)
     return map
 
 sitemaps = make_sitemaps()
 
-    
-    
+
+

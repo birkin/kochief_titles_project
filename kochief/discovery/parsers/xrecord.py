@@ -1,26 +1,26 @@
 # Copyright 2009 Gabriel Farrell
 #
 # This file is part of Kochief.
-# 
+#
 # Kochief is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # Kochief is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
-# along with Kochief.  If not, see <http://www.gnu.org/licenses/>.
+# along with Kochief.  If not, see <https://www.gnu.org/licenses/>.
 
 """Parser for xrecords."""
 
 import urllib
 from xml.etree.ElementTree import ElementTree
 
-URL_TEMPLATE = 'http://innopac.library.drexel.edu/xrecord=%s'
+URL_TEMPLATE = 'https://innopac.library.drexel.edu/xrecord=%s'
 
 def get_record(record_id, url_template=URL_TEMPLATE):
     xrecord = urllib.urlopen(url_template % record_id)
@@ -41,7 +41,7 @@ def get_record(record_id, url_template=URL_TEMPLATE):
 
     tag_map = {
         '090': [('call_number', join_subfields)],
-        '245': [('full_title', join_subfields), 
+        '245': [('full_title', join_subfields),
                 ('title', get_sub('a'))],
         '250': [('edition', get_sub('a'))],
         '260': [('imprint', join_subfields)],

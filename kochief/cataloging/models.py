@@ -1,19 +1,19 @@
 # Copyright 2009 Gabriel Farrell
 #
 # This file is part of Kochief.
-# 
+#
 # Kochief is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # Kochief is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
-# along with Kochief.  If not, see <http://www.gnu.org/licenses/>.
+# along with Kochief.  If not, see <https://www.gnu.org/licenses/>.
 
 import rdflib.graph as rg
 import rdflib.namespace as ns
@@ -28,7 +28,7 @@ DB_MAP = {
     'sqlite3': 'SQLite',
 }
 LOCALNS = ns.Namespace(conf.settings.LOCALNS)
-STORE_GRAPH = rg.ConjunctiveGraph(DB_MAP[conf.settings.DATABASE_ENGINE], 
+STORE_GRAPH = rg.ConjunctiveGraph(DB_MAP[conf.settings.DATABASE_ENGINE],
         identifier=LOCALNS)
 # TODO: graph configuration for mysql/postgresql
 STORE_GRAPH.open(conf.settings.DATABASE_NAME, create=True)
@@ -47,7 +47,7 @@ class ResourceManager(object):
         statements = STORE_GRAPH.predicate_objects(subject)
         resource = Resource(id, statements)
         return resource
-        
+
 
 class Resource(object):
     """Model for a resource in the catalonging."""
@@ -73,11 +73,11 @@ class Resource(object):
 
     def save(self):
         # TODO: copy self.existing to store_graph of old revisions
-        # remove self.existing and add self.statements 
+        # remove self.existing and add self.statements
         for statement in self.statements:
             STORE_GRAPH.add((self.subject, statement[0], statement[1]))
         STORE_GRAPH.commit()
-    
+
     def serialize(self, format='xml'):
         return self.graph.serialize(format=format)
 

@@ -16,7 +16,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with Kochief.  If not, see <http://www.gnu.org/licenses/>.
+  along with Kochief.  If not, see <https://www.gnu.org/licenses/>.
 {% endcomment %}
 {% load i18n %}
 {% load discovery_extras %}
@@ -31,26 +31,26 @@ Index the index page but don't follow.
   <script type="text/javascript">
     window.onload = setFocus;
   </script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript"></script>
   <script>
   	$(document).ready(function() {
   		//select discipline on page load
   		//should move this to settings.
   		browseType($('#Discipline'));
   	});
-  
+
     function browseType(browse) {
     	//console.debug($(browse).text());
     	var term = $(browse).text();
     	//rows=0&facet=true&facet.limit=80&facet.mincount=1&q.alt=*:*&facet.field=discipline_facet&f.discipline_facet.facet.sort=index&facet.field=personal_name_facet&f.personal_name_facet.facet.sort=index&facet.field=format_facet&facet.field=language_facet&facet.field=subject_facet&facet.field=genre_facet&wt=json&json.nl=arrarr&qt=dismax
-    	//http://localhost:8983/solr/core0/
+    	//https://localhost:8983/solr/core0/
     	//hide all broswe terms
     	$('span#browse-types ul li a').removeClass('highlighted');
     	$('div.terms').hide();
     	$(browse).attr('class', 'highlighted');
     	//show this selected
     	$('#terms-' + term).toggle();
-    	
+
     }
   </script>
 {% endblock %}
@@ -74,7 +74,7 @@ Index the index page but don't follow.
 	          <li><a href="{% new_limit facet.field term %}">{{ term }}</a> ({{ count }})</li>
 	        {% endfor %}
 	    </ul>
-	</div>	
+	</div>
 {% endfor %}
 
 <!--  <div id="index-facets">

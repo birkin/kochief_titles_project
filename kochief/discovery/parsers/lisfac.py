@@ -1,21 +1,21 @@
 # Copyright 2009 Gabriel Farrell
 #
 # This file is part of Kochief.
-# 
+#
 # Kochief is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # Kochief is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
-# along with Kochief.  If not, see <http://www.gnu.org/licenses/>.
+# along with Kochief.  If not, see <https://www.gnu.org/licenses/>.
 
-"""Parser for http://www.slis.indiana.edu/faculty/meho/LIS-Directory/"""
+"""Parser for https://www.slis.indiana.edu/faculty/meho/LIS-Directory/"""
 
 import csv
 from BeautifulSoup import BeautifulSoup
@@ -93,7 +93,7 @@ def get_record(tr):
     email_text = email_text.replace('(at)', '@')
     record['email'] = email_text
     record['history'] = [{
-        'message': 'Ingested from http://www.slis.indiana.edu/faculty/meho/LIS-Directory/ at %s' % datetime.now(),
+        'message': 'Ingested from https://www.slis.indiana.edu/faculty/meho/LIS-Directory/ at %s' % datetime.now(),
     }]
     record['type'] = ['entity', 'person']
     return record

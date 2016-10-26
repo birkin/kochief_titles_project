@@ -9,7 +9,7 @@ class SolrPaginator:
     For example:
     >>> from solr import SolrConnection, SolrPaginator
     >>>
-    >>> conn = SolrConnection('http://localhost:8083/solr')
+    >>> conn = SolrConnection('https://localhost:8083/solr')
     >>> response = conn.query('title:huckleberry')
     >>> paginator = SolrPaginator(response)
     >>> print paginator.num_pages
@@ -18,7 +18,7 @@ class SolrPaginator:
     For more details see the Django Paginator documentation and solrpy
     unittests.
 
-      http://docs.djangoproject.com/en/dev/topics/pagination/
+      https://docs.djangoproject.com/en/dev/topics/pagination/
 
     """
 

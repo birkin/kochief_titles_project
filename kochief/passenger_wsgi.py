@@ -23,7 +23,7 @@ execfile( ACTIVATE_FILE, dict(__file__=ACTIVATE_FILE) )
 
 
 # we check for path because we're told to at the tail end of
-# http://code.google.com/p/modwsgi/wiki/ConfigurationDirectives#WSGIReloadMechanism
+# https://code.google.com/p/modwsgi/wiki/ConfigurationDirectives#WSGIReloadMechanism
 if project_dir not in sys.path:
     sys.path.append(project_dir)
 

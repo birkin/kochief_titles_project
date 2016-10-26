@@ -1,19 +1,19 @@
 # Copyright 2008 Gabriel Sean Farrell
 #
 # This file is part of Kochief.
-# 
+#
 # Kochief is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # Kochief is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
-# along with Kochief.  If not, see <http://www.gnu.org/licenses/>.
+# along with Kochief.  If not, see <https://www.gnu.org/licenses/>.
 
 import urllib
 
@@ -37,7 +37,7 @@ def title_link(context):
     rest_of_title = full_title.replace(short_title, '', 1)
     new_context['rest_of_title'] = rest_of_title
     return new_context
-register.inclusion_tag('discovery/snippets/result_title.html', 
+register.inclusion_tag('discovery/snippets/result_title.html',
         takes_context=True)(title_link)
 
 def add_sort(context, sort_type):
@@ -50,7 +50,7 @@ def add_sort(context, sort_type):
         params.append(('limits', limits_param.encode('utf8')))
     params.append(('sort', sort_type.encode('utf8')))
     return {'urlparams': urllib.urlencode(params)}
-register.inclusion_tag('discovery/snippets/search_url.html', 
+register.inclusion_tag('discovery/snippets/search_url.html',
         takes_context=True)(add_sort)
 
 def pagination_url(context, page):
@@ -65,7 +65,7 @@ def pagination_url(context, page):
     if page != 1:
         params.append(('page', page))
     return {'urlparams': urllib.urlencode(params)}
-register.inclusion_tag('discovery/snippets/search_url.html', 
+register.inclusion_tag('discovery/snippets/search_url.html',
         takes_context=True)(pagination_url)
 
 def new_limit(context, field, field_query):
@@ -73,14 +73,14 @@ def new_limit(context, field, field_query):
     limit = u'%s:"%s"' % (field, field_query)
     params.append(('limits', limit.encode('utf8')))
     return {'urlparams': urllib.urlencode(params)}
-register.inclusion_tag('discovery/snippets/search_url.html', 
+register.inclusion_tag('discovery/snippets/search_url.html',
         takes_context=True)(new_limit)
 
 def new_limit_raw(context, limit):
     params = []
     params.append(('limits', limit.encode('utf8')))
     return {'urlparams': urllib.urlencode(params)}
-register.inclusion_tag('discovery/snippets/search_url.html', 
+register.inclusion_tag('discovery/snippets/search_url.html',
         takes_context=True)(new_limit_raw)
 
 def add_limit(context, field, field_query):
@@ -94,7 +94,7 @@ def add_limit(context, field, field_query):
     params.append(('limits', limits.encode('utf8')))
     params.append(('sort', context['current_sort'].encode('utf8')))
     return {'urlparams': urllib.urlencode(params)}
-register.inclusion_tag('discovery/snippets/search_url.html', 
+register.inclusion_tag('discovery/snippets/search_url.html',
         takes_context=True)(add_limit)
 
 def remove_limit(context):
@@ -108,6 +108,6 @@ def remove_limit(context):
     if limits:
         params.append(('limits', limits.encode('utf8')))
     return {'urlparams': urllib.urlencode(params)}
-register.inclusion_tag('discovery/snippets/search_url.html', 
+register.inclusion_tag('discovery/snippets/search_url.html',
         takes_context=True)(remove_limit)
 

@@ -5,7 +5,7 @@
 # (the "License"); you may not use this file except in compliance with
 # the License.  You may obtain a copy of the License at
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     https://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -36,7 +36,7 @@ Only `url` is required,.
 
     url -- URI pointing to the Solr instance. Examples:
 
-        http://localhost:8080/solr
+        https://localhost:8080/solr
         https://solr-server/solr
 
         Your python install must be compiled with SSL support for the
@@ -52,8 +52,8 @@ Only `url` is required,.
     ssl_key, ssl_cert -- If using client-side key files for
         SSL authentication,  these should be, respectively,
         your PEM key file and certificate file
-        
-    http_user, http_pass -- If given, include HTTP Basic authentication 
+
+    http_user, http_pass -- If given, include HTTP Basic authentication
         in all request headers.
 
 Once created, a connection object has the following public methods:
@@ -216,7 +216,7 @@ Quick examples on use:
 Example showing basic connection/transactions
 
     >>> from solr import *
-    >>> c = SolrConnection('http://localhost:8983/solr')
+    >>> c = SolrConnection('https://localhost:8983/solr')
     >>> c.add(id='500', name='python test doc', inStock=True)
     >>> c.delete('123')
     >>> c.commit()
@@ -352,7 +352,7 @@ class Solr:
         """
             url -- URI pointing to the Solr instance. Examples:
 
-                http://localhost:8080/solr
+                https://localhost:8080/solr
                 https://solr-server/solr
 
                 Your python install must be compiled with SSL support for the
@@ -368,7 +368,7 @@ class Solr:
                 SSL authentication,  these should be, respectively,
                 your PEM key file and certificate file.
 
-            http_user, http_pass -- If given, include HTTP Basic authentication 
+            http_user, http_pass -- If given, include HTTP Basic authentication
                 in all request headers.
 
         """
@@ -419,14 +419,14 @@ class Solr:
 
         self.form_headers = {
             'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'}
-        
+
         if http_user is not None and http_pass is not None:
             http_auth = http_user + ':' + http_pass
             http_auth = 'Basic ' + http_auth.encode('base64').strip()
             self.auth_headers = {'Authorization': http_auth}
         else:
             self.auth_headers = {}
-        
+
         if not self.persistent:
             self.form_headers['Connection'] = 'close'
 
@@ -597,7 +597,7 @@ class Solr:
                         (quoteattr(field),
                          escape(unicode(value.decode("utf-8", 'ignore'))))))
                 #Letting decode errors pass, this should just ignore
-                #the field causing the problem.  
+                #the field causing the problem.
                 except UnicodeDecodeError, e:
                     print>>sys.stderr, e
                     if rec_id not in failed_recs:
@@ -605,7 +605,7 @@ class Solr:
         if len(failed_recs) > 0:
             for r in failed_recs:
                 if r:
-                    print>>sys.stderr, r     
+                    print>>sys.stderr, r
         lst.append('</doc>')
 
     def _delete(self, id=None, ids=None, queries=None):

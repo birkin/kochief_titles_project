@@ -2,26 +2,26 @@
 # Copyright 2008 Mark A. Matienzo
 #
 # This file is part of Kochief.
-# 
+#
 # Kochief is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # Kochief is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
-# along with Kochief.  If not, see <http://www.gnu.org/licenses/>.
+# along with Kochief.  If not, see <https://www.gnu.org/licenses/>.
 
 """Imports CSV data into a Solr instance."""
 
 import os
 import urllib
 
-SOLR_URL = 'http://localhost:8983/solr/update/csv?%s'
+SOLR_URL = 'https://localhost:8983/solr/update/csv?%s'
 
 MULTIVALUE_FIELDNAMES = [
     'contents',
@@ -42,8 +42,8 @@ MULTIVALUE_FIELDNAMES = [
 ]
 
 # summary causes an error in solr pre 2008/01/08 dev (for my data, at
-# least -- gsf) -- see 
-# http://mail-archives.apache.org/mod_mbox/lucene-solr-user/200801.mbox/%3cc68e39170801081009r18b024f9g4076a6333455463e@mail.gmail.com%3e
+# least -- gsf) -- see
+# https://mail-archives.apache.org/mod_mbox/lucene-solr-user/200801.mbox/%3cc68e39170801081009r18b024f9g4076a6333455463e@mail.gmail.com%3e
 
 def load_solr(csv_file, solr_url):
     """
@@ -61,7 +61,7 @@ def load_solr(csv_file, solr_url):
     solr_params['commit'] = 'true'
     params = urllib.urlencode(solr_params)
     print "Loading records into Solr ..."
-    try: 
+    try:
         output = urllib.urlopen(solr_url % params)
     except IOError:
         raise IOError, 'Unable to connect to the Solr instance.'

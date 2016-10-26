@@ -4,19 +4,19 @@
 # Copyright 2008 Mark A. Matienzo
 #
 # This file is part of Kochief.
-# 
+#
 # Kochief is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # Kochief is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
-# along with Kochief.  If not, see <http://www.gnu.org/licenses/>.
+# along with Kochief.  If not, see <https://www.gnu.org/licenses/>.
 
 """Helpers for MARC processing."""
 
@@ -61,7 +61,7 @@ FIELDNAMES = [
     'imprint',
     'isbn',
     'language',
-    'language_dubbed', 
+    'language_dubbed',
     'language_subtitles',
     'oclc_num',
     'notes',
@@ -86,7 +86,7 @@ FIELDNAMES = [
 class RowDict(dict):
     """
     Subclass of dict that joins sequences and encodes to utf-8 on get.
-    Encoding to utf-8 is necessary for Python's csv library because it 
+    Encoding to utf-8 is necessary for Python's csv library because it
     can't handle unicode.
     >>> row = RowDict()
     >>> row['bob'] = ['Montalb\\xe2an, Ricardo', 'Roddenberry, Gene']
@@ -111,14 +111,14 @@ class RowDict(dict):
             except UnicodeDecodeError, e:
                 print>>sys.stderr, e
                 return
-        # converting to NFC form lessens character encoding issues 
+        # converting to NFC form lessens character encoding issues
         value = unicodedata.normalize('NFC', value)
         return value.encode('utf8')
 
 def normalize(value):
     if value:
         return value.replace('.', '').strip(',:/; ')
-  
+
 def subfield_list(field, subfield_indicator):
     subfields = field.get_subfields(subfield_indicator)
     if subfields is not None:
@@ -179,9 +179,9 @@ def get_format(record):
                     format = 'Atlas'
                 else:
                     format = 'Map'
-    # now do guesses that are NOT based upon physical description 
-    # (physical description is going to be the most reliable indicator, 
-    # when it exists...) 
+    # now do guesses that are NOT based upon physical description
+    # (physical description is going to be the most reliable indicator,
+    # when it exists...)
     elif leader[6] == 'a':                # language material
         fixed = record['008'].value()
         if leader[7] == 'm':            # monograph
@@ -196,13 +196,13 @@ def get_format(record):
                 format = 'Book'
         elif leader[7] == 's':            # serial
             if len(fixed) > 18:
-                frequencies = ['b', 'c', 'd', 'e', 'f', 'i', 'j', 
+                frequencies = ['b', 'c', 'd', 'e', 'f', 'i', 'j',
                         'm', 'q', 's', 't', 'w']
                 if fixed[18] in frequencies:
                     format = 'Journal'
                 else:
-                    # this is here to prevent stuff that librarians 
-                    # and nobody else would consider to be a serial 
+                    # this is here to prevent stuff that librarians
+                    # and nobody else would consider to be a serial
                     # from being labeled as a magazine.
                     format = 'Book'
     elif leader[6] == 'e':
@@ -221,7 +221,7 @@ def get_building_format(location_code):
         return []
     for item in response['result']['items']:
         print>>sys.stderr, item['building'], item['format']
-        return (item['building'], item['format']) 
+        return (item['building'], item['format'])
 
 def get_disciplines(call_number):
     """Brown routine for assigning high level subjects/disciplines."""
@@ -233,7 +233,7 @@ def get_disciplines(call_number):
         return []
     sub_list = []
     for items in response['result']['items']:
-        sub_list += items['brown_disciplines'] 
+        sub_list += items['brown_disciplines']
     return set(sub_list)
 
 def is_serial(record):
@@ -269,7 +269,7 @@ def get_callnumber(record):
 def get_accession_date(record):
     """Convert III cat date to ISO str for solr."""
     from datetime import datetime, timedelta, date
-    
+
     def convert_date(datestr):
        """III Only reports two digit year numbers."""
        dgroups = datestr.split('-')
@@ -324,7 +324,7 @@ def parse_008(record, marc_record):
             record['pubyear'] = date
             # maybe try it as a solr.DateField at some point
             #record['pubyear'] = '%s-01-01T00:00:01Z' % date
-    
+
         audience_code = field008[22]
         if audience_code != ' ':
             try:
@@ -385,14 +385,14 @@ def get_languages(language_codes):
 #            except KeyError:
 #                pass
 #    return name
-        
+
 def generate_records(data_handle):
     reader = pymarc.MARCReader(data_handle)
     for marc_record in reader:
         record = get_record(marc_record)
         if record:  # skip when get_record returns None
             yield record
-            
+
 
 def get_record(marc_record, ils=None):
     """
@@ -407,7 +407,7 @@ def get_record(marc_record, ils=None):
     George, Henry, 1839-1897.
     """
     record = {}
-    
+
     # TODO: split ILS-specific into separate parsers that subclass this one:
     # horizonmarc, iiimarc, etc.
     try:
@@ -427,7 +427,7 @@ def get_record(marc_record, ils=None):
         #record['id'] = ''
         # if it has no id let's not include it
         return
-    
+
     #Brown skips
     #Suppressed
     if marc_record['998']['e'] == 'n':
@@ -448,10 +448,10 @@ def get_record(marc_record, ils=None):
     record['accession_date'] = accession_date
     #Now using web service
     #record['format'] = get_format(marc_record)
-    
+
     # should ctrl_num default to 001 or 035?
     if marc_record['001']:
-        record['ctrl_num'] = marc_record['001'].value() 
+        record['ctrl_num'] = marc_record['001'].value()
 
     # there should be a test here for the 001 to start with 'oc'
     try:
@@ -464,7 +464,7 @@ def get_record(marc_record, ils=None):
 
     isbn_fields = marc_record.get_fields('020')
     record['isbn'] = id_match(isbn_fields, ISBN_RE)
-        
+
     upc_fields = marc_record.get_fields('024')
     record['upc'] = id_match(upc_fields, UPC_RE)
 
@@ -499,12 +499,12 @@ def get_record(marc_record, ils=None):
             record['title'] = marc_record['245']['a'].strip(' /:;')
         else:
             record['title'] = full_title
-            
+
     if marc_record['880']:
         for native_field in marc_record.get_fields('880'):
             if native_field['6'][:3] == '245':
                 record['native_title'] = ' '.join(native_field.get_subfields('a', 'b', 'c')).strip('/').strip()
-                
+
     if marc_record['260']:
         record['imprint'] = marc_record['260'].format_field()
         record['publisher'] = normalize(marc_record['260']['b'])
@@ -513,7 +513,7 @@ def get_record(marc_record, ils=None):
         #    date_find = DATE_RE.search(marc_record['260']['c'])
         #    if date_find:
         #        record['date'] = date_find.group()
-    
+
     record['call_number'] = get_callnumber(marc_record)
     record['discipline'] = get_disciplines(record['call_number'])
     #print record['id'], record['discipline'], len(record['discipline'])
@@ -532,30 +532,30 @@ def get_record(marc_record, ils=None):
                     record['discipline'].remove('Unknown')
     if not record.has_key('discipline'):
         record['discipline'] == 'Unkown'
-        
-         
+
+
 
     description_fields = marc_record.get_fields('300')
     record['description'] = [field.value() for field in description_fields]
-    
+
     series_fields = marc_record.get_fields('440', '490')
     record['series'] = multi_field_list(series_fields, 'a')
 
     notes_fields = marc_record.get_fields('500')
     record['notes'] = [field.value() for field in notes_fields]
-    
+
     contents_fields = marc_record.get_fields('505')
     record['contents'] = multi_field_list(contents_fields, 'a')
-    
+
     summary_fields = marc_record.get_fields('520')
     record['summary'] = [field.value() for field in summary_fields]
-    
+
     subjname_fields = marc_record.get_fields('600')
     subjectnames = multi_field_list(subjname_fields, 'a')
-    
+
     subjentity_fields = marc_record.get_fields('610')
     subjectentities = multi_field_list(subjentity_fields, 'ab')
-    
+
     subject_fields = marc_record.subjects()  # gets all 65X fields
 
     genres = []
@@ -599,7 +599,7 @@ def get_record(marc_record, ils=None):
     url_fields = marc_record.get_fields('856')
     record['url'] = multi_field_list(url_fields, 'u')
     #record['url'] = 'sample'
-    
+
     building_format = []
     item_fields = marc_record.get_fields('945')
     for item in item_fields:
@@ -621,7 +621,7 @@ def get_row(record):
     row = RowDict(record)
     return row
 
-def write_csv(marc_file_handle, csv_file_handle, collections=None, 
+def write_csv(marc_file_handle, csv_file_handle, collections=None,
         ils=settings.ILS):
     """
     Convert a MARC dump file to a CSV file.
@@ -649,7 +649,7 @@ def write_csv(marc_file_handle, csv_file_handle, collections=None,
         writer = csv.DictWriter(csv_file_handle, FIELDNAMES)
         writer.writerow(fieldname_dict)
         #print fieldname_dict
-        
+
         for marc_record in reader:
             count += 1
             try:
@@ -675,7 +675,7 @@ def write_csv(marc_file_handle, csv_file_handle, collections=None,
                     title = marc_record.title()
                 else:
                     title = marc_record['245'].format_field()
-                sys.stderr.write("\nError in MARC record #%s (%s):\n" % 
+                sys.stderr.write("\nError in MARC record #%s (%s):\n" %
                         (count, title.encode('ascii', 'ignore')))
                 #raise
                 continue

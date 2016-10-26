@@ -25,7 +25,7 @@ import json
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with Kochief.  If not, see <http://www.gnu.org/licenses/>.
+# along with Kochief.  If not, see <https://www.gnu.org/licenses/>.
 
 # Django settings for the Kochief project.
 
@@ -52,17 +52,17 @@ DATABASE_HOST = unicode( os.environ['KC_NWTTLS__DATABASE_HOST'] )           # Se
 DATABASE_PORT = unicode( os.environ['KC_NWTTLS__DATABASE_PORT'] )           # Set to empty string for default. Not used with sqlite3.DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 
 # Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
+# https://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be avilable on all operating systems.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
 TIME_ZONE = 'America/New_York'
 
 # Language code for this installation. All choices can be found here:
-# http://www.i18nguy.com/unicode/language-identifiers.html
+# https://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
-# dummy ugettext -- see http://www.djangoproject.com/documentation/i18n/
+# dummy ugettext -- see https://www.djangoproject.com/documentation/i18n/
 ugettext = lambda s: s
 
 LANGUAGES = (
@@ -83,13 +83,13 @@ MEDIA_ROOT = unicode( os.environ['KC_NWTTLS__MEDIA_ROOT'] )
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
-# Examples: "http://media.lawrence.com", "http://example.com/media/"
+# Examples: "https://media.lawrence.com", "https://example.com/media/"
 # MEDIA_URL = BASE_URL + 'media/'
 MEDIA_URL = unicode( os.environ['KC_NWTTLS__MEDIA_URL'] )
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
-# Examples: "http://foo.com/media/", "/media/".
+# Examples: "https://foo.com/media/", "/media/".
 ADMIN_MEDIA_PREFIX = BASE_URL + 'admin/media/'
 
 # Make this unique, and don't share it with anybody.
@@ -176,14 +176,14 @@ SOLR_DIR = BASE_DIR + 'solr/'
 # III, Unicorn, or Horizon -- affects both display and index/ingest
 ILS = 'III'
 
-# MAJAX_URL is for use with http://libx.org/majax/
+# MAJAX_URL is for use with https://libx.org/majax/
 # (has no effect if ILS != 'III')
-MAJAX_URL = '' #'http://josiah.brown.edu:2082/screens/majax.js'
+MAJAX_URL = '' #'https://josiah.brown.edu:2082/screens/majax.js'
 
 # Set CATALOG_RECORD_URL to something else if you want to pass through
-# to your catalog, e.g. 'http://innopac.library.drexel.edu/record=%s'.
+# to your catalog, e.g. 'https://innopac.library.drexel.edu/record=%s'.
 # The %s is replaced by the item id.
-CATALOG_RECORD_URL = 'http://library.brown.edu/find/Record/%s'
+CATALOG_RECORD_URL = 'https://library.brown.edu/find/Record/%s'
 
 # Number of facet terms to display by default.
 MAX_FACET_TERMS_BASIC = 4
@@ -210,7 +210,7 @@ MAJAX2_URL = None
 # sorted "in their natural index order" according to Solr docs --
 # usually alphabetical.
 
-ugettext = lambda s: s  # see <http://stackoverflow.com/questions/1329278/using-settings-languages-with-properly-translated-names-using-gettext>
+ugettext = lambda s: s  # see <https://stackoverflow.com/questions/1329278/using-settings-languages-with-properly-translated-names-using-gettext>
 
 INDEX_FACETS = [
     {
@@ -343,7 +343,7 @@ SORTS = (
 )
 
 ## for discovery.views.rssfeed()
-CATALOG_URL = 'http://library.brown.edu/find'
+CATALOG_URL = 'https://library.brown.edu/find'
 
 ## for discovery.utility_code.sitemap_index()
 APP_DOMAIN = unicode( os.environ['KC_NWTTLS__APP_DOMAIN'] )  # includes trailing slash

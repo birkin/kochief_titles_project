@@ -7,18 +7,18 @@ r'''
 The pymarc module provides an API for reading, writing and modifying
 MARC records. MARC (MAchine Readable Cataloging) is a metadata format for
 bibliographic data. More about MARC can be found at the Library of Congress:
-http://lcweb.loc.gov/marc
+https://lcweb.loc.gov/marc
 
 Below are some common examples of how you might want to use pymarc. If you
 run across an example that you think should be here please contribute it
 by writing to the author.
 
-1. Reading a batch of records and printing out the 245 subfield a. If you 
+1. Reading a batch of records and printing out the 245 subfield a. If you
    are curious this example uses the batch file available in the distribution.
 
     >>> from pymarc import MARCReader
     >>> reader = MARCReader(open('test/marc.dat'))
-    >>> for record in reader: 
+    >>> for record in reader:
     ...    print record['245']['a']
     The pragmatic programmer :
     Programming Python /
@@ -47,11 +47,11 @@ by writing to the author.
     >>> record = Record()
     >>> record.addField(
     ...     Field(
-    ...         tag = '245', 
+    ...         tag = '245',
     ...         indicators = ['0','1'],
     ...         subfields = [
     ...             'a', 'The pragmatic programmer : ',
-    ...             'b', 'from journeyman to master /', 
+    ...             'b', 'from journeyman to master /',
     ...             'c', 'Andrew Hunt, David Thomas.'
     ...         ]))
     >>> out = open('file.dat', 'w')
@@ -62,7 +62,7 @@ by writing to the author.
 
 
 from record import *
-from field import * 
+from field import *
 from exceptions import *
 from reader import *
 from writer import *

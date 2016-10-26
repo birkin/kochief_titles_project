@@ -15,13 +15,13 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with Kochief.  If not, see <http://www.gnu.org/licenses/>.
+  along with Kochief.  If not, see <https://www.gnu.org/licenses/>.
 {% endcomment %}
 {% load i18n %}
 {% load discovery_extras %}
 {% block title %} | {{ doc.title }}{% endblock %}
 {% comment %}
-	Index the record view pages but don't follow links. 
+	Index the record view pages but don't follow links.
 {% endcomment %}
 {% block meta %}
 	<META NAME="robots" CONTENT="index, nofollow">
@@ -61,9 +61,9 @@
             <div class="cover">
               <a href="{{ doc.record_url }}">
                 {% if doc.upc %}
-                  <img src="http://worldcat.org/wcpa/servlet/DCARead?standardNo={{ doc.upc|slice:":-1" }}&amp;standardNoType=6" onerror="badImage(this)"/><!--alt="{{ doc.title }}"/>-->
+                  <img src="https://worldcat.org/wcpa/servlet/DCARead?standardNo={{ doc.upc|slice:":-1" }}&amp;standardNoType=6" onerror="badImage(this)"/><!--alt="{{ doc.title }}"/>-->
                 {% else %}{% if doc.isbn_numeric %}
-                  <img src="http://images.amazon.com/images/P/{{ doc.isbn_numeric }}.01._THUMBZZZ_PB_PU_PU-5_.jpg" /><!-- alt="{{ doc.title }}"/>-->
+                  <img src="https://images.amazon.com/images/P/{{ doc.isbn_numeric }}.01._THUMBZZZ_PB_PU_PU-5_.jpg" /><!-- alt="{{ doc.title }}"/>-->
                 {% endif %}{% endif %}
               </a>
             </div>
@@ -108,14 +108,14 @@
                   {{ doc.imprint }}
                 </div>
               {% endif %}
-              
+
               {% for summary in doc.summary|slice:"1" %}
                 <div class="summary">
                   <span class="metadata">{% trans "Summary:" %}</span>
                   {{ summary }}
                 </div>
               {% endfor %}
-              
+
               	<div class="contents">
                   {% if doc.contents %}
 	                  <span class="metadata">{% trans "Contents:" %}</span>
@@ -124,7 +124,7 @@
 	                  {% endfor %}
                   {% endif %}
                 </div>
-                
+
                 <div class="disciplines">
                   {% if doc.discipline %}
                   <span class="metadata">{% trans "Discipline(s):" %}</span>
@@ -147,7 +147,7 @@
                   {{ doc.accession_date|slice:"10" }}
                 </div>
                {% endif %}
-               
+
                 <div class="buildings">
                   {% if doc.building %}
                   <span class="metadata">{% trans "Location(s):" %}</span>
@@ -156,7 +156,7 @@
                   {% endfor %}
                   {% endif %}
                 </div>
-               
+
                {% if doc.call_number %}
                 <div class="call_number">
                   <span class="metadata">{% trans "Call number:" %}</span>
@@ -190,14 +190,14 @@
                 {% endif %}
                 {% ifequal doc.availability "Available" %}
                   <span class="available">{{ doc.availability }}</span>
-                {% endifequal %}                               
+                {% endifequal %}
                 {% ifequal doc.availability "Unavailable" %}
                   <span class="unavailable">{{ doc.availability }}</span>
                 {% endifequal %}
               </div>
             </div>
     </div>
-  </div>    
+  </div>
   {% if DEBUG %}
     <div id="solr-url"><a href="{{ solr_url }}">Solr URL</a></div>
   {% endif %}

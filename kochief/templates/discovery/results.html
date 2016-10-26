@@ -16,7 +16,7 @@
   GNU General Public License for more details.
 
   You should have received a copy of the GNU General Public License
-  along with Kochief.  If not, see <http://www.gnu.org/licenses/>.
+  along with Kochief.  If not, see <https://www.gnu.org/licenses/>.
 {% endcomment %}
 {% load i18n %}
 {% load discovery_extras %}
@@ -49,7 +49,7 @@ Don't index results pages.
     }
     //window.onload = init;
     addEventSimple(window, 'load', init);
-  </script>  
+  </script>
 {% endblock %}
 {% block content %}
   <div id="sidebar">
@@ -82,14 +82,14 @@ Don't index results pages.
       {% if limits %}
         <h3>{% trans "Current filters:" %}</h3>
         <div class="remove-facet-list">
-          <ul> 
+          <ul>
             {% for limit in limits %}
               <li>{{ limit }} <a href="{% remove_limit %}">(remove)</a></li>
             {% endfor %}
           </ul>
         </div>
         <br />
-      {% endif %} 
+      {% endif %}
       {% if facets %}
         <h3>{% trans "Filter your search:" %}</h3>
         {% for facet in facets %}
@@ -128,15 +128,15 @@ Don't index results pages.
           {% endfor %}
         </div>
         <div id="result_details">
-          {% trans "Results" %} 
-          <strong>{{ start_number }}-{{ end_number }}</strong> 
-          {% trans "of" %} 
-          <strong>{{ number_found }}</strong> 
-          {% trans "for" %} 
+          {% trans "Results" %}
+          <strong>{{ start_number }}-{{ end_number }}</strong>
+          {% trans "of" %}
+          <strong>{{ number_found }}</strong>
+          {% trans "for" %}
           {{ full_query_str|safe }}.
           <a href="{{ BASE_URL }}feed/rss/?{{ get }}" class="info"><span>Click for an RSS feed of this search.</span><img src="{{ MEDIA_URL }}icons/feed_icon_12x12.gif"/></a>
         </div>
-      </div> 
+      </div>
       {% if pagination.previous_page or pagination.next_page %}
         <div id="pagination-top">
           {% include "discovery/snippets/pagination.html" %}
@@ -149,9 +149,9 @@ Don't index results pages.
             <div class="cover">
               <a href="{{ doc.record_url }}">
                 {% if doc.upc %}
-                  <img src="http://worldcat.org/wcpa/servlet/DCARead?standardNo={{ doc.upc|slice:":-1" }}&amp;standardNoType=6" onerror="badImage(this)"/><!--alt="{{ doc.title }}"/>-->
+                  <img src="https://worldcat.org/wcpa/servlet/DCARead?standardNo={{ doc.upc|slice:":-1" }}&amp;standardNoType=6" onerror="badImage(this)"/><!--alt="{{ doc.title }}"/>-->
                 {% else %}{% if doc.isbn_numeric %}
-                  <img src="http://images.amazon.com/images/P/{{ doc.isbn_numeric }}.01._THUMBZZZ_PB_PU_PU-5_.jpg" /><!-- alt="{{ doc.title }}"/>-->
+                  <img src="https://images.amazon.com/images/P/{{ doc.isbn_numeric }}.01._THUMBZZZ_PB_PU_PU-5_.jpg" /><!-- alt="{{ doc.title }}"/>-->
                 {% endif %}{% endif %}
               </a>
             </div>
@@ -196,14 +196,14 @@ Don't index results pages.
                   {{ doc.imprint }}
                 </div>
               {% endif %}
-              
+
               {% for summary in doc.summary|slice:"1" %}
                 <div class="summary">
                   <span class="metadata">{% trans "Summary:" %}</span>
                   {{ summary }}
                 </div>
               {% endfor %}
-              
+
               	<div class="contents">
                   {% if doc.contents %}
 	                  <span class="metadata">{% trans "Contents:" %}</span>
@@ -212,7 +212,7 @@ Don't index results pages.
 	                  {% endfor %}
                   {% endif %}
                 </div>
-                
+
                 <div class="disciplines">
                   {% if doc.discipline %}
                   <span class="metadata">{% trans "Discipline(s):" %}</span>
@@ -235,7 +235,7 @@ Don't index results pages.
                   {{ doc.accession_date|slice:"10" }}
                 </div>
                {% endif %}
-               
+
                 <div class="buildings">
                   {% if doc.building %}
                   <span class="metadata">{% trans "Location(s):" %}</span>
@@ -244,7 +244,7 @@ Don't index results pages.
                   {% endfor %}
                   {% endif %}
                 </div>
-               
+
                {% if doc.call_number %}
                 <div class="call_number">
                   <span class="metadata">{% trans "Call number:" %}</span>
@@ -278,15 +278,15 @@ Don't index results pages.
                 {% endif %}
                 {% ifequal doc.availability "Available" %}
                   <span class="available">{{ doc.availability }}</span>
-                {% endifequal %}                               
+                {% endifequal %}
                 {% ifequal doc.availability "Unavailable" %}
                   <span class="unavailable">{{ doc.availability }}</span>
                 {% endifequal %}
               </div>
             </div>
-          </li>    
+          </li>
         {% endfor %}
-      </ol>  
+      </ol>
       {% if pagination.previous_page or pagination.next_page %}
         <div id="pagination-bottom">
           {% include "discovery/snippets/pagination.html" %}
@@ -303,7 +303,7 @@ Don't index results pages.
       {% endif %}
       {% if limits_str %}
         {% trans "with" %} {{ limits_str|safe }}
-      {% endif %} 
+      {% endif %}
       <span>{% trans "returned no results.  Please try another search." %}</span>
     </div>
   {% endif %}

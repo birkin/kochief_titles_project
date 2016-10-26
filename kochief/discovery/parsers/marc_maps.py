@@ -4,33 +4,33 @@
 # Copyright 2008 Gabriel Sean Farrell
 #
 # This file is part of Kochief.
-# 
+#
 # Kochief is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # Kochief is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
-# along with Kochief.  If not, see <http://www.gnu.org/licenses/>.
+# along with Kochief.  If not, see <https://www.gnu.org/licenses/>.
 
 AUDIENCE_CODING_MAP = {
-    'a': 'Preschool', 
-    'b': 'Primary', 
+    'a': 'Preschool',
+    'b': 'Primary',
     'c': 'Pre-adolescent',
-    'd': 'Adolescent', 
-    'e': 'Adult', 
-    'f': 'Specialized', 
+    'd': 'Adolescent',
+    'e': 'Adult',
+    'f': 'Specialized',
     'g': 'General',
-    'j': 'Juvenile', 
+    'j': 'Juvenile',
 }
 
-# got this from http://www.loc.gov/marc/languages/language_code.html
-LANGUAGE_CODING_MAP = { 
+# got this from https://www.loc.gov/marc/languages/language_code.html
+LANGUAGE_CODING_MAP = {
     '   ': 'No information provided',
     'aar': 'Afar',
     'abk': 'Abkhaz',
@@ -41,7 +41,7 @@ LANGUAGE_CODING_MAP = {
     'afa': 'Afroasiatic (Other)',
     'afh': 'Afrihili (Artificial language)',
     'afr': 'Afrikaans',
-    'ajm': 'Aljamía',
+    'ajm': 'Aljam?a',
     'aka': 'Akan',
     'akk': 'Akkadian',
     'alb': 'Albanian',
@@ -174,7 +174,7 @@ LANGUAGE_CODING_MAP = {
     'fry': 'Frisian',
     'ful': 'Fula',
     'fur': 'Friulian',
-    'gaa': 'Gã',
+    'gaa': 'G?',
     'gae': 'Scottish Gaelic',
     'gag': 'Galician',
     'gal': 'Oromo',
@@ -241,7 +241,7 @@ LANGUAGE_CODING_MAP = {
     'kaa': 'Kara-Kalpak',
     'kab': 'Kabyle',
     'kac': 'Kachin',
-    'kal': 'Kalâtdlisut',
+    'kal': 'Kal?tdlisut',
     'kam': 'Kamba',
     'kan': 'Kannada',
     'kar': 'Karen',
@@ -289,7 +289,7 @@ LANGUAGE_CODING_MAP = {
     'lua': 'Luba-Lulua',
     'lub': 'Luba-Katanga',
     'lug': 'Ganda',
-    'lui': 'Luiseño',
+    'lui': 'Luise?o',
     'lun': 'Lunda',
     'luo': 'Luo (Kenya and Tanzania)',
     'lus': 'Lushai',
@@ -323,7 +323,7 @@ LANGUAGE_CODING_MAP = {
     'moh': 'Mohawk',
     'mol': 'Moldavian',
     'mon': 'Mongolian',
-    'mos': 'Mooré',
+    'mos': 'Moor?',
     'mul': 'Multiple languages',
     'mun': 'Munda (Other)',
     'mus': 'Creek',
@@ -344,7 +344,7 @@ LANGUAGE_CODING_MAP = {
     'nic': 'Niger-Kordofanian (Other)',
     'niu': 'Niuean',
     'nno': 'Norwegian (Nynorsk)',
-    'nob': 'Norwegian (Bokmål)',
+    'nob': 'Norwegian (Bokm?l)',
     'nog': 'Nogai',
     'non': 'Old Norse',
     'nor': 'Norwegian',
@@ -379,7 +379,7 @@ LANGUAGE_CODING_MAP = {
     'pon': 'Ponape',
     'por': 'Portuguese',
     'pra': 'Prakrit languages',
-    'pro': 'Provençal (to 1500)',
+    'pro': 'Proven?al (to 1500)',
     'pus': 'Pushto',
     'que': 'Quechua',
     'raj': 'Rajasthani',
@@ -461,7 +461,7 @@ LANGUAGE_CODING_MAP = {
     'tgl': 'Tagalog',
     'tha': 'Thai',
     'tib': 'Tibetan',
-    'tig': 'Tigré',
+    'tig': 'Tigr?',
     'tir': 'Tigrinya',
     'tiv': 'Tiv',
     'tkl': 'Tokelauan',
@@ -494,7 +494,7 @@ LANGUAGE_CODING_MAP = {
     'vai': 'Vai',
     'ven': 'Venda',
     'vie': 'Vietnamese',
-    'vol': 'Volapük',
+    'vol': 'Volap?k',
     'vot': 'Votic',
     'wak': 'Wakashan languages',
     'wal': 'Walamo',

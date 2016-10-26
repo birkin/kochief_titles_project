@@ -7,7 +7,7 @@ index a dump of marc records titled "marcdump.dat", for example, run "python
 kochief/discovery/marc.py marcdump.dat".
 
 MARC indexing depends on the pymarc python library.  See
-http://pypi.python.org/pypi/pymarc
+https://pypi.python.org/pypi/pymarc
 
 MARC records are expected to be in UTF8.  Try the yaz-marcdump tool, part of
-YAZ (http://www.indexdata.com/yaz/), for converting from MARC8 if necessary.
+YAZ (https://www.indexdata.com/yaz/), for converting from MARC8 if necessary.

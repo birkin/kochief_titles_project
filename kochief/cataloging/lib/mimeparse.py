@@ -1,17 +1,17 @@
 """MIME-Type Parser
 
 This module provides basic functions for handling mime-types. It can handle
-matching mime-types against a list of media-ranges. See section 14.1 of 
+matching mime-types against a list of media-ranges. See section 14.1 of
 the HTTP specification [RFC 2616] for a complete explanation.
 
-   http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
+   https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
 
 Contents:
     - parse_mime_type():   Parses a mime-type into its component parts.
     - parse_media_range(): Media-ranges are mime-types with wild-cards and a 'q' quality parameter.
     - quality():           Determines the quality ('q') of a mime-type when compared against a list of media-ranges.
     - quality_parsed():    Just like quality() except the second parameter must be pre-parsed.
-    - best_match():        Choose the mime-type with the highest quality ('q') from a list of candidates. 
+    - best_match():        Choose the mime-type with the highest quality ('q') from a list of candidates.
 """
 
 __version__ = "0.1.2"
@@ -47,7 +47,7 @@ def parse_media_range(range):
 
        ('application', '*', {'q', '0.5'})
 
-       In addition this function also guarantees that there 
+       In addition this function also guarantees that there
        is a value for 'q' in the params dictionary, filling it
        in with a proper default if necessary.
        """
@@ -59,14 +59,14 @@ def parse_media_range(range):
     return (type, subtype, params)
 
 def fitness_and_quality_parsed(mime_type, parsed_ranges):
-    """Find the best match for a given mime-type against 
-       a list of media_ranges that have already been 
+    """Find the best match for a given mime-type against
+       a list of media_ranges that have already been
        parsed by parse_media_range(). Returns a tuple of
        the fitness value and the value of the 'q' quality
        parameter of the best match, or (-1, 0) if no match
        was found. Just as for quality_parsed(), 'parsed_ranges'
        must be a list of parsed media ranges. """
-    best_fitness = -1 
+    best_fitness = -1
     best_fit_q = 0
     (target_type, target_subtype, target_params) =\
             parse_media_range(mime_type)
@@ -82,7 +82,7 @@ def fitness_and_quality_parsed(mime_type, parsed_ranges):
             if fitness > best_fitness:
                 best_fitness = fitness
                 best_fit_q = params['q']
-            
+
     return best_fitness, float(best_fit_q)
 
 def quality_parsed(mime_type, parsed_ranges):
@@ -101,18 +101,18 @@ def quality(mime_type, ranges):
 
     >>> quality('text/html','text/*;q=0.3, text/html;q=0.7, text/html;level=1, text/html;level=2;q=0.4, */*;q=0.5')
     0.7
-    
-    """ 
+
+    """
     parsed_ranges = [parse_media_range(r) for r in ranges.split(",")]
     return quality_parsed(mime_type, parsed_ranges)
 
 def best_match(supported, header):
     """Takes a list of supported mime-types and finds the best
     match for all the media-ranges listed in header. The value of
-    header must be a string that conforms to the format of the 
+    header must be a string that conforms to the format of the
     HTTP Accept: header. The value of 'supported' is a list of
     mime-types.
-    
+
     >>> best_match(['application/xbel+xml', 'text/xml'], 'text/*;q=0.5,*/*; q=0.1')
     'text/xml'
     """
@@ -175,7 +175,7 @@ if __name__ == "__main__":
             mime_types_supported = ['image/*', 'application/xml']
             # match using a type wildcard
             self.assertEqual(best_match(mime_types_supported, 'image/png'), 'image/*')
-            # match using a wildcard for both requested and supported 
+            # match using a wildcard for both requested and supported
             self.assertEqual(best_match(mime_types_supported, 'image/*'), 'image/*')
 
-    unittest.main() 
+    unittest.main()

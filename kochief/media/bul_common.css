@@ -62,7 +62,7 @@ h2 {
 	border-width: 0px;
 	height: 94px;
 	width: 780px;
-	background: url(http://library.brown.edu/images/headerinnerbackground_highertype.jpg);
+	background: url(https://library.brown.edu/images/headerinnerbackground_highertype.jpg);
 }
 
 #headermaintext {
@@ -103,7 +103,7 @@ h2 {
 	position: relative;
 	float: left;
 /*	background-color: #886744; */
-	background-image: url(http://library.brown.edu/images/navbarback_v2.gif);
+	background-image: url(https://library.brown.edu/images/navbarback_v2.gif);
 /*	background-image: url(../images/navbarback_v2.gif); */
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	text-align: left;
@@ -127,7 +127,7 @@ h2 {
 	width: 780px;
 	padding: 0px;
 	padding-top: 0px;
-	background: url(http://dl.lib.brown.edu/libweb/images/innerwrapperback.gif) repeat-y;
+	background: url(https://dl.lib.brown.edu/libweb/images/innerwrapperback.gif) repeat-y;
 }
 
 #content p {

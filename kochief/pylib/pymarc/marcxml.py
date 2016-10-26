@@ -10,17 +10,17 @@ except ImportError:
 
 from pymarc import Record, Field, MARC8ToUnicode
 
-XSI_NS = "http://www.w3.org/2001/XMLSchema-instance"
-MARC_XML_NS = "http://www.loc.gov/MARC21/slim"
-MARC_XML_SCHEMA = "http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd"
+XSI_NS = "https://www.w3.org/2001/XMLSchema-instance"
+MARC_XML_NS = "https://www.loc.gov/MARC21/slim"
+MARC_XML_SCHEMA = "https://www.loc.gov/MARC21/slim https://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd"
 
 class XmlHandler(ContentHandler):
 
     """
-    You can subclass XmlHandler and add your own process_record 
-    method that'll be passed a pymarc.Record as it becomes 
-    available. This could be useful if you want to stream the 
-    records elsewhere (like to a rdbms) without having to store 
+    You can subclass XmlHandler and add your own process_record
+    method that'll be passed a pymarc.Record as it becomes
+    available. This could be useful if you want to stream the
+    records elsewhere (like to a rdbms) without having to store
     them all in memory.
     """
     def __init__(self, strict=False):
@@ -39,7 +39,7 @@ class XmlHandler(ContentHandler):
         self._text = []
 
         if element == 'record':
-            self._record = Record() 
+            self._record = Record()
         elif element == 'controlfield':
             tag = attrs.getValue((None, u'tag'))
             self._field = Field(tag)
@@ -128,9 +128,9 @@ def record_to_xml(record, quiet=False, namespace=False):
     # TODO: maybe should set g0 and g1 appropriately using 066 $a and $b?
     marc8 = MARC8ToUnicode(quiet=quiet)
     def translate(data):
-        if type(data) == unicode: 
+        if type(data) == unicode:
             return data
-        else: 
+        else:
             return marc8.translate(data)
 
     root = ET.Element('record')

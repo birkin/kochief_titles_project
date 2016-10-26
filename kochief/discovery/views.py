@@ -14,7 +14,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with Kochief.  If not, see <http://www.gnu.org/licenses/>.
+# along with Kochief.  If not, see <https://www.gnu.org/licenses/>.
 
 from datetime import datetime
 import pprint
@@ -83,7 +83,7 @@ def index(request):
         # sort facets by name vs. count as per the config.py file
         if not facet_option['sort_by_count']:
             #Solr 1.4 and newer, false becomes index.
-            #http://wiki.apache.org/solr/SimpleFacetParameters#facet.sort
+            #https://wiki.apache.org/solr/SimpleFacetParameters#facet.sort
             params.append(('f.%s_facet.facet.sort' % facet_option['field'],
                 'index'))
 
@@ -196,7 +196,7 @@ def unapi(request):
             return HttpResponse(template.render(context),
                     mimetype='application/xml')
         else:
-            raise Http404 # should be 406 -- see http://unapi.info/specs/
+            raise Http404 # should be 406 -- see https://unapi.info/specs/
     if identifier:
         context['id'] = identifier
     template = loader.get_template('discovery/unapi.xml')
