@@ -90,13 +90,20 @@ class ThumbnailGrabberTest( TestCase ):
             urlparse.parse_qs( parsed.query )
             )
 
-    def test_grab_thumbnail_url(self):
-        """ Checks api result for thumbnail url. """
+    def test_grab_thumbnail_url_found(self):
+        """ Checks api result for thumbnail url that exists. """
         url = 'https://books.google.com/books?jscmd=viewapi&bibkeys=ISBN0309102995,ISBN9780309102995,OCLC79623806'
         self.assertEqual(
             'https://books.google.com/books/content?id=1ECcAgAAQBAJ&printsec=frontcover&img=1&zoom=5',
             self.grabber.grab_thumbnail_url( url )
             )
 
+    def test_grab_thumbnail_url_not_found(self):
+        """ Checks api result for thumbnail url that does not exist. """
+        url = 'https://books.google.com/books?jscmd=viewapi&bibkeys=OCLC43034574'
+        self.assertEqual(
+            'https://books.google.com/books/content?id=1ECcAgAAQBAJ&printsec=frontcover&img=1&zoom=5',
+            self.grabber.grab_thumbnail_url( url )
+            )
 
     # end class ThumbnailGrabberTest()
