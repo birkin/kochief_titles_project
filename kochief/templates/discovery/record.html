@@ -63,7 +63,7 @@
                 {% if doc.upc %}
                   <img src="https://worldcat.org/wcpa/servlet/DCARead?standardNo={{ doc.upc|slice:":-1" }}&amp;standardNoType=6" onerror="badImage(this)"/><!--alt="{{ doc.title }}"/>-->
                 {% else %}{% if doc.isbn_numeric %}
-                  <img src="https://images.amazon.com/images/P/{{ doc.isbn_numeric }}.01._THUMBZZZ_PB_PU_PU-5_.jpg" /><!-- alt="{{ doc.title }}"/>-->
+                  <img src="http://images.amazon.com/images/P/{{ doc.isbn_numeric }}.01._THUMBZZZ_PB_PU_PU-5_.jpg" /><!-- alt="{{ doc.title }}"/>-->
                 {% endif %}{% endif %}
               </a>
             </div>
