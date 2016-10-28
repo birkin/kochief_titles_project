@@ -90,9 +90,13 @@ class ThumbnailGrabberTest( TestCase ):
             urlparse.parse_qs( parsed.query )
             )
 
-    # def test_do_lookup(self):
-    #     """ Checks api result. """
-    #     isbns = [ '0309102995', '9780309102995' ]
-    #     oclc = '79623806'
+    def test_grab_thumbnail_url(self):
+        """ Checks api result for thumbnail url. """
+        url = 'https://books.google.com/books?jscmd=viewapi&bibkeys=ISBN0309102995,ISBN9780309102995,OCLC79623806'
+        self.assertEqual(
+            'https://books.google.com/books/content?id=1ECcAgAAQBAJ&printsec=frontcover&img=1&zoom=5',
+            self.grabber.grab_thumbnail_url( url )
+            )
+
 
     # end class ThumbnailGrabberTest()
