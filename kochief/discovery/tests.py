@@ -66,13 +66,27 @@ class ThumbnailGrabberTest( TestCase ):
         """ Checks construcion of url with multiple isbns and an oclc number. """
         isbns = [ '9780309102995', '0309102995' ]
         oclc = '79623806'
-        url = self.grabber.prepare_url(isbns, oclc)  # 'https://books.google.com/books?jscmd=viewapi&bibkeys=ISBN0309102995,ISBN9780309102995'
+        url = self.grabber.prepare_url(isbns, oclc)  # 'https://books.google.com/books?jscmd=viewapi&bibkeys=ISBN0309102995,ISBN9780309102995,OCLC79623806'
         parsed = urlparse.urlparse( url )
         self.assertEqual( 'https', parsed.scheme )
         self.assertEqual( 'books.google.com', parsed.netloc )
         self.assertEqual( '/books', parsed.path )
         self.assertEqual(
             urlparse.parse_qs( 'jscmd=viewapi&bibkeys=ISBN0309102995,ISBN9780309102995,OCLC79623806' ),
+            urlparse.parse_qs( parsed.query )
+            )
+
+    def test_prep_url__just_oclc(self):
+        """ Checks construcion of url with just an oclc number. """
+        isbns = []
+        oclc = '79623806'
+        url = self.grabber.prepare_url(isbns, oclc)  # 'https://books.google.com/books?jscmd=viewapi&bibkeys=OCLC79623806'
+        parsed = urlparse.urlparse( url )
+        self.assertEqual( 'https', parsed.scheme )
+        self.assertEqual( 'books.google.com', parsed.netloc )
+        self.assertEqual( '/books', parsed.path )
+        self.assertEqual(
+            urlparse.parse_qs( 'jscmd=viewapi&bibkeys=OCLC79623806' ),
             urlparse.parse_qs( parsed.query )
             )
 

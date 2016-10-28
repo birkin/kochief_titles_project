@@ -24,6 +24,8 @@ class ThumbnailGrabber(object):
         bibkey_lst = []
         for isbn in sorted(isbns):
             bibkey_lst.append( 'ISBN{}'.format(isbn) )
+        if oclc:
+            bibkey_lst.append( 'OCLC{}'.format(oclc) )
         if bibkey_lst:
             bibkey_str = ','.join(bibkey_lst)
             params['bibkeys'] = bibkey_str
@@ -37,10 +39,10 @@ class ThumbnailGrabber(object):
     #         Called by ? """
     #     params = { 'jscmd': 'viewapi' }
     #     bibkey_lst = []
-    #     for isbn in isbns:
+    #     for isbn in sorted(isbns):
     #         bibkey_lst.append( 'ISBN{}'.format(isbn) )
     #     if bibkey_lst:
-    #         bibkey_str = ''.join(bibkey_lst)
+    #         bibkey_str = ','.join(bibkey_lst)
     #         params['bibkeys'] = bibkey_str
     #     r = requests.get( 'https://books.google.com/books', params=params )
     #     url = r.url
