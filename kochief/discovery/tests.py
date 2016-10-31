@@ -102,7 +102,7 @@ class ThumbnailGrabberTest( TestCase ):
         """ Checks api result for thumbnail url that does not exist. """
         url = 'https://books.google.com/books?jscmd=viewapi&bibkeys=OCLC43034574'
         self.assertEqual(
-            'https://books.google.com/books/content?id=1ECcAgAAQBAJ&printsec=frontcover&img=1&zoom=5',
+            '',
             self.grabber.grab_thumbnail_url( url )
             )
 
