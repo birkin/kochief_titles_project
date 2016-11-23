@@ -322,7 +322,9 @@ def new_title(record):
 
 def discipline_mappings():
     try:
-        url = service_url + 'call_number/v1/?data=dump'
+        # url = service_url + 'call_number/v1/?data=dump'
+        url = settings.CALLNUMBER_SERVICE_URL
+        log.debug( 'getting discipline mappings from url, ```}```'.format(url) )
         map = urllib2.urlopen( url, timeout=5 )
         map = simplejson.load(map)
         discipline_dict = map['result']['items']
@@ -335,15 +337,6 @@ def discipline_mappings():
         map = simplejson.load(map)
         discipline_dict = map['result']['items']
         return discipline_dict
-
-# def discipline_mappings():
-#     import urllib
-#     url = service_url + 'call_number/v1/?data=dump'
-#     map = urllib.urlopen(url)
-#     map = simplejson.load(map)
-#     discipline_dict = map['result']['items']
-#     #print>>sys.stderr, discipline_dict
-#     return discipline_dict
 
 def location_format_mappings():
     try:
@@ -362,17 +355,6 @@ def location_format_mappings():
         map = simplejson.load(map)
         location_format_dict = map['result']['items']
         return location_format_dict
-
-# def location_format_mappings():
-#     import urllib
-#     url = service_url + 'location_format/v1/?data=dump'
-#     map = urllib.urlopen(url)
-#     map = simplejson.load(map)
-#     location_format_dict = map['result']['items']
-#     #print>>sys.stderr, location_format_dict
-#     return location_format_dict
-#     #print location_format_dict.keys()
-#     #sys.exit()
 
 def marc_miner(record):
     idx = {}
