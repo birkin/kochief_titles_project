@@ -324,7 +324,7 @@ def discipline_mappings():
     try:
         # url = service_url + 'call_number/v1/?data=dump'
         url = settings.CALLNUMBER_SERVICE_URL
-        log.debug( 'getting discipline mappings from url, ```}```'.format(url) )
+        log.debug( 'getting discipline mappings from url, ```{}```'.format(url) )
         map = urllib2.urlopen( url, timeout=5 )
         map = simplejson.load(map)
         discipline_dict = map['result']['items']
