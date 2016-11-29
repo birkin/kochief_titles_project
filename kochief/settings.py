@@ -353,7 +353,7 @@ APP_DOMAIN = unicode( os.environ['KC_NWTTLS__APP_DOMAIN'] )  # includes trailing
 ## discovery.parsers settings
 #################################################
 
-# SERVICES_URL = unicode( os.environ['KC_NWTTLS__SERVICES_URL'] )
+SERVICES_URL = unicode( os.environ['KC_NWTTLS__SERVICES_URL'] )
 CALLNUMBER_SERVICE_URL = unicode( os.environ['KC_NWTTLS__CALLNUMBER_SERVICE_URL'] )
 
 ## Number of records to post to solr at a time. `parsers.brown_marc.py` will break the record count up into this number.
