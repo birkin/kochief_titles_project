@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
+
 # Copyright 2007 Casey Durfee
 # Copyright 2008 Gabriel Sean Farrell
 #
@@ -17,6 +21,9 @@
 # along with Kochief.  If not, see <https://www.gnu.org/licenses/>.
 
 from datetime import datetime
+import logging
+import logging.handlers
+import os
 import pprint
 import re
 import string
@@ -36,6 +43,16 @@ from django.utils.http import urlquote
 from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 from django.utils import feedgenerator
+
+
+log = logging.getLogger(__name__)
+log.setLevel( logging.DEBUG )
+if not logging._handlers:  # true when module accessed by queue-jobs
+    handler = logging.FileHandler( unicode(os.environ['KC_NWTTLS__WEBAPP_LOG_PATH']), mode='a', encoding='utf-8', delay=False )
+    formatter = logging.Formatter( '[%(asctime)s] %(levelname)s [%(module)s-%(funcName)s()::%(lineno)d] %(message)s' )
+    handler.setFormatter( formatter )
+    log.addHandler( handler )
+
 
 def pubyear_sorter(terms):
     """Utility for sorting date facets by year, then by decade."""
@@ -60,6 +77,7 @@ def pubyear_sorter(terms):
 
 @vary_on_headers('accept-language', 'accept-encoding')
 def index(request):
+    log.debug( 'starting index()' )
     ## hack, since APPEND_SLASH is not working
     request_uri = request.META['REQUEST_URI']
     if request_uri[-1] != '/':
@@ -115,6 +133,7 @@ def index(request):
 
 @vary_on_headers('accept-language', 'accept-encoding')
 def search(request):
+    log.debug( 'starting search()' )
     context = RequestContext(request)
     if request.GET.get('history'):
         template = loader.get_template('discovery/search_history.html')
@@ -203,6 +222,7 @@ def unapi(request):
     return HttpResponse(template.render(context), mimetype='application/xml')
 
 def rssFeed(request):
+    log.debug( 'starting rssFeed()' )
     from django.utils.html import escape as html_escape
     def remove_html_tags(data):
         p = re.compile(r'<.*?>')
@@ -215,8 +235,10 @@ def rssFeed(request):
     limits_param = request.GET.get('limits', '')
     limits, fq_params = pull_limits(limits_param)
     query = request.GET.get('q', '')
+    log.debug( 'query, ```%s```' % query )
 
     full_query_str = get_full_query_str(query, limits)
+    log.debug( 'full_query_str, ```%s```' % full_query_str )
 
     feed = feedgenerator.Rss201rev2Feed(title='BUL new books in %s' % remove_html_tags(full_query_str),
                                    link=settings.CATALOG_URL,
@@ -432,8 +454,10 @@ def get_search_results(request):
         params.append(('sort', mapped_sort))
     # TODO: set up for nice display page for queries that return no results
     # or cause solr errors
+    log.debug( 'params, ```%s```' % params )
     try:
         solr_url, solr_response = get_solr_response(params)
+        log.debug( 'solr_url, ```%s```' % solr_url )
     except ValueError:
         return {'query': query}
     context.update(solr_response)
