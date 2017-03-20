@@ -231,7 +231,11 @@ def rssFeed(request):
         p = p.sub('', data)
         return p.replace('&quot;', ' ')
     context = RequestContext(request)
+    log.debug( 'context before update, ```%s```' % pprint.pformat(context) )
+
     context.update(get_search_results(request))
+    log.debug( 'context after update, ```%s```' % pprint.pformat(context) )
+
     context['ILS'] = settings.ILS
     results = context['response']['docs']
     limits_param = request.GET.get('limits', '')
@@ -402,6 +406,7 @@ def get_solr_response(params, host=None):
     return url, response
 
 def get_search_results(request):
+    log.debug( 'starting get_search_results()' )
     query = request.GET.get('q', '')
     page_str = request.GET.get('page')
     try:
