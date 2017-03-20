@@ -302,6 +302,7 @@ def get_record(id):
         #raise Http404
     return (solr_url, doc)
 
+
 LIMITS_RE = re.compile(r"""
 (
   [+-]?      # grab an optional + or -
@@ -322,7 +323,10 @@ def pull_limits(limits):
     to send on to Solr.
     """
     log.debug( 'starting pull_limits()' )
-    log.debug( 'limits, ```%s```' % pprint.pformat(limits) )
+    log.debug( 'limits initially, ```%s```' % pprint.pformat(limits) )
+    if '%' in limits:  # occurs on dev & production, not localbox
+        limits = urllib.unquote( limits )
+        log.debug( 'limits now, ```%s```' % pprint.pformat(limits) )
     parsed_limits = LIMITS_RE.findall(limits)
     limit_list = []
     fq_params = []
@@ -335,6 +339,28 @@ def pull_limits(limits):
     log.debug( 'limit_list, ```%s```' % pprint.pformat(limit_list) )
     log.debug( 'fq_params, ```%s```' % pprint.pformat(fq_params) )
     return limit_list, fq_params
+# def pull_limits(limits):
+#     """
+#     Pulls individual limit fields and queries out of a combined
+#     "limits" string and returns (1) a list of limits and (2) a list
+#     of fq parameters, with "_facet" added to the end of each field,
+#     to send on to Solr.
+#     """
+#     log.debug( 'starting pull_limits()' )
+#     log.debug( 'limits, ```%s```' % pprint.pformat(limits) )
+#     parsed_limits = LIMITS_RE.findall(limits)
+#     limit_list = []
+#     fq_params = []
+#     for limit in parsed_limits:
+#         field, query = limit
+#         limit = u'%s:%s' % (field, query)
+#         limit_list.append(limit)
+#         fq_param = u'%s_facet:%s' % (field, query)
+#         fq_params.append(fq_param)
+#     log.debug( 'limit_list, ```%s```' % pprint.pformat(limit_list) )
+#     log.debug( 'fq_params, ```%s```' % pprint.pformat(fq_params) )
+#     return limit_list, fq_params
+
 
 POWER_SEARCH_RE = re.compile(r"""
 ".+?"|         # ignore anything surrounded by quotes
