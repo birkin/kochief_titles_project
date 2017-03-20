@@ -46,9 +46,10 @@ from django.utils import feedgenerator
 
 
 log = logging.getLogger(__name__)
-log.setLevel( logging.DEBUG )
-if not logging._handlers:  # true when module accessed by queue-jobs
-    handler = logging.FileHandler( unicode(os.environ['KC_NWTTLS__WEBAPP_LOG_PATH']), mode='a', encoding='utf-8', delay=False )
+log_level = { 'DEBUG': logging.DEBUG, 'INFO': logging.INFO }
+log.setLevel( log_level[settings.LOG_LEVEL] )
+if not logging._handlers:
+    handler = logging.FileHandler( settings.LOG_PATH, mode='a', encoding='utf-8', delay=False )
     formatter = logging.Formatter( '[%(asctime)s] %(levelname)s [%(module)s-%(funcName)s()::%(lineno)d] %(message)s' )
     handler.setFormatter( formatter )
     log.addHandler( handler )

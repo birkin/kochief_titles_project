@@ -173,6 +173,9 @@ SOLR_URL = unicode( os.environ['KC_NWTTLS__SOLR_URL'] )
 
 SOLR_DIR = BASE_DIR + 'solr/'
 
+LOG_LEVEL = unicode( os.environ['KC_NWTTLS__WEBAPP_LOG_LEVEL'] )
+LOG_PATH = unicode( os.environ['KC_NWTTLS__WEBAPP_LOG_PATH'] )
+
 # III, Unicorn, or Horizon -- affects both display and index/ingest
 ILS = 'III'
 
