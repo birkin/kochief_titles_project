@@ -231,10 +231,11 @@ def rssFeed(request):
         p = p.sub('', data)
         return p.replace('&quot;', ' ')
     context = RequestContext(request)
-    log.debug( 'context before update, ```%s```' % pprint.pformat(context) )
+    log.debug( 'type(context), `%s`' % type(context) )
+    log.debug( 'context.__dict__ before update, ```%s```' % pprint.pformat(context.__dict__) )
 
     context.update(get_search_results(request))
-    log.debug( 'context after update, ```%s```' % pprint.pformat(context) )
+    log.debug( 'context.__dict__ after update, ```%s```' % pprint.pformat(context.__dict__) )
 
     context['ILS'] = settings.ILS
     results = context['response']['docs']
@@ -408,6 +409,8 @@ def get_solr_response(params, host=None):
 def get_search_results(request):
     log.debug( 'starting get_search_results()' )
     query = request.GET.get('q', '')
+    log.debug( 'query, ```%s```' % query )
+
     page_str = request.GET.get('page')
     try:
         page = int(page_str)
@@ -415,6 +418,8 @@ def get_search_results(request):
         page = 1
     #cache_key = '%s~%s' % (query, page)
     cache_key = request.META['QUERY_STRING']
+    log.debug( 'cache_key, `%s`' % cache_key )
+
     context = cache.get(cache_key)
     if context:
         return context
@@ -443,10 +448,12 @@ def get_search_results(request):
         params.append(('q', powerless_query.encode('utf8')))
         context['current_sort'] = _('relevance')
     for field_query in field_queries:
+        log.debug( 'adding ->fq<- here' )
         params.append(('fq', field_query.encode('utf8')))
     limits_param = request.GET.get('limits', '')
     limits, fq_params = pull_limits(limits_param)
     for fq_param in fq_params:
+        log.debug( 'fq_param, ```%s```' % fq_param )
         params.append(('fq', fq_param.encode('utf8')))
 
     sort = request.GET.get('sort')
