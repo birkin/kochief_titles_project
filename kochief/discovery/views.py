@@ -223,6 +223,8 @@ def unapi(request):
 
 def rssFeed(request):
     log.debug( 'starting rssFeed()' )
+    log.debug( 'request, ```%s```' % pprint.pformat(request.__dict__) )
+
     from django.utils.html import escape as html_escape
     def remove_html_tags(data):
         p = re.compile(r'<.*?>')
