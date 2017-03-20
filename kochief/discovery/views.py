@@ -321,6 +321,8 @@ def pull_limits(limits):
     of fq parameters, with "_facet" added to the end of each field,
     to send on to Solr.
     """
+    log.debug( 'starting pull_limits()' )
+    log.debug( 'limits, ```%s```' % pprint.pformat(limits) )
     parsed_limits = LIMITS_RE.findall(limits)
     limit_list = []
     fq_params = []
@@ -330,6 +332,8 @@ def pull_limits(limits):
         limit_list.append(limit)
         fq_param = u'%s_facet:%s' % (field, query)
         fq_params.append(fq_param)
+    log.debug( 'limit_list, ```%s```' % pprint.pformat(limit_list) )
+    log.debug( 'fq_params, ```%s```' % pprint.pformat(fq_params) )
     return limit_list, fq_params
 
 POWER_SEARCH_RE = re.compile(r"""
