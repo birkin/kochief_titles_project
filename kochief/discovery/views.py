@@ -80,7 +80,8 @@ def pubyear_sorter(terms):
 def index(request):
     log.debug( 'starting index()' )
     ## hack, since APPEND_SLASH is not working
-    request_uri = request.META['REQUEST_URI']
+    # request_uri = request.META['REQUEST_URI']
+    request_uri = request.META.get( 'REQUEST_URI', request.META['PATH_INFO'] )
     if request_uri[-1] != '/':
         correct_request_uri = request_uri + '/'
         return HttpResponsePermanentRedirect( correct_request_uri )
