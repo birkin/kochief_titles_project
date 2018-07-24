@@ -1,6 +1,6 @@
 Django==1.1.4
 lxml==2.3.3
 PyMySQL==0.7.5
-requests==2.11.1
+requests==2.19.1
 shellvars-py==0.1.2
 wsgiref==0.1.2
