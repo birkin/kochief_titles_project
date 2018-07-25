@@ -59,7 +59,7 @@ if not logging._handlers:
 
 def info( request ):
     """ Returns basic data. """
-    rq_now = unicode( datetime.now() )
+    rq_now = datetime.now()
     log.debug( 'rq_now, `%s`' % rq_now )
     original_directory = os.getcwd()
     log.debug( 'BASE_DIR, ```%s```' % settings.BASE_DIR )
@@ -70,17 +70,27 @@ def info( request ):
     output = subprocess.check_output( ['git', 'log'], stderr=subprocess.STDOUT )
     lines = output.split( '\n' )
     commit = lines[0]
-
-
+    ## branch
+    output = subprocess.check_output( ['git', 'branch'], stderr=subprocess.STDOUT )
+    lines = output.split( '\n' )
+    branch = 'init'
+    for line in lines:
+        if line[0:1] == '*':
+            branch = line[2:]
+            break
+    info_txt = commit.replace( 'commit', branch )
+    ##
+    resp_now = datetime.now()
+    taken = resp_now - rq_now
     os.chdir( original_directory )
     d = {
         'request': {
-            'url': request.META.get( 'REQUEST_URI', request.META['PATH_INFO'] ),
-            'timestamp': rq_now
+            'url': '%s%s' % ( settings.BASE_URL, request.META.get('REQUEST_URI', request.META['PATH_INFO']) ),
+            'timestamp': unicode( rq_now )
         },
         'response': {
-            'info': commit,
-            'timestamp': 'tbd'
+            'info': info_txt,
+            'timetaken': unicode( taken )
         }
     }
     output = json.dumps( d, sort_keys=True, indent=2 )
