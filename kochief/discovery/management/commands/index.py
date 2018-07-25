@@ -28,6 +28,8 @@ import time
 import urllib
 import urllib2
 
+os.nice( 19 )
+
 try:
     import xml.etree.ElementTree as et  # builtin as of Python 2.5
 except ImportError:

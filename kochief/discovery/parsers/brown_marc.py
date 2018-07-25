@@ -18,6 +18,9 @@ import urllib2
 from operator import itemgetter, attrgetter
 
 
+os.nice( 19 )
+
+
 #Do this for now.  Put as management command in the future
 #allow script to import main ap
 sys.path.append(os.pardir)
