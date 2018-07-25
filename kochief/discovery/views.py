@@ -73,7 +73,6 @@ def info( request ):
             'timestamp': unicode( rq_now )
         },
         'response': {
-            'docs':
             'info': info_txt,
             'timetaken': unicode( taken )
         }
