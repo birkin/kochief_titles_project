@@ -1,145 +1,150 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
+"""
+For the full list of settings and their values, see
+https://docs.djangoproject.com/en/1.11/ref/settings/
+"""
 
-import json
+import json, logging, os
 
+print( 'HELLO' )
 
 #################################################
 ## Django settings
 #################################################
 
-# Copyright 2007 Casey Durfee
-# Copyright 2007 Gabriel Farrell
-#
-# This file is part of Kochief.
-#
-# Kochief is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# Kochief is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with Kochief.  If not, see <https://www.gnu.org/licenses/>.
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Django settings for the Kochief project.
+SECRET_KEY = unicode( os.environ['KC_NWTTLS__SECRET_KEY'] )
 
-import os
-
-DEBUG = json.loads( os.environ['KC_NWTTLS__DEBUG_JSON'] )  # "true" or "false" to True or False
+DEBUG = json.loads( os.environ['KC_NWTTLS__DEBUG_JSON'] )  # will be True or False
 TEMPLATE_DEBUG = DEBUG
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__)) + '/'
+ADMINS = json.loads( os.environ['KC_NWTTLS__ADMINS_JSON'] )
 
-# Relative base URL of the project.  Must include a trailing slash.
-BASE_URL = unicode( os.environ['KC_NWTTLS__BASE_URL'] )
+ALLOWED_HOSTS = json.loads( os.environ['KC_NWTTLS__ALLOWED_HOSTS'] )  # list
 
-ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
-)
-MANAGERS = ADMINS
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.humanize',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    #'kochief.cataloging',
+    'kochief.discovery',
+]
 
-DATABASE_ENGINE = unicode( os.environ['KC_NWTTLS__DATABASE_ENGINE'] )       # Or path to database file if using sqlite3.
-DATABASE_NAME = unicode( os.environ['KC_NWTTLS__DATABASE_NAME'] )           # Or path to database file if using sqlite3.
-DATABASE_USER = unicode( os.environ['KC_NWTTLS__DATABASE_USER'] )           # Not used with sqlite3 (set env-var to 'null').
-DATABASE_PASSWORD = unicode( os.environ['KC_NWTTLS__DATABASE_PASSWORD'] )   # Not used with sqlite3.
-DATABASE_HOST = unicode( os.environ['KC_NWTTLS__DATABASE_HOST'] )           # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_PORT = unicode( os.environ['KC_NWTTLS__DATABASE_PORT'] )           # Set to empty string for default. Not used with sqlite3.DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
 
-# Local time zone for this installation. Choices can be found here:
-# https://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be avilable on all operating systems.
-# If running in a Windows environment this must be set to the same as your
-# system time zone.
-TIME_ZONE = 'America/New_York'
+LOGIN_URL = '/login/'  # https://docs.djangoproject.com/en/1.11/ref/settings/#login-url
+LOGIN_REDIRECT_URL = '/info/' # https://docs.djangoproject.com/en/1.11/ref/settings/#login-redirect-url
 
-# Language code for this installation. All choices can be found here:
-# https://www.i18nguy.com/unicode/language-identifiers.html
+ROOT_URLCONF = 'kochief.urls'
+
+template_dirs = json.loads( os.environ['KC_NWTTLS__TEMPLATES_JSON'] )
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': template_dirs,
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = 'kochief.passenger_wsgi.application'
+
+DATABASES = json.loads( os.environ['KC_NWTTLS__DATABASES_JSON'] )
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
 LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'America/New_York'  # original setting is 'UTC'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
 
 # dummy ugettext -- see https://www.djangoproject.com/documentation/i18n/
 ugettext = lambda s: s
 
-LANGUAGES = (
-    ('fr', ugettext('French')),
-    ('en', ugettext('English')),
-)
+STATIC_URL = os.environ['KC_NWTTLS__STATIC_URL']
+STATIC_ROOT = os.environ['KC_NWTTLS__STATIC_ROOT']  # needed for collectstatic command
 
-SITE_ID = 1
+EMAIL_HOST = os.environ['KC_NWTTLS__EMAIL_HOST']
+EMAIL_PORT = int( os.environ['KC_NWTTLS__EMAIL_PORT'] )
 
-# If you set this to False, Django will make some optimizations so as not
-# to load the internationalization machinery.
-USE_I18N = True
-
-# Absolute path to the directory that holds media.
-# Example: "/home/media/media.lawrence.com/"
-# MEDIA_ROOT = BASE_DIR + 'media/'
-MEDIA_ROOT = unicode( os.environ['KC_NWTTLS__MEDIA_ROOT'] )
-
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash if there is a path component (optional in other cases).
-# Examples: "https://media.lawrence.com", "https://example.com/media/"
-# MEDIA_URL = BASE_URL + 'media/'
-MEDIA_URL = unicode( os.environ['KC_NWTTLS__MEDIA_URL'] )
-
-# URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
-# trailing slash.
-# Examples: "https://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = BASE_URL + 'admin/media/'
-
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = unicode( os.environ['KC_NWTTLS__SECRET_KEY'] ).encode( 'utf-8')  # must be utf8 or django 1.1x md5_constructor middelware will throw a unicode error
-
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.load_template_source',
-    'django.template.loaders.app_directories.load_template_source',
-)
-
-MIDDLEWARE_CLASSES = (
-    "django.middleware.common.CommonMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.locale.LocaleMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.middleware.doc.XViewMiddleware",
-    "django.middleware.gzip.GZipMiddleware",
-)
-
-ROOT_URLCONF = 'kochief.urls'
-
-TEMPLATE_DIRS = (
-    BASE_DIR + 'templates/',
-)
-
-INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.sitemaps',
-    #'kochief.cataloging',
-    'kochief.discovery',
-)
-
-# CACHE_BACKEND = None
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.core.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "kochief.discovery.context_processors.search_history",
-)
-
+SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-APPEND_SLASH = True
+logging.getLogger('requests').setLevel( logging.WARNING )
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'standard': {
+            'format': "[%(asctime)s] %(levelname)s [%(module)s-%(funcName)s()::%(lineno)d] %(message)s",
+            'datefmt': "%d/%b/%Y %H:%M:%S"
+        },
+    },
+    'handlers': {
+        'logfile': {
+            'level':'DEBUG',
+            'class':'logging.FileHandler',  # note: configure server to use system's log-rotate to avoid permissions issues
+            'filename': os.environ.get(u'KC_NWTTLS__LOG_PATH'),
+            'formatter': 'standard',
+        },
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+            'formatter': 'standard'
+        },
+    },
+    'loggers': {
+        'kochief': {
+            'handlers': ['logfile'],
+            'level': os.environ.get(u'KC_NWTTLS__LOG_LEVEL'),
+            'propagate': False
+        },
+    }
+}
+
+CSRF_TRUSTED_ORIGINS = json.loads( os.environ['KC_NWTTLS__CSRF_TRUSTED_ORIGINS_JSON'] )
+
+## TODO: eliminate this
+BASE_URL = unicode( os.environ['KC_NWTTLS__BASE_URL'] )
 
 
 #################################################
@@ -180,6 +185,9 @@ LOG_PATH = unicode( os.environ['KC_NWTTLS__WEBAPP_LOG_PATH'] )
 ILS = 'III'
 
 # MAJAX_URL is for use with https://libx.org/majax/
+
+
+
 # (has no effect if ILS != 'III')
 MAJAX_URL = '' #'https://josiah.brown.edu:2082/screens/majax.js'
 
@@ -384,5 +392,27 @@ PARSER_LOG_LEVEL = unicode( os.environ['KC_NWTTLS__PARSER_LOG_LEVEL'] )
 DISCIPLINE_MAPPINGS_BACKUP_JSON_URL = unicode( os.environ['KC_NWTTLS__DISCIPLINE_MAPPINGS_BACKUP_JSON_URL'] )
 LOCATION_FORMAT_BACKUP_JSON_URL = unicode( os.environ['KC_NWTTLS__LOCATION_FORMAT_BACKUP_JSON_URL'] )
 
+
+#################################################
+## addtional info
+#################################################
+
+# Copyright 2007 Casey Durfee
+# Copyright 2007 Gabriel Farrell
+#
+# This file is part of Kochief.
+#
+# Kochief is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Kochief is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Kochief.  If not, see <https://www.gnu.org/licenses/>.
 
 ## EOF ##
