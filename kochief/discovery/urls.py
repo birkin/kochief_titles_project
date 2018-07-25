@@ -26,6 +26,7 @@ urlpatterns = patterns('kochief.discovery.views',
     url(r'^unapi$', 'unapi', name='discovery-unapi'),
     url(r'^feed/rss/$', 'rssFeed'),
     url(r'^$', 'index', name='discovery-index'),  # APPEND_SLASH setting not working, hence views.index() hack
+    url( r'^info/$', 'info', name='info_url' ),
 )
 
 # urlpatterns = patterns('kochief.discovery.views',

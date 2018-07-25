@@ -21,12 +21,14 @@ from __future__ import unicode_literals
 # along with Kochief.  If not, see <https://www.gnu.org/licenses/>.
 
 from datetime import datetime
+import json
 import logging
 import logging.handlers
 import os
 import pprint
 import re
 import string
+import subprocess
 import sys
 import time
 import urllib
@@ -53,6 +55,36 @@ if not logging._handlers:
     formatter = logging.Formatter( '[%(asctime)s] %(levelname)s [%(module)s-%(funcName)s()::%(lineno)d] %(message)s' )
     handler.setFormatter( formatter )
     log.addHandler( handler )
+
+
+def info( request ):
+    """ Returns basic data. """
+    rq_now = unicode( datetime.now() )
+    log.debug( 'rq_now, `%s`' % rq_now )
+    original_directory = os.getcwd()
+    log.debug( 'BASE_DIR, ```%s```' % settings.BASE_DIR )
+    git_dir = os.path.abspath( os.path.join(settings.BASE_DIR, os.pardir) )
+    log.debug( 'git_dir, ```%s```' % git_dir )
+    os.chdir( git_dir )
+    ## commit
+    output = subprocess.check_output( ['git', 'log'], stderr=subprocess.STDOUT )
+    lines = output.split( '\n' )
+    commit = lines[0]
+
+
+    os.chdir( original_directory )
+    d = {
+        'request': {
+            'url': request.META.get( 'REQUEST_URI', request.META['PATH_INFO'] ),
+            'timestamp': rq_now
+        },
+        'response': {
+            'info': commit,
+            'timestamp': 'tbd'
+        }
+    }
+    output = json.dumps( d, sort_keys=True, indent=2 )
+    return HttpResponse( output, content_type='application/json; charset=utf-8' )
 
 
 def pubyear_sorter(terms):
