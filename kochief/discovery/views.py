@@ -62,34 +62,9 @@ if not logging._handlers:
 def info( request ):
     """ Returns basic data. """
     rq_now = datetime.now()
-    log.debug( 'rq_now, `%s`' % rq_now )
-
-
-    # original_directory = os.getcwd()
-    # log.debug( 'BASE_DIR, ```%s```' % settings.BASE_DIR )
-    # git_dir = os.path.abspath( os.path.join(settings.BASE_DIR, os.pardir) )
-    # log.debug( 'git_dir, ```%s```' % git_dir )
-    # os.chdir( git_dir )
-    # ## commit
-    # output = subprocess.check_output( ['git', 'log'], stderr=subprocess.STDOUT )
-    # lines = output.split( '\n' )
-    # commit = lines[0]
     commit = info_helper.get_commit()
-
-
-    ## branch
-    # output = subprocess.check_output( ['git', 'branch'], stderr=subprocess.STDOUT )
-    # lines = output.split( '\n' )
-    # branch = 'init'
-    # for line in lines:
-    #     if line[0:1] == '*':
-    #         branch = line[2:]
-    #         break
     branch = info_helper.get_branch()
-
-
     info_txt = commit.replace( 'commit', branch )
-    ##
     resp_now = datetime.now()
     taken = resp_now - rq_now
     d = {
@@ -98,6 +73,7 @@ def info( request ):
             'timestamp': unicode( rq_now )
         },
         'response': {
+            'docs':
             'info': info_txt,
             'timetaken': unicode( taken )
         }
