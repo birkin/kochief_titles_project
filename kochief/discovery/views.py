@@ -118,7 +118,8 @@ def index(request):
     response = cache.get(cache_key)
     if response:
         return response
-    context = RequestContext(request)
+    # context = RequestContext(request)
+    context = {}
     params = [
         ('rows', 0),
         ('facet', 'true'),
@@ -156,6 +157,7 @@ def index(request):
     context['facets'] = facets
     context['INDEX_FACET_TERMS'] = settings.INDEX_FACET_TERMS
     template = loader.get_template('discovery/index.html')
+    # response = HttpResponse(template.render(context))
     response = HttpResponse(template.render(context))
     if not settings.DEBUG:
         cache.set(cache_key, response)
