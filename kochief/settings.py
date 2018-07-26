@@ -102,6 +102,7 @@ ugettext = lambda s: s
 
 STATIC_URL = os.environ['KC_NWTTLS__STATIC_URL']
 STATIC_ROOT = os.environ['KC_NWTTLS__STATIC_ROOT']  # needed for collectstatic command
+STATICFILES_DIRS = json.loads( os.environ['KC_NWTTLS__STATICFILES_DIRS_JSON'] )
 
 EMAIL_HOST = os.environ['KC_NWTTLS__EMAIL_HOST']
 EMAIL_PORT = int( os.environ['KC_NWTTLS__EMAIL_PORT'] )
