@@ -21,9 +21,11 @@ def get_commit():
     """ Returns commit-string.
         Called by views.info() """
     original_directory = os.getcwd()
-    # log.debug( 'BASE_DIR, ```%s```' % settings.BASE_DIR )
-    git_dir = os.path.abspath( os.path.join(settings.BASE_DIR, os.pardir) )
-    # log.debug( 'git_dir, ```%s```' % git_dir )
+    # print()
+    log.debug( 'BASE_DIR, ```%s```' % settings.BASE_DIR )
+    # git_dir = os.path.abspath( os.path.join(settings.BASE_DIR, os.pardir) )
+    git_dir = settings.BASE_DIR
+    log.debug( 'git_dir, ```%s```' % git_dir )
     os.chdir( git_dir )
     output = subprocess.check_output( ['git', 'log'], stderr=subprocess.STDOUT )
     os.chdir( original_directory )
@@ -36,7 +38,8 @@ def get_branch():
     """ Returns branch.
         Called by views.info() """
     original_directory = os.getcwd()
-    git_dir = os.path.abspath( os.path.join(settings.BASE_DIR, os.pardir) )
+    # git_dir = os.path.abspath( os.path.join(settings.BASE_DIR, os.pardir) )
+    git_dir = settings.BASE_DIR
     os.chdir( git_dir )
     output = subprocess.check_output( ['git', 'branch'], stderr=subprocess.STDOUT )
     os.chdir( original_directory )
