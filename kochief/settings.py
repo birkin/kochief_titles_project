@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = unicode( os.environ['KC_NWTTLS__SECRET_KEY'] )
 
 DEBUG = json.loads( os.environ['KC_NWTTLS__DEBUG_JSON'] )  # will be True or False
-TEMPLATE_DEBUG = DEBUG
+# TEMPLATE_DEBUG = DEBUG
 
 ADMINS = json.loads( os.environ['KC_NWTTLS__ADMINS_JSON'] )
 

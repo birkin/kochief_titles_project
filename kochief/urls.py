@@ -56,11 +56,11 @@ urlpatterns = [
 #     #('^admin/(.*)', admin.site.root),
 # )
 
-if settings.DEBUG:
-    urlpatterns += patterns('',
-        url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
-            {'document_root': settings.MEDIA_ROOT}),
-    )
+# if settings.DEBUG:
+#     urlpatterns += patterns('',
+#         url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+#             {'document_root': settings.MEDIA_ROOT}),
+#     )
 
 
 
