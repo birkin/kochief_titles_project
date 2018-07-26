@@ -31,7 +31,7 @@ Don't index results pages.
 {% endblock %}
 
 {% block head %}
-  <link rel="unapi-server" type="application/xml" title="unAPI" href="{% url discovery-unapi %}"/>
+  <link rel="unapi-server" type="application/xml" title="unAPI" href="{% url 'discovery-unapi' %}"/>
   <link rel="alternate" type="application/rss+xml" href="{{ BASE_URL }}feed/rss/?{{ get }}" />
 
   <script type="text/javascript">

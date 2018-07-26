@@ -161,21 +161,41 @@ def index(request):
     response = HttpResponse(template.render(context))
     if not settings.DEBUG:
         cache.set(cache_key, response)
+    log.debug( 'returning index response')
     return response
+
+    ## end def index()
+
 
 @vary_on_headers('accept-language', 'accept-encoding')
 def search(request):
     log.debug( 'starting search()' )
-    context = RequestContext(request)
+    # context = RequestContext(request)
+    # log.debug( 'RequestContext(request), ```%s```' % pprint.pformat(context) )
+    context = {}
     if request.GET.get('history'):
+        log.debug( 'history-get detected' )
         template = loader.get_template('discovery/search_history.html')
         return HttpResponse(template.render(context))
-    context.update(get_search_results(request))
+
+    context = get_search_results( request )
+
+    # return HttpResponse( 'coming3' )
+
+    # log.debug( 'context, ```%s```' % pprint.pformat(context) )
+    # context.update(get_search_results(request))
     context['ILS'] = settings.ILS
     context['MAJAX2_URL'] = settings.MAJAX2_URL
     context['BASE_URL'] = settings.BASE_URL
+    log.debug( 'WHOLE context, ```%s```' % pprint.pformat(context) )
+
     template = loader.get_template('discovery/results.html')
-    return HttpResponse(template.render(context))
+    log.debug( 'about to prepare response' )
+    resp = template.render( context )
+    log.debug( 'about to return response' )
+    # return HttpResponse(template.render(context))
+    return HttpResponse( resp )
+    # return HttpResponse( 'FOO' )
 
 
 def term_summary(doc, target):
@@ -428,6 +448,7 @@ def pull_power(query):
     return powerless_query, power_list
 
 def get_solr_response(params, host=None):
+    log.debug( 'starting get_solr_response()' )
     default_params = [
         ('wt', 'json'),
         ('json.nl', 'arrarr'), # for returning facets nicer
@@ -486,6 +507,7 @@ def get_search_results(request):
 
     context = cache.get(cache_key)
     if context:
+        log.debug( 'returning cached context' )
         return context
     context = {}
     context['current_sort'] = _('newest')
@@ -538,7 +560,9 @@ def get_search_results(request):
         log.debug( 'solr_url, ```%s```' % solr_url )
     except ValueError:
         return {'query': query}
+    log.debug( 'context before update, ```%s...```' % pprint.pformat(context)[0:500] )
     context.update(solr_response)
+    log.debug( 'context after update, ```%s...```' % pprint.pformat(context)[0:500] )
 
     # augment item results.
     count = 1
@@ -562,6 +586,7 @@ def get_search_results(request):
             for items in record['SSdata']:
                 SSurlitemdetails=items.split('|')
                 record['SSurldetails'].append(SSurlitemdetails)
+    log.debug( 'augmenting complete' )
 
     # re-majigger facets
     facet_counts = context['facet_counts']
@@ -598,6 +623,7 @@ def get_search_results(request):
             'has_more': has_more,
         }
         facets.append(facet)
+    log.debug( 're-majigger complete' )
 
     #find out if callnumlayerone is a limit and remove it from the facets
     #dictionary if it is so that only callnumlayer2 is displayed (i.e. if
@@ -629,6 +655,7 @@ def get_search_results(request):
                 del facets[count]
                 break
             count += 1
+    log.debug( 'callnumlayerone check done' )
 
     context['facets'] = facets
     context['format'] = request.GET.get('format', None)
@@ -649,14 +676,22 @@ def get_search_results(request):
             settings.ITEMS_PER_PAGE)
     context['DEBUG'] = settings.DEBUG
     context['solr_url'] = solr_url
+    log.debug( 'main context work complete' )
     set_search_history(request, full_query_str)
+    log.debug( 'search history updated' )
     if not settings.DEBUG:
         # only cache for production
+        log.debug( 'cache set' )
         cache.set(cache_key, context, settings.SEARCH_CACHE_TIME)
+    test = json.dumps( context )
+    log.debug( 'returning context' )
     return context
 
+    ## end def get_search_results(request):
+
+
 def set_search_history(request, full_query_str):
-    timestamp = datetime.now()
+    timestamp = unicode( datetime.now() )
     search_data = (request.get_full_path(), full_query_str, timestamp)
     search_history = request.session.get('search_history')
     if search_history:
