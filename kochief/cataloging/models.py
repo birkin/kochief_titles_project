@@ -48,6 +48,9 @@ class ResourceManager(object):
         resource = Resource(id, statements)
         return resource
 
+    class Meta:
+        managed = False
+
 
 class Resource(object):
     """Model for a resource in the catalonging."""
@@ -80,4 +83,7 @@ class Resource(object):
 
     def serialize(self, format='xml'):
         return self.graph.serialize(format=format)
+
+    class Meta:
+        managed = False
 
