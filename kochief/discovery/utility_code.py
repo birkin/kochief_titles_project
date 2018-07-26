@@ -123,7 +123,7 @@ def make_sitemaps():
             settings.SOLR_URL.rstrip('/'),
             set_size,
             start )
-        r = requests.get( solr_url )
+        r = requests.get( solr_url, timeout=30 )
         docs = json.loads( r.content )
         start = docs['response']['start']
         max = docs['response']['numFound']

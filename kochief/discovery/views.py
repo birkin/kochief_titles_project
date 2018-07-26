@@ -33,6 +33,8 @@ import sys
 import time
 import urllib
 
+import requests
+
 from django.conf import settings
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
@@ -453,11 +455,13 @@ def get_solr_response(params, host=None):
     urlparams = urllib.urlencode(params)
     url = '%sselect?%s' % (settings.SOLR_URL, urlparams)
     try:
-        solr_response = urllib.urlopen(url)
+        # solr_response = urllib.urlopen(url)
+        solr_response = requests.get( url, timeout=30 )
     except IOError:
         raise IOError, 'Unable to connect to the Solr instance.'
     try:
-        response = simplejson.load(solr_response)
+        # response = simplejson.load(solr_response)
+        response = json.loads( solr_response.content )
     except ValueError, e:
         # Assign so error is in variables at Django error screen
         solr_error = urllib.urlopen(url).read()

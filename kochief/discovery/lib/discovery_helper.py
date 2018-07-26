@@ -29,7 +29,7 @@ class ThumbnailGrabber(object):
         if bibkey_lst:
             bibkey_str = ','.join(bibkey_lst)
             params['bibkeys'] = bibkey_str
-        r = requests.get( 'https://books.google.com/books', params=params )
+        r = requests.get( 'https://books.google.com/books', params=params, timeout=30 )
         url = r.url
         logger.debug( 'url, ```{}```'.format(url) )
         return url
@@ -38,7 +38,7 @@ class ThumbnailGrabber(object):
         """ Performs lookup.
             Called by ? """
         thumbnail_url = ''
-        r = requests.get( url )
+        r = requests.get( url, timeout=30 )
         jsn = r.content[19:-1]
         logger.debug( jsn )
         d = json.loads( jsn )
