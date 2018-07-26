@@ -18,28 +18,43 @@
 # You should have received a copy of the GNU General Public License
 # along with Kochief.  If not, see <https://www.gnu.org/licenses/>.
 
+from django.conf.urls import include, url
 from django.conf import settings
-# from django.conf.urls.defaults import *
 from django.contrib import admin
-
 from discovery.utility_code import sitemaps
 
 admin.autodiscover()
 
-#See sitemap info: https://stackoverflow.com/questions/1392338/django-sitemap-index-example
-urlpatterns = patterns('',
-    url(r'^sitemap.xml$', 'kochief.discovery.utility_code.sitemap_index',
-                        {'sitemaps': sitemaps}),
-    url(r'^sitemap-(?P<section>.+)\.xml$', 'django.contrib.sitemaps.views.sitemap',
-                        {'sitemaps': sitemaps}),
-    url(r'', include('kochief.discovery.urls')),
+urlpatterns = [
+    # '',
+    # url( r'^sitemap.xml$', 'kochief.discovery.utility_code.sitemap_index', {'sitemaps': sitemaps} ),
+
+    # url( r'^sitemap-(?P<section>.+)\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps} ),
+
+    url( r'', include('kochief.discovery.urls') ),
 
 
     # Uncomment for cataloging.
     #url(r'', include('kochief.cataloging.urls')),
 
     #('^admin/(.*)', admin.site.root),
-)
+]
+
+
+#See sitemap info: https://stackoverflow.com/questions/1392338/django-sitemap-index-example
+# urlpatterns = patterns('',
+#     url(r'^sitemap.xml$', 'kochief.discovery.utility_code.sitemap_index',
+#                         {'sitemaps': sitemaps}),
+#     url(r'^sitemap-(?P<section>.+)\.xml$', 'django.contrib.sitemaps.views.sitemap',
+#                         {'sitemaps': sitemaps}),
+#     url(r'', include('kochief.discovery.urls')),
+
+
+#     # Uncomment for cataloging.
+#     #url(r'', include('kochief.cataloging.urls')),
+
+#     #('^admin/(.*)', admin.site.root),
+# )
 
 if settings.DEBUG:
     urlpatterns += patterns('',

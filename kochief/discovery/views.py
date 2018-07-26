@@ -38,7 +38,7 @@ from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, Http404, HttpResponsePermanentRedirect
 from django.template import loader, RequestContext
-from django.utils import simplejson
+# from django.utils import simplejson
 from django.utils.encoding import iri_to_uri
 from django.utils.html import escape
 from django.utils.http import urlquote
