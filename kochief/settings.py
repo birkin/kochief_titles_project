@@ -7,7 +7,6 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import json, logging, os
 
-print( 'HELLO' )
 
 #################################################
 ## Django settings

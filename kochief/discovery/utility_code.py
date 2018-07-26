@@ -2,12 +2,15 @@
 
 #Sitemaps.
 
-import json
+import json, logging, pprint, urllib
+import requests
 from django.conf import settings
 from django.core import urlresolvers, paginator
 # from django.utils import simplejson
 
-import urllib
+
+log = logging.getLogger(__name__)
+log.debug( 'utility_code.py loaded' )
 
 PING_URL = "https://www.google.com/webmasters/tools/ping"
 
@@ -116,13 +119,12 @@ def make_sitemaps():
     all = []
     map = {}
     while True:
-        solr_url = '%s/select/?q=*:*&version=2.2&rows=%s&start=%s&fl=id&wt=json' %\
-                         (settings.SOLR_URL.rstrip('/'),
-                          set_size,
-                          start)
-        resp = urllib.urlopen(solr_url)
-        # docs = simplejson.load(resp)
-        docs = json.loads( resp )
+        solr_url = '%s/select/?q=*:*&version=2.2&rows=%s&start=%s&fl=id&wt=json' % (
+            settings.SOLR_URL.rstrip('/'),
+            set_size,
+            start )
+        r = requests.get( solr_url )
+        docs = json.loads( r.content )
         start = docs['response']['start']
         max = docs['response']['numFound']
         docs = docs['response']['docs']
