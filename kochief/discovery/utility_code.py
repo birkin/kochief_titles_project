@@ -1,8 +1,11 @@
+# -*- coding: utf-8 -*-
+
 #Sitemaps.
 
+import json
 from django.conf import settings
 from django.core import urlresolvers, paginator
-from django.utils import simplejson
+# from django.utils import simplejson
 
 import urllib
 
@@ -118,7 +121,8 @@ def make_sitemaps():
                           set_size,
                           start)
         resp = urllib.urlopen(solr_url)
-        docs = simplejson.load(resp)
+        # docs = simplejson.load(resp)
+        docs = json.loads( resp )
         start = docs['response']['start']
         max = docs['response']['numFound']
         docs = docs['response']['docs']
