@@ -110,11 +110,14 @@ def index(request):
     ## hack, since APPEND_SLASH is not working
     # request_uri = request.META['REQUEST_URI']
     request_uri = request.META.get( 'REQUEST_URI', request.META['PATH_INFO'] )
+    log.debug( 'request_uri, ```%s```' % request_uri )
     if request_uri[-1] != '/':
+        log.debug( 'will redirect with slash' )
         correct_request_uri = request_uri + '/'
         return HttpResponsePermanentRedirect( correct_request_uri )
     ##
-    cache_key = request.META['HTTP_HOST']
+    # cache_key = request.META['HTTP_HOST']
+    cache_key = request.META.get( 'HTTP_HOST', '' )
     response = cache.get(cache_key)
     if response:
         return response
