@@ -2,26 +2,56 @@
 
 from __future__ import unicode_literals
 
-import logging, os, pprint, random
+import json, logging, os, pprint, random
 import urlparse
 from django.test import TestCase
 from kochief.discovery.lib.discovery_helper import ThumbnailGrabber
 
 
+log = logging.getLogger(__name__)
 TestCase.maxDiff = None
 
 
-class DummyTest( TestCase ):
+class ClientTest( TestCase ):
     """ Tests views via Client. """
 
-    def setUp(self):
-        self.client = Client()
+    def test_index(self):
+        """ Checks root index page. """
+        response = self.client.get( '/' )  # project root part of url is assumed
+        log.debug( 'response.__dict__, ```%s```' % pprint.pformat(response.__dict__) )
+        self.assertEqual( 200, response.status_code )
+        content = response.content.decode('utf-8')
+        self.assertTrue( '<form action="/search" name="search">' in content )  # search form
+        self.assertTrue( '>Browse by' in content )
 
-    def test_dummy(self):
-        result = 1
-        self.assertEqual( 1, result )
+    def test_info(self):
+        """ Checks /info/ keys. """
+        response = self.client.get( '/info/' )
+        # log.debug( 'response.__dict__, ```%s```' % pprint.pformat(response.__dict__) )
+        self.assertEqual( 200, response.status_code )
+        payload = response._container[0]
+        dct = json.loads( payload )
+        self.assertEqual( ['request', 'response'], sorted(dct.keys()) )
 
-    # end class DummyTest()
+    def test_search(self):
+        """ Checks search page. """
+        response = self.client.get( '/search', { 'limits': 'discipline:"Applied Math"'} )
+        self.assertEqual( 200, response.status_code )
+        content = response.content.decode('utf-8')
+        self.assertTrue( '<li>discipline:&quot;Applied Math&quot;' in content )  # `Current filters:`
+
+
+
+
+    def test_root_url_no_slash(self):
+        """ Checks '/root_url redirect (no appended slash)'.
+            This doesn't behave as a normal django app, which would redirect with an appended-slash. """
+        response = self.client.get( '' )
+        log.debug( 'response.__dict__, ```%s```' % pprint.pformat(response.__dict__) )
+        self.assertEqual( 200, response.status_code )
+
+
+    ## end class ClientTest()
 
 
 class ThumbnailGrabberTest( TestCase ):
