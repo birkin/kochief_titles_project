@@ -146,6 +146,9 @@ CSRF_TRUSTED_ORIGINS = json.loads( os.environ['KC_NWTTLS__CSRF_TRUSTED_ORIGINS_J
 
 ## TODO: eliminate this
 BASE_URL = unicode( os.environ['KC_NWTTLS__BASE_URL'] )
+if BASE_URL[-1:] is not '/':  # since the server may or may not result in the '/', let's make the setting predictable
+    BASE_URL = '%s/' % BASE_URL
+
 
 
 #################################################

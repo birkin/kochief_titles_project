@@ -320,7 +320,8 @@ def rssFeed(request):
                       description=html_escape(summary)
                       #pubdate=result['accession_date']
                       )
-    response = HttpResponse(mimetype='application/xml')
+    # response = HttpResponse(mimetype='application/xml')
+    response = HttpResponse(content_type='application/xml')
     feed.write(response, 'utf-8')
     return response
 
