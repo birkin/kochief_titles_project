@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 {% comment %}
   Copyright 2007 Casey Durfee
   Copyright 2008 Gabriel Sean Farrell
@@ -134,8 +135,7 @@ Don't index results pages.
           <strong>{{ number_found }}</strong>
           {% trans "for" %}
           {{ full_query_str|safe }}.
-          <!-- <a href="{{ BASE_URL }}feed/rss/?{{ get }}" class="info"><span>Click for an RSS feed of this search.</span><img src="{{ MEDIA_URL }}icons/feed_icon_12x12.gif"/></a> -->
-          <a href="{{ BASE_URL }}feed/rss/?{{ get }}" class="info"><span>Click for an RSS feed of this search.</span><img src="{{ MEDIA_URL }}icons/feed_icon_12x12.gif"/></a>
+          <a href="{{ BASE_URL }}feed/rss/?{{ get }}" class="info"><span>Click for an RSS feed of this search.</span><img src="{% static 'icons/feed_icon_12x12.gif' %}"/></a>
         </div>
       </div>
       {% if pagination.previous_page or pagination.next_page %}
