@@ -6,6 +6,7 @@ if sys.getdefaultencoding() == 'ascii':
     sys.setdefaultencoding( 'utf-8' )  # hack; TODO, handle strings & unicode explicitly
 
 import datetime
+import json
 import logging
 import os
 import pprint
@@ -27,15 +28,38 @@ sys.path.append(os.pardir)
 #allow script to import from working directory
 sys.path.append(os.curdir)
 
+
+
+## custom path imports
+# sys.path.append( )
+
+
+
 #get django info
-from django.core.management import setup_environ
-from kochief import settings
-setup_environ(settings)
+# from django.core.management import setup_environ
+# from kochief import settings
+# setup_environ(settings)
+
+# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "kochief.settings")
+# from django.conf import settings
+
+## configure django environment
+import django
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "kochief.settings")
+cwd = os.getcwd()  # this assumes the cron call has cd-ed into the project directory
+if cwd not in sys.path:
+    sys.path.append( cwd )
+django.setup()
+
+## continue normal imports
+
+
+
 
 
 from django.conf import settings
 from django.contrib.sites.models import Site
-from django.utils import simplejson
+# from django.utils import simplejson
 
 #Local project version of pymarc
 from kochief.pylib import pymarc
@@ -329,7 +353,8 @@ def discipline_mappings():
         url = settings.CALLNUMBER_SERVICE_URL
         log.debug( 'getting discipline mappings from url, ```{}```'.format(url) )
         map = urllib2.urlopen( url, timeout=5 )
-        map = simplejson.load(map)
+        # map = simplejson.load(map)
+        map = json.loads( map.read() )
         discipline_dict = map['result']['items']
         #print>>sys.stderr, discipline_dict
         return discipline_dict
@@ -337,15 +362,19 @@ def discipline_mappings():
         log.warning( 'exception getting discipline-mapping json, `{}`'.format(repr(e)) )
         url = settings.DISCIPLINE_MAPPINGS_BACKUP_JSON_URL
         map = urllib2.urlopen( url )
-        map = simplejson.load(map)
+        # map = simplejson.load(map)
+        map = json.loads( map.read() )
         discipline_dict = map['result']['items']
         return discipline_dict
 
 def location_format_mappings():
     try:
         url = service_url + 'location_format/v1/?data=dump'
+        log.debug( 'url, ```%s```' % url )
         map = urllib2.urlopen( url, timeout=5 )
-        map = simplejson.load(map)
+        log.debug( 'map, `%s`' % map )
+        # map = simplejson.load(map)
+        map = json.loads( map.read() )
         location_format_dict = map['result']['items']
         #print>>sys.stderr, location_format_dict
         return location_format_dict
@@ -355,7 +384,8 @@ def location_format_mappings():
         log.warning( 'exception getting location-format-mapping json, `{}`'.format(repr(e)) )
         url = settings.LOCATION_FORMAT_BACKUP_JSON_URL
         map = urllib2.urlopen( url )
-        map = simplejson.load(map)
+        # map = simplejson.load(map)
+        map = json.loads( map.read() )
         location_format_dict = map['result']['items']
         return location_format_dict
 
