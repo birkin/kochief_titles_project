@@ -29,19 +29,10 @@ sys.path.append(os.pardir)
 sys.path.append(os.curdir)
 
 
-
 ## custom path imports
-# sys.path.append( )
+sys.path.append( './kochief' )
+sys.path.append( './kochief/pylib' )  # avoids later exception on `from kochief.pylib import pymarc`
 
-
-
-#get django info
-# from django.core.management import setup_environ
-# from kochief import settings
-# setup_environ(settings)
-
-# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "kochief.settings")
-# from django.conf import settings
 
 ## configure django environment
 import django
@@ -51,12 +42,17 @@ if cwd not in sys.path:
     sys.path.append( cwd )
 django.setup()
 
+
+## set up file logger
+level_dct = { 'DEBUG': logging.DEBUG, 'INFO': logging.INFO }
+logging.basicConfig(
+    filename=settings.PARSER_LOG_PATH, level=level_dct[settings.PARSER_LOG_LEVEL],
+    format='[%(asctime)s] %(levelname)s [%(module)s-%(funcName)s()::%(lineno)d] %(message)s', datefmt='%d/%b/%Y %H:%M:%S' )
+log = logging.getLogger(__name__)
+log.info( 'starting...' )
+
+
 ## continue normal imports
-
-
-
-
-
 from django.conf import settings
 from django.contrib.sites.models import Site
 # from django.utils import simplejson
@@ -79,13 +75,6 @@ except NameError:
 # local libs
 import marc_maps
 
-## set up file logger
-level_dct = { 'DEBUG': logging.DEBUG, 'INFO': logging.INFO }
-logging.basicConfig(
-    filename=settings.PARSER_LOG_PATH, level=level_dct[settings.PARSER_LOG_LEVEL],
-    format='[%(asctime)s] %(levelname)s [%(module)s-%(funcName)s()::%(lineno)d] %(message)s', datefmt='%d/%b/%Y %H:%M:%S' )
-log = logging.getLogger(__name__)
-log.info( 'starting...' )
 
 
 #check for overriding SOLR_URL
