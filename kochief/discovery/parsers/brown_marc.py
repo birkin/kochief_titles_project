@@ -42,16 +42,6 @@ if cwd not in sys.path:
     sys.path.append( cwd )
 django.setup()
 
-
-## set up file logger
-level_dct = { 'DEBUG': logging.DEBUG, 'INFO': logging.INFO }
-logging.basicConfig(
-    filename=settings.PARSER_LOG_PATH, level=level_dct[settings.PARSER_LOG_LEVEL],
-    format='[%(asctime)s] %(levelname)s [%(module)s-%(funcName)s()::%(lineno)d] %(message)s', datefmt='%d/%b/%Y %H:%M:%S' )
-log = logging.getLogger(__name__)
-log.info( 'starting...' )
-
-
 ## continue normal imports
 from django.conf import settings
 from django.contrib.sites.models import Site
@@ -75,6 +65,14 @@ except NameError:
 # local libs
 import marc_maps
 
+
+## set up file logger
+level_dct = { 'DEBUG': logging.DEBUG, 'INFO': logging.INFO }
+logging.basicConfig(
+    filename=settings.PARSER_LOG_PATH, level=level_dct[settings.PARSER_LOG_LEVEL],
+    format='[%(asctime)s] %(levelname)s [%(module)s-%(funcName)s()::%(lineno)d] %(message)s', datefmt='%d/%b/%Y %H:%M:%S' )
+log = logging.getLogger(__name__)
+log.info( 'starting...' )
 
 
 #check for overriding SOLR_URL
