@@ -306,7 +306,8 @@ def create_marc_file_list():
                 fsize = os.stat(fname).st_size
                 marc_records.append((fname, fsize))
     flist = sorted(marc_records, key=itemgetter(1))
-    marc_records = [f[0] for f in flist]
+    # marc_records = [f[0] for f in flist]
+    marc_records = sorted( [f[0] for f in flist] )
     return marc_records
 
 def new_title(record):
