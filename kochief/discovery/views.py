@@ -120,6 +120,7 @@ def index(request):
     cache_key = request.META.get( 'HTTP_HOST', '' )
     response = cache.get(cache_key)
     if response:
+        log.debug( 'response was from cache' )
         return response
     # context = RequestContext(request)
     context = {}
@@ -140,6 +141,8 @@ def index(request):
                 'index'))
 
     solr_url, solr_response = get_solr_response(params)
+    log.debug( 'solr_url, ```%s```' % solr_url )
+    log.debug( 'solr_response, ```%s```' % solr_response )
     try:
         facet_fields = solr_response['facet_counts']['facet_fields']
     except KeyError, e:
