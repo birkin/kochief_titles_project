@@ -459,7 +459,8 @@ def get_solr_response(params, host=None):
     default_params = [
         ('wt', 'json'),
         ('json.nl', 'arrarr'), # for returning facets nicer
-        ('qt', 'dismax'), # use DisMaxRequestHandler
+        # ('qt', 'dismax'), # use DisMaxRequestHandler
+        ('defType', 'dismax'), # use DisMaxRequestHandler
     ]
     params.extend(default_params)
     #Hack to add support for a query that will return all docs
