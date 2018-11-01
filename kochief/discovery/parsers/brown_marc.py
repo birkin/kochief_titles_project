@@ -357,7 +357,8 @@ def discipline_mappings():
 
 def location_format_mappings():
     try:
-        url = service_url + 'location_format/v1/?data=dump'
+        # url = service_url + 'location_format/v1/?data=dump'
+        url = settings.LOCATION_SERVICE_URL
         log.debug( 'url, ```%s```' % url )
         map = urllib2.urlopen( url, timeout=5 )
         log.debug( 'map, `%s`' % map )
