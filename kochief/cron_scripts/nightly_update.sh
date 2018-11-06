@@ -30,10 +30,12 @@ echo " " >> $C_LOG_PATH
 
 echo "$(date +%Y-%d-%b_%H-%M-%S) - about to remove 'expired' records from index" >> $C_LOG_PATH
 # nice -19 $C_PYTHON_PATH manage.py index -expired >> $C_LOG_PATH 2>&1
+echo "TODO: Redo expired-removal-code by calling script directly." >> $C_LOG_PATH
 echo " " >> $C_LOG_PATH
 
 echo "$(date +%Y-%d-%b_%H-%M-%S) - about to optimize the index" >> $C_LOG_PATH
-nice -19 python manage.py index --optimize all >> $C_LOG_PATH 2>&1
+# nice -19 python manage.py index --optimize all >> $C_LOG_PATH 2>&1
+echo "TODO: Redo optimize-index-code by calling script directly." >> $C_LOG_PATH
 echo " " >> $C_LOG_PATH
 
 echo "$(date +%Y-%d-%b_%H-%M-%S) - about to warm caches by hitting $C_PROJECT_URL" >> $C_LOG_PATH
