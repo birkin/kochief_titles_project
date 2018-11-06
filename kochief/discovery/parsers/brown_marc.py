@@ -598,8 +598,8 @@ def main(marc_file_list):
 if __name__ == "__main__":
     start = time.time()
     ## pull from settings
-    service_url = settings.SERVICES_URL
-    callnumber_service_url = settings.CALLNUMBER_SERVICE_URL
+    # service_url = settings.SERVICES_URL
+    # callnumber_service_url = settings.CALLNUMBER_SERVICE_URL
     ## location format mappings
     location_format_dict = location_format_mappings()
     ## discipline mappings
