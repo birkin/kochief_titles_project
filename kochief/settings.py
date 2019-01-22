@@ -104,6 +104,7 @@ STATIC_URL = os.environ['KC_NWTTLS__STATIC_URL']
 STATIC_ROOT = os.environ['KC_NWTTLS__STATIC_ROOT']  # needed for collectstatic command
 STATICFILES_DIRS = json.loads( os.environ['KC_NWTTLS__STATICFILES_DIRS_JSON'] )
 
+SERVER_EMAIL = os.environ['KC_NWTTLS__SERVER_EMAIL']
 EMAIL_HOST = os.environ['KC_NWTTLS__EMAIL_HOST']
 EMAIL_PORT = int( os.environ['KC_NWTTLS__EMAIL_PORT'] )
 
@@ -132,8 +133,18 @@ LOGGING = {
             'class':'logging.StreamHandler',
             'formatter': 'standard'
         },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'include_html': True,
+        }
     },
     'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+            },
         'kochief': {
             'handlers': ['logfile'],
             'level': os.environ.get(u'KC_NWTTLS__LOG_LEVEL'),
@@ -159,7 +170,7 @@ if BASE_URL[-1:] is not '/':  # since the server may or may not result in the '/
 # when triples are serialized.
 LOCALNS = BASE_URL + 'r/'
 
-EMAIL_HOST = 'mail-relay.brown.edu'
+# EMAIL_HOST = 'mail-relay.brown.edu'
 
 # # Import for local overrides
 # try:

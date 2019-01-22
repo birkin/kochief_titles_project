@@ -63,6 +63,7 @@ if not logging._handlers:
 
 def info( request ):
     """ Returns basic data. """
+    raise Exception( 'test' )
     rq_now = datetime.now()
     commit = info_helper.get_commit()
     branch = info_helper.get_branch()
