@@ -63,7 +63,6 @@ if not logging._handlers:
 
 def info( request ):
     """ Returns basic data. """
-    raise Exception( 'test' )
     rq_now = datetime.now()
     commit = info_helper.get_commit()
     branch = info_helper.get_branch()
@@ -82,6 +81,15 @@ def info( request ):
     }
     output = json.dumps( d, sort_keys=True, indent=2 )
     return HttpResponse( output, content_type='application/json; charset=utf-8' )
+
+
+def error_check( request ):
+    """ For checking that admins receive error-emails. """
+    if settings.DEBUG == True:
+        1/0
+    else:
+        return HttpResponseNotFound( '<div>404 / Not Found</div>' )
+
 
 
 def pubyear_sorter(terms):

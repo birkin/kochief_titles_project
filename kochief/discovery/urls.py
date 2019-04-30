@@ -30,6 +30,7 @@ urlpatterns = [
     url( r'^feed/rss/$', views.rssFeed ),
     url( r'^$', views.index, name='discovery-index' ),  # APPEND_SLASH setting not working, hence views.index() hack
     url( r'^info/$', views.info, name='info_url' ),
+    url( r'^error_check/$', views.error_check, name='info_url' ),
 ]
 
 
