@@ -1,5 +1,5 @@
-{% load i18n %}
 {% load staticfiles %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <!--[if IEMobile 7]><html class="iem7"  lang="en" dir="ltr"><![endif]-->
@@ -15,7 +15,8 @@
 
     <meta charset="utf-8" />
 
-    <link rel="shortcut icon" href="https://library.brown.edu/info/sites/all/themes/custom/zen_bulsubtheme/favicon.ico" type="image/vnd.microsoft.icon" />
+    <!-- <link rel="shortcut icon" href="https://library.brown.edu/info/sites/all/themes/custom/zen_bulsubtheme/favicon.ico" type="image/vnd.microsoft.icon" /> -->
+
     <link rel="shortlink" href="/info/node/36" />
     <link rel="canonical" href="/info/webpublishing" />
 
@@ -34,32 +35,38 @@
 <!--
     <link href="https://worfdev.services.brown.edu/django_media/new_titles_media/new_titles/base.css" type="text/css" rel="stylesheet" media="screen">
  -->
+
 <!--
+    test 127
     <link href="https://127.0.0.1/~birkin/django_media/new_titles_media/new_titles/base2.css" type="text/css" rel="stylesheet" media="screen">
+    <link href="{% static 'base2.css' %}" rel="stylesheet" media="screen">
  -->
 
     <style>
-        @import url("https://library.brown.edu/info/modules/system/system.base.css?ocdl2j");
+        /*@import url("https://library.brown.edu/info/modules/system/system.base.css?ocdl2j");*/
+        @import url( "{% static 'drupal_stuff/system.base.css' %}?ocdl2j" );
     </style>
     <style>
-        @import url("https://library.brown.edu/info/modules/comment/comment.css?ocdl2j");
-        @import url("https://library.brown.edu/info/modules/field/theme/field.css?ocdl2j");
-        @import url("https://library.brown.edu/info/modules/node/node.css?ocdl2j");
-        @import url("https://library.brown.edu/info/modules/search/search.css?ocdl2j");
-        @import url("https://library.brown.edu/info/modules/user/user.css?ocdl2j");
-        @import url("https://library.brown.edu/info/sites/all/modules/contrib/views/css/views.css?ocdl2j");
+        @import url( "{% static 'drupal_stuff/comment.css' %}?ocdl2j" );
+        @import url( "{% static 'drupal_stuff/field.css' %}?ocdl2j" );
+        @import url( "{% static 'drupal_stuff/node.css' %}?ocdl2j" );
+        @import url( "{% static 'drupal_stuff/search.css' %}?ocdl2j" );
+        @import url( "{% static 'drupal_stuff/user.css' %}?ocdl2j" );
+        @import url( "{% static 'drupal_stuff/views.css' %}?ocdl2j" );
     </style>
     <style>
-        @import url("https://library.brown.edu/info/sites/all/modules/contrib/ctools/css/ctools.css?ocdl2j");
-        @import url("https://library.brown.edu/info/sites/all/modules/contrib/shib_auth/shib_auth.css?ocdl2j");
+        @import url( "{% static 'drupal_stuff/ctools.css' %}?ocdl2j" );
+        @import url( "{% static 'drupal_stuff/shib_auth.css' %}?ocdl2j" );
     </style>
     <style>
-        @import url("https://library.brown.edu/info/sites/all/themes/custom/zen_bulsubtheme/css/styles.css?ocdl2j");
+        @import url( "{% static 'drupal_stuff/styles.css' %}?ocdl2j" );
     </style>
 
-    <script src="https://library.brown.edu/info/misc/jquery.js?v=1.4.4"></script>
-    <script src="https://library.brown.edu/info/misc/jquery.once.js?v=1.2"></script>
-    <script src="https://library.brown.edu/info/misc/drupal.js?ocdl2j"></script>
+    <script src="{% static 'drupal_stuff/jquery.js' %}?v=1.4.4"></script>
+
+    <script src="{% static 'drupal_stuff/jquery.once.js' %}?v=1.2"></script>
+
+    <script src="{% static 'drupal_stuff/drupal.js' %}?ocdl2j"></script>
 
     <script>jQuery.extend(Drupal.settings, {"basePath":"\/info\/","pathPrefix":"","ajaxPageState":{"theme":"zen_bulsubtheme","theme_token":"sEKDSHoodjA0KZ-nCkf5kIKVC3hr-Di2nOBVht53P6I","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/comment\/comment.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/contrib\/views\/css\/views.css":1,"sites\/all\/modules\/contrib\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/contrib\/shib_auth\/shib_auth.css":1,"sites\/all\/themes\/custom\/zen_bulsubtheme\/system.menus.css":1,"sites\/all\/themes\/custom\/zen_bulsubtheme\/system.messages.css":1,"sites\/all\/themes\/custom\/zen_bulsubtheme\/system.theme.css":1,"sites\/all\/themes\/custom\/zen_bulsubtheme\/css\/styles.css":1}}});
     </script>
