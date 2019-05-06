@@ -115,7 +115,11 @@
 
         <header class="header" id="header" role="banner">
             <a href="/info/" title="Home" rel="home" class="header__logo" id="logo">
-                <img src="https://library.brown.edu/info/sites/all/themes/custom/zen_bulsubtheme/BUL-logo-shield.png" alt="Home" class="header__logo-image" />
+                <!-- <img src="https://library.brown.edu/info/sites/all/themes/custom/zen_bulsubtheme/BUL-logo-shield.png" alt="Home" class="header__logo-image" /> -->
+                <img src="{% static 'header_shield.png' %}" alt="Home" class="header__logo-image" />
+
+<!-- <link href="{% static 'base.css' %}" type="text/css" rel="stylesheet" media="screen" /> -->
+
             </a>
             <div class="header__name-and-slogan" id="name-and-slogan">
                 <h1 class="header__site-name" id="site-name">
@@ -211,20 +215,22 @@
         401-863-2165</p>
 <p>
     <a href="https://libguides.brown.edu/fedgovinfo">
-        <img alt="Federal Depository" class="footer-icon-link" src="https://library.brown.edu/info/sites/all/themes/custom/zen_bulsubtheme/images/footer-icons/Feddepo-750x750.png" />
+        <img alt="Federal Depository" class="footer-icon-link" src="https://library.brown.edu/images/small_footer_icons/Feddepo.png" />
     </a>
     <a href="https://library.brown.edu/socialwall/">
-        <img alt="Social Media Wall" class="footer-icon-link" src="https://library.brown.edu/info/sites/all/themes/custom/zen_bulsubtheme/images/footer-icons/socialwall-750x750.png" />
+        <img alt="Social Media Wall" class="footer-icon-link" src="https://library.brown.edu/images/small_footer_icons/socialwall.png" />
     </a>
     <a href="https://library.brown.edu/enewsletters/">
-        <img alt="E-newsletters" class="footer-icon-link" src="https://library.brown.edu/info/sites/all/themes/custom/zen_bulsubtheme/images/footer-icons/enewsletters-750x750.png" />
+        <img alt="E-newsletters" class="footer-icon-link" src="https://library.brown.edu/images/small_footer_icons/enewsletters.png" />
     </a>
     <a href="https://library.brown.edu/about/public_feeds.php">
-        <img alt="Library RSS Feeds" class="footer-icon-link" src="https://library.brown.edu/info/sites/all/themes/custom/zen_bulsubtheme/images/footer-icons/RSS-750x750.png" />
+        <img alt="Library RSS Feeds" class="footer-icon-link" src="https://library.brown.edu/images/small_footer_icons/RSS.png" />
     </a>
+    <!--
     <a href="https://mobul.boopsie.com/">
-        <img alt="Mobile Brown University Library" class="footer-icon-link" src="https://library.brown.edu/info/sites/all/themes/custom/zen_bulsubtheme/images/footer-icons/moBUL-750x750.png" />
+        <img alt="Mobile Brown University Library" class="footer-icon-link" src="https://library.brown.edu/images/small_footer_icons/moBUL.png" />
     </a>
+    -->
 </p>
 </div>
 
