@@ -63,7 +63,7 @@ modify body background for desktop views, to merge header bands to background ba
 
 @media (min-width: 1200px) {
 body {
-  background-image: url(../../body-background.png);
+  background-image: url(../body-background.png);
   background-repeat: repeat-x;
 }
 }
@@ -213,7 +213,7 @@ adjust header, footer display for mobile-widths
   margin-left: -.5em;
 }
 .header__logo-image {
-  
+
   margin-top: 0;
 }
 #site-name span {
@@ -534,7 +534,7 @@ misc. shortcode styling
   padding: .333em;
   border: 1px solid #D58512;
   font-weight: bold;
-  text-decoration: none;  
+  text-decoration: none;
   border-bottom: none;
 }
 
@@ -663,10 +663,10 @@ var {
 
 /**
  *
- * yf modifications 4/24/15 
+ * yf modifications 4/24/15
  *
- * bul-insert* and bul-image* 
- * are custom classes for use with custom modifications to 
+ * bul-insert* and bul-image*
+ * are custom classes for use with custom modifications to
  * image-insert-image.tpl.php file in 'insert' module templates
  *
  *
@@ -675,7 +675,7 @@ var {
  *   - tweaked caption text styling & padding/margins
  *
  */
- 
+
 .bul-insert-container {
    min-width: 250px;
    width: auto;
@@ -745,16 +745,16 @@ var {
 /**
  *
  * yf modifications 05/25/16
- * 
+ *
  * Styling for gear icon that
- * logs staff directly onto Shibboleth. 
+ * logs staff directly onto Shibboleth.
  * Utf8 gear icon stored in Shibb
  * module block config as &#9881;
- * 
- */  
+ *
+ */
 
 .shibb-gear {
-  text-align: left; 
+  text-align: left;
 }
 
 .shibb-gear a {
