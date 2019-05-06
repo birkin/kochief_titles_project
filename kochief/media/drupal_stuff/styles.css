@@ -10,12 +10,13 @@
 @import "normalize.css";
 
 /* Layout rules */
-@import "layouts/responsive.css";
+@import "responsive.css";
 
 /* Component (SMACSS module) rules */
-@import "components/misc.css";
+@import "misc.css";
 /* Optionally, add your own components here. */
 @import "print.css";
 
 /* additions and modifications for BUL subtheme */
-@import "BUL/additions.css";
+/*@import "BUL/additions.css";*/
+@import "additions.css";
