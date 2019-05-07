@@ -508,6 +508,7 @@ def get_solr_response(params, host=None):
         raise ValueError, 'Solr response was not a JSON object.'
     return url, response
 
+
 def get_search_results(request):
     log.debug( 'starting get_search_results()' )
     query = request.GET.get('q', '')
@@ -544,11 +545,14 @@ def get_search_results(request):
             params.append(('f.%s.facet.sort' % facet['field'], 'false'))
     powerless_query, field_queries = pull_power(query)
     if not powerless_query.strip() or powerless_query == '*':
+        log.debug( 'handling initial powerless_query, ```%s```' % powerless_query.encode('utf-8') )
         params.append(('q.alt', '*:*'))
         context['sorts'] = [x[0] for x in settings.SORTS
                 if x[0] != _('relevance')]
     else:
-        params.append(('q', powerless_query.encode('utf8')))
+        # params.append(('q', powerless_query.encode('utf8')))
+        log.debug( 'building the q.alt with powerless_query, ```%s```' % powerless_query.encode('utf-8') )
+        params.append( ('q.alt', '"%s"' % powerless_query.encode('utf8')) )
         context['current_sort'] = _('relevance')
     for field_query in field_queries:
         log.debug( 'adding ->fq<- here' )
@@ -705,6 +709,205 @@ def get_search_results(request):
     return context
 
     ## end def get_search_results(request):
+
+
+# def get_search_results(request):
+#     log.debug( 'starting get_search_results()' )
+#     query = request.GET.get('q', '')
+#     log.debug( 'query, ```%s```' % query )
+
+#     page_str = request.GET.get('page')
+#     try:
+#         page = int(page_str)
+#     except (TypeError, ValueError):
+#         page = 1
+#     #cache_key = '%s~%s' % (query, page)
+#     cache_key = request.META['QUERY_STRING']
+#     log.debug( 'cache_key, `%s`' % cache_key )
+
+#     context = cache.get(cache_key)
+#     if context:
+#         log.debug( 'returning cached context' )
+#         return context
+#     context = {}
+#     context['current_sort'] = _('newest')
+#     context['sorts'] = [x[0] for x in settings.SORTS]
+#     zero_index = (settings.ITEMS_PER_PAGE * (page - 1))
+#     params = [
+#         ('rows', settings.ITEMS_PER_PAGE),
+#         ('facet', 'true'),
+#         ('facet.limit', settings.MAX_FACET_TERMS_EXPANDED),
+#         ('facet.mincount', 1),
+#         ('start', zero_index)
+#     ]
+#     for facet in settings.FACETS:
+#         params.append(('facet.field', facet['field'] + '_facet'))
+#         # sort facets by name vs. count as per the config.py file
+#         if not facet['sort_by_count']:
+#             params.append(('f.%s.facet.sort' % facet['field'], 'false'))
+#     powerless_query, field_queries = pull_power(query)
+#     if not powerless_query.strip() or powerless_query == '*':
+#         params.append(('q.alt', '*:*'))
+#         context['sorts'] = [x[0] for x in settings.SORTS
+#                 if x[0] != _('relevance')]
+#     else:
+#         params.append(('q', powerless_query.encode('utf8')))
+#         context['current_sort'] = _('relevance')
+#     for field_query in field_queries:
+#         log.debug( 'adding ->fq<- here' )
+#         params.append(('fq', field_query.encode('utf8')))
+#     limits_param = request.GET.get('limits', '')
+#     limits, fq_params = pull_limits(limits_param)
+#     for fq_param in fq_params:
+#         log.debug( 'fq_param, ```%s```' % fq_param )
+#         params.append(('fq', fq_param.encode('utf8')))
+
+#     sort = request.GET.get('sort')
+#     #Sort by newest by default.
+#     if not sort:
+#         sort = 'newest'
+#     if sort:
+#         context['current_sort'] = sort
+#         for sort_mapping in settings.SORTS:
+#             if sort_mapping[0] == sort:
+#                 mapped_sort = sort_mapping[1]
+#         params.append(('sort', mapped_sort))
+#     # TODO: set up for nice display page for queries that return no results
+#     # or cause solr errors
+#     log.debug( 'params, ```%s```' % params )
+#     try:
+#         solr_url, solr_response = get_solr_response(params)
+#         log.debug( 'solr_url, ```%s```' % solr_url )
+#     except ValueError:
+#         return {'query': query}
+#     log.debug( 'context before update, ```%s...```' % pprint.pformat(context)[0:500] )
+#     context.update(solr_response)
+#     log.debug( 'context after update, ```%s...```' % pprint.pformat(context)[0:500] )
+
+#     # augment item results.
+#     count = 1
+#     for record in context['response']['docs']:
+#         record['count'] = count + zero_index
+#         count += 1
+#         record['name'] = record.get('personal_name', []) + \
+#                 record.get('corporate_name', [])
+#         if settings.CATALOG_RECORD_URL:
+#             record['record_url'] = settings.CATALOG_RECORD_URL % record['id']
+#         else:
+#             record['record_url'] = reverse('discovery-record',
+#                     args=[record['id']])
+
+#         #needed for amazon book covers and isbn to be displayable
+#         if 'isbn' in record:
+#             record['isbn_numeric'] = ''.join( [ x for x in record['isbn'] if ( x.isdigit() or x.lower() == "x" ) ] )
+#         #make an array out of Serials Solutions Name and URL
+#         if 'SSdata' in record:
+#             record['SSurldetails']=[]
+#             for items in record['SSdata']:
+#                 SSurlitemdetails=items.split('|')
+#                 record['SSurldetails'].append(SSurlitemdetails)
+#     log.debug( 'augmenting complete' )
+
+#     # re-majigger facets
+#     facet_counts = context['facet_counts']
+#     del context['facet_counts']
+#     facet_fields = facet_counts['facet_fields']
+#     facets = []
+#     for facet_option in settings.FACETS:
+#         field = facet_option['field']
+#         all_terms = facet_fields[field + '_facet']
+#         terms = []
+#         # drop terms found in limits
+#         for term, count in all_terms:
+#             limit = '%s:"%s"' % (field, term)
+#             if limit not in limits:
+#                 terms.append((term, count))
+#         if not terms:
+#             continue
+#         #Handle pubyear specially
+#         if field == 'pubyear':
+#             terms = pubyear_sorter(terms)
+#         if len(terms) > settings.MAX_FACET_TERMS_BASIC:
+#             extended_terms = terms[settings.MAX_FACET_TERMS_BASIC:]
+#             terms = terms[:settings.MAX_FACET_TERMS_BASIC]
+#             has_more = True
+#         else:
+#             extended_terms = []
+#             has_more = False
+
+#         facet = {
+#             'terms': terms,
+#             'extended_terms': extended_terms,
+#             'field': field,
+#             'name': facet_option['name'],
+#             'has_more': has_more,
+#         }
+#         facets.append(facet)
+#     log.debug( 're-majigger complete' )
+
+#     #find out if callnumlayerone is a limit and remove it from the facets
+#     #dictionary if it is so that only callnumlayer2 is displayed (i.e. if
+#     #100's dewey is limited, display the 10's)
+#     callnumlayeronefound = 0
+#     callnumlayertwofound = 0
+#     if limits:
+#         for limitOn in limits:
+#             if limitOn[:15] == 'callnumlayerone':
+#                 callnumlayeronefound = 1
+#         for limitOn in limits:
+#             if limitOn[:15] == 'callnumlayertwo':
+#                 callnumlayertwofound = 1
+#     #if callnumlayerone was not found to be a limit, remove
+#     #callnumlayertwo so that only callnumlayerone displays
+#     #(ie, show the 100's dewey only instead of 100's and 10's)
+#     if callnumlayeronefound == 1 or (callnumlayeronefound == 0 and callnumlayertwofound == 1):
+#         count = 0
+#         for f in facets:
+#             if f['field'] == 'callnumlayerone':
+#                 del facets[count]
+#                 break
+#             count += 1
+
+#     if callnumlayeronefound == 0 or (callnumlayeronefound == 1 and callnumlayertwofound == 1):
+#         count = 0
+#         for f in facets:
+#             if f['field'] == 'callnumlayertwo':
+#                 del facets[count]
+#                 break
+#             count += 1
+#     log.debug( 'callnumlayerone check done' )
+
+#     context['facets'] = facets
+#     context['format'] = request.GET.get('format', None)
+#     context['limits'] = limits
+#     context['limits_param'] = limits_param
+#     # limits_str for use in blocktrans
+#     limits_str = _(' and ').join(['<strong>%s</strong>' % x for x in limits])
+#     context['limits_str'] = limits_str
+#     full_query_str = get_full_query_str(query, limits)
+#     context['full_query_str'] = full_query_str
+#     context['get'] = request.META['QUERY_STRING']
+#     context['query'] = query
+#     number_found = context['response']['numFound']
+#     context['number_found'] = number_found
+#     context['start_number'] = zero_index + 1
+#     context['end_number'] = min(number_found, settings.ITEMS_PER_PAGE * page)
+#     context['pagination'] = do_pagination(page, number_found,
+#             settings.ITEMS_PER_PAGE)
+#     context['DEBUG'] = settings.DEBUG
+#     context['solr_url'] = solr_url
+#     log.debug( 'main context work complete' )
+#     set_search_history(request, full_query_str)
+#     log.debug( 'search history updated' )
+#     if not settings.DEBUG:
+#         # only cache for production
+#         log.debug( 'cache set' )
+#         cache.set(cache_key, context, settings.SEARCH_CACHE_TIME)
+#     test = json.dumps( context )
+#     log.debug( 'returning context' )
+#     return context
+
+#     ## end def get_search_results(request):
 
 
 def set_search_history(request, full_query_str):
