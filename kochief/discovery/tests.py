@@ -33,15 +33,19 @@ class ClientTest( TestCase ):
         dct = json.loads( payload )
         self.assertEqual( ['request', 'response'], sorted(dct.keys()) )
 
-    def test_search(self):
-        """ Checks search page. """
+    def test_search__discipline_in_content(self):
+        """ Checks that selected discipline is displayed. """
         response = self.client.get( '/search', { 'limits': 'discipline:"Applied Math"'} )
         self.assertEqual( 200, response.status_code )
         content = response.content.decode('utf-8')
         self.assertTrue( '<li>discipline:&quot;Applied Math&quot;' in content )  # `Current filters:`
 
-
-
+    def test_search__search_box_query(self):
+        """ Checks that search-box yields result. """
+        response = self.client.get( '/search', { 'q': 'zen'} )
+        self.assertEqual( 200, response.status_code )
+        content = response.content.decode('utf-8')
+        self.assertTrue( 'Sort by:' in content )
 
     def test_root_url_no_slash(self):
         """ Checks '/root_url redirect (no appended slash)'.
