@@ -13,7 +13,9 @@ TestCase.maxDiff = None
 
 
 class ClientTest( TestCase ):
-    """ Tests views via Client. """
+    """ Tests views via Client.
+        Example call for single test: $ python ./manage.py test kochief.discovery.tests.ClientTest.test_index
+    """
 
     def test_index(self):
         """ Checks root index page. """
@@ -51,9 +53,14 @@ class ClientTest( TestCase ):
         """ Checks '/root_url redirect (no appended slash)'.
             This doesn't behave as a normal django app, which would redirect with an appended-slash. """
         response = self.client.get( '' )
-        log.debug( 'response.__dict__, ```%s```' % pprint.pformat(response.__dict__) )
+        # log.debug( 'response.__dict__, ```%s```' % pprint.pformat(response.__dict__) )
         self.assertEqual( 200, response.status_code )
 
+    def test_unapi(self):
+        """ Checks that `/unapi` response is ok'. """
+        response = self.client.get( '/unapi' )
+        # log.debug( 'response.__dict__, ```%s```' % pprint.pformat(response.__dict__) )
+        self.assertEqual( 200, response.status_code )
 
     ## end class ClientTest()
 
