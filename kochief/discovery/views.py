@@ -248,8 +248,10 @@ def record(request, record_id):
     template = loader.get_template('discovery/record.html')
     return HttpResponse(template.render(context))
 
+
 def unapi(request):
-    context = RequestContext(request)
+    # context = RequestContext(request)
+    context = {}
     identifier = request.GET.get('id')
     format = request.GET.get('format')
     if identifier and format:
@@ -274,19 +276,23 @@ def unapi(request):
                 elements.extend(get_elements(name, element_map[name], doc))
             context['elements'] = elements
             template = loader.get_template('discovery/unapi-oai_dc.xml')
-            return HttpResponse(template.render(context),
-                    mimetype='application/xml')
+            # return HttpResponse(template.render(context),
+            #         mimetype='application/xml')
+            return HttpResponse( template.render(context), content_type='application/xml; charset=utf-8' )
         if format == 'mods':
             context['doc'] = doc
             template = loader.get_template('discovery/unapi-mods.xml')
-            return HttpResponse(template.render(context),
-                    mimetype='application/xml')
+            # return HttpResponse(template.render(context),
+            #         mimetype='application/xml')
+            return HttpResponse( template.render(context), content_type='application/xml; charset=utf-8' )
         else:
             raise Http404 # should be 406 -- see https://unapi.info/specs/
     if identifier:
         context['id'] = identifier
     template = loader.get_template('discovery/unapi.xml')
-    return HttpResponse(template.render(context), mimetype='application/xml')
+    # return HttpResponse(template.render(context), mimetype='application/xml')
+    return HttpResponse( template.render(context), content_type='application/xml; charset=utf-8' )
+
 
 def rssFeed(request):
     log.debug( 'starting rssFeed()' )
