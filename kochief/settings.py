@@ -123,8 +123,8 @@ LOGGING = {
     },
     'handlers': {
         'logfile': {
-            'level':'DEBUG',
-            'class':'logging.FileHandler',  # note: configure server to use system's log-rotate to avoid permissions issues
+            'level': os.environ['KC_NWTTLS__WEBAPP_LOG_LEVEL'],
+            'class': 'logging.FileHandler',  # note: configure server to use system's log-rotate to avoid permissions issues
             'filename': os.environ.get(u'KC_NWTTLS__LOG_PATH'),
             'formatter': 'standard',
         },
