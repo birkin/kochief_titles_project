@@ -115,7 +115,7 @@ def pubyear_sorter(terms):
 
 @vary_on_headers('accept-language', 'accept-encoding')
 def index(request):
-    log.debug( 'starting index()' )
+    log.info( 'starting index()' )
     ## hack, since APPEND_SLASH is not working
     # request_uri = request.META['REQUEST_URI']
     request_uri = request.META.get( 'REQUEST_URI', request.META['PATH_INFO'] )
@@ -184,7 +184,7 @@ def index(request):
 
 @vary_on_headers('accept-language', 'accept-encoding')
 def search(request):
-    log.debug( 'starting search()' )
+    log.info( 'starting search()' )
     # context = RequestContext(request)
     # log.debug( 'RequestContext(request), ```%s```' % pprint.pformat(context) )
     context = {}
