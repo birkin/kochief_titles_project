@@ -38,7 +38,7 @@ import requests
 from django.conf import settings
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse, Http404, HttpResponsePermanentRedirect
+from django.http import HttpResponse, Http404, HttpResponsePermanentRedirect, HttpResponseBadRequest
 from django.template import loader, RequestContext
 # from django.utils import simplejson
 from django.utils.encoding import iri_to_uri
@@ -193,7 +193,11 @@ def search(request):
         template = loader.get_template('discovery/search_history.html')
         return HttpResponse(template.render(context))
 
-    context = get_search_results( request )
+    try:
+        context = get_search_results( request )
+    except:
+        log.exception( 'problem getting search-results; traceback follows; returning bad-request-400' )
+        return HttpResponseBadRequest( '404 / Bad Request' )
 
     # return HttpResponse( 'coming3' )
 
